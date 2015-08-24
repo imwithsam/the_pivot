@@ -57,6 +57,9 @@ group :development, :test do
 
   # Access an IRB console on exception pages or by using <%= console %> in views
   gem 'web-console', '~> 2.0'
+
+  # Generate fake user data
+  gem 'faker'
 end
 
 group :production do
