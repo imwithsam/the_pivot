@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<!-- SQL XML created by WWW SQL Designer, https://github.com/ondras/wwwsqldesigner/ -->
+QL XML created by WWW SQL Designer, https://github.com/ondras/wwwsqldesigner/ -->
 <!-- Active URL: http://ondras.zarovi.cz/sql/demo/ -->
 <sql>
 <datatypes db="postgresql">
@@ -70,13 +69,17 @@
 <part>id</part>
 </key>
 </table>
-<table x="671" y="266" name="products">
+<table x="400" y="540" name="events">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
 <row name="category_id" null="1" autoincrement="0">
 <datatype>INTEGER</datatype>
 <default>NULL</default><relation table="categories" row="id" />
+</row>
+<row name="vendor_id" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default><relation table="users" row="id" />
 </row>
 <row name="name" null="0" autoincrement="0">
 <datatype>TEXT</datatype>
@@ -89,6 +92,12 @@
 <default>NULL</default></row>
 <row name="unit_price" null="1" autoincrement="0">
 <datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<row name="venue" null="1" autoincrement="0">
+<datatype>TEXT</datatype>
+<default>NULL</default></row>
+<row name="event_date" null="1" autoincrement="0">
+<datatype>DATE</datatype>
 <default>NULL</default></row>
 <row name="created_at" null="1" autoincrement="0">
 <datatype>TIMESTAMP</datatype>
@@ -121,7 +130,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="828" y="271" name="categories">
+<table x="744" y="261" name="categories">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -141,7 +150,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="486" y="267" name="order_items">
+<table x="468" y="261" name="event_orders">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -149,17 +158,14 @@
 <datatype>INTEGER</datatype>
 <default>NULL</default><relation table="orders" row="id" />
 </row>
-<row name="product_id" null="0" autoincrement="0">
+<row name="events_id" null="0" autoincrement="0">
 <datatype>INTEGER</datatype>
-<default>NULL</default><relation table="products" row="id" />
+<default>NULL</default><relation table="events" row="id" />
 </row>
 <row name="quantity" null="0" autoincrement="0">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
 <row name="unit_price" null="1" autoincrement="0">
-<datatype>INTEGER</datatype>
-<default>NULL</default></row>
-<row name="created_at" null="1" autoincrement="0">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
 <row name="created_at" null="1" autoincrement="0">
@@ -173,3 +179,4 @@
 </key>
 </table>
 </sql>
+
