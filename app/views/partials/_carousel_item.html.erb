@@ -1,21 +1,21 @@
 <div class="col-sm-4 col-lg-4 col-md-4">
   <div class="feature-card thumbnail">
-    <%= image_tag featured_product.image_url, class: "img-responsive", 
-                  alt: "#{featured_product.name} image" %>
+    <%= image_tag featured_event.image_url, class: "img-responsive",
+                  alt: "#{featured_event.name} image" %>
     <div class="caption clearfix">
       <h4 class="pull-right">
-        <%= number_to_currency(featured_product.price) %>
+        <%= number_to_currency(featured_event.price) %>
       </h4>
       <h4>
-        <%= link_to featured_product.name, product_path(featured_product) %>
+        <%= link_to featured_event.name, vendor_event_path(vendor: featured_event.user.url, id: featured_event.id) %>
       </h4>
     </div>
     <div class="clearfix btm-right">
-      <% if featured_product.inactive? %>
+      <% if featured_event.inactive? %>
       <%= button_to "Retired", {}, class: "btn btn-primary btn-lg",
           disabled: "disabled" %>
       <% else %>
-      <%= button_to "Add to Cart", cart_items_path(product_id: featured_product.id),
+      <%= button_to "Add to Cart", cart_items_path(product_id: featured_event.id),
           class: "btn btn-primary btn-sm pull-right" %>
       <% end %>
     </div>
