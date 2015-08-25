@@ -3,8 +3,8 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
-  def load_featured_products
-    @featured_products = Product.limit(6).order("RANDOM()")
+  def load_featured_events
+    @featured_events = Event.limit(6).order("RANDOM()")
   end
 
   def cart

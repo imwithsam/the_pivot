@@ -1,7 +1,10 @@
 Rails.application.routes.draw do
   root to: "static_pages#index"
 
-  resources :products, only: [:index, :show]
+  namespace :users, path: ":vendor", as: :vendor do
+    resources :events, only: [:index, :show]
+  end
+
   resources :categories, param: :slug, only: [:show]
   resources :orders, only: [:index, :show]
   resources :cart_items, only: [:create, :update, :destroy]
