@@ -14,4 +14,6 @@ feature "user can visit events" do
 
     expect(current_path).to eq(vendor_event_path(vendor: vendor.url, id: event.id))
   end
+
+  scenario
 end
