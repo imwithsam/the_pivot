@@ -10,6 +10,7 @@ feature "a visitor can create an account" do
     " sees create account form" do
     expect(page).to have_content("First Name")
     expect(page).to have_content("Last Name")
+    expect(page).to have_content("Username")
     expect(page).to have_content("Email")
     expect(page).to have_content("Password")
     expect(page).to have_button("Create Account")
@@ -19,12 +20,13 @@ feature "a visitor can create an account" do
     fill_in "First Name", with: "Jane"
     fill_in "Last Name", with: "Doe"
     fill_in "Email", with: "jane@doe.com"
+    fill_in "Username", with: "Jane's Shop"
     fill_in "Password", with: "password"
     click_button "Create Account"
 
     expect(current_path).to eq dashboard_path
     within(".alert-success") do
-      expect(page).to have_content("Welcome to Redrum Nursery, Jane Doe!")
+      expect(page).to have_content("Welcome to The Ocho Tickets, Jane Doe!")
     end
     within(".navbar-right") do
       expect(page).to have_content("Logged in as Jane Doe")

@@ -4,6 +4,7 @@ RSpec.describe User, type: :model do
   let(:user) do
     User.new(first_name: "Jane",
              last_name:  "Doe",
+             username: "Jane's Shop",
              email:      "jane@doe.com",
              password:   "password")
   end
@@ -14,6 +15,7 @@ RSpec.describe User, type: :model do
     expect(User.all.first.first_name).to eq("Jane")
     expect(User.all.first.last_name).to eq("Doe")
     expect(User.all.first.email).to eq("jane@doe.com")
+    expect(User.all.first.username).to eq("Jane's Shop")
     expect(User.all.first.password_digest).to be_a(String)
   end
 
@@ -46,6 +48,7 @@ RSpec.describe User, type: :model do
     user_2 = User.new(first_name: "John",
                       last_name:  "Doh",
                       email:      "jane@doe.com",
+                      username: "Jane's Shop",
                       password:   "otherpassword")
 
     expect(user_2).to be_invalid

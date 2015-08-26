@@ -1,18 +1,18 @@
 <div class="col-sm-4 col-lg-4 col-md-4">
-  <a href="<%= product_path(product) %>">
+  <a href="<%= event_path(event) %>">
     <div class="product-card thumbnail">
-      <%= image_tag product.image_url, class: "img-responsive",
-                    alt: "#{product.name} image" %>
+      <%= image_tag event.image_url, class: "img-responsive",
+                    alt: "#{event.name} image" %>
       <div class="caption">
-        <h4 class="pull-right"><%= number_to_currency(product.price) %></h4>
-        <h4><%= product.name %></h4>
-        <p><%= product.description %></p>
+        <h4 class="pull-right"><%= number_to_currency(event.price) %></h4>
+        <h4><%= event.name %></h4>
+        <p><%= event.description %></p>
         <div class="clearfix btm-right">
-          <% if product.inactive? %>
+          <% if event.inactive? %>
           <%= button_to "Retired", {}, class: "btn btn-primary btn-lg",
               disabled: "disabled" %>
           <% else %>
-          <%= button_to "Add to Cart", cart_items_path(event_id: product.id),
+          <%= button_to "Add to Cart", cart_items_path(event_id: event.id),
               class: "btn btn-primary btn-sm pull-right" %>
           <% end %>
         </div>

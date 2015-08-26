@@ -4,6 +4,7 @@ RSpec.describe Order, type: :model do
   before do
     user = User.create(first_name: "Jane",
                        last_name:  "Doe",
+                       username: "Jane's Shop",
                        email:      "jane@doe.com",
                        password:   "password")
 
@@ -13,29 +14,35 @@ RSpec.describe Order, type: :model do
       name: "Plants",
       description: "The largest carnivorous plant selection in the world!")
 
-    product_1 = Product.create(
-      name: "Venus Fly Trap",
-      description: "The gold standard of carnivorous plants!",
-      image_url: "venus_fly_trap.jpg",
-      price: "19.99",
+    event = user.events.create(
+      name: "event 1" ,
+      description: "event",
+      image_url: "http://robohash.org/99.png?set=set2&bgset=bg1&size=200x200",
+      price: 25,
+      status: 0,
+      venue: "Denver",
+      event_date: DateTime.now,
       category_id: category.id)
 
-    product_2 = Product.create(
-      name: "Plant 2",
-      description: "Plant 2 description",
-      image_url: "image.png",
-      price: "19.99",
+    event_2 = user.events.create(
+      name: "event 2" ,
+      description: "event",
+      image_url: "http://robohash.org/100.png?set=set2&bgset=bg1&size=200x200",
+      price: 50,
+      status: 0,
+      venue: "Denver",
+      event_date: DateTime.now,
       category_id: category.id)
 
-    OrderItem.create(order_id: @order.id,
-                     product_id: product_1.id,
+    EventOrder.create(order_id: @order.id,
+                     event_id: event.id,
                      quantity: 2,
-                     unit_price: 19.99)
+                     unit_price: 25.00)
 
-    OrderItem.create(order_id: @order.id,
-                     product_id: product_2.id,
+    EventOrder.create(order_id: @order.id,
+                     event_id: event_2.id,
                      quantity: 1,
-                     unit_price: 24.99)
+                     unit_price: 50.00)
   end
 
   it "belongs to a user" do
@@ -82,12 +89,12 @@ RSpec.describe Order, type: :model do
   end
 
   it "has many order items" do
-    expect(@order.order_items.first.quantity).to eq(2)
-    expect(@order.order_items.last.quantity).to eq(1)
+    expect(@order.event_orders.first.quantity).to eq(2)
+    expect(@order.event_orders.last.quantity).to eq(1)
   end
 
   it "returns the correct #total for an order" do
-    expect(@order.total).to eq(64.97)
+    expect(@order.total).to eq(100.00)
   end
 
   it "returns cancel and completed for #available_status_transitions if status is paid" do

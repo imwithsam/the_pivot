@@ -1,11 +1,11 @@
 require "rails_helper"
 
-feature "an admin can create products" do
+feature "an admin can create events" do
   before do
-    admin = User.create(first_name: "Mike",
-                        last_name: "Dorrance",
-                        email: "mike@mike.com",
-                        password: "12345678",
+    admin = User.create(first_name: "Dave",
+                        last_name: "Shim",
+                        email: "dave@daveshim.com",
+                        password: "password",
                         role: "admin")
 
     visit root_path
@@ -26,7 +26,7 @@ feature "an admin can create products" do
     click_link "Add New Product"
   end
 
-  scenario "admin visits admin/product/new and sees Add Product Form" do
+  xscenario "admin visits admin/product/new and sees Add Product Form" do
     expect(page).to have_content("Add a New Product")
     expect(page).to have_content("Name")
     expect(page).to have_content("Description")
@@ -37,7 +37,7 @@ feature "an admin can create products" do
     expect(page).to have_button("Add Product")
   end
 
-  scenario "admin can create a new Product" do
+  xscenario "admin can create a new Product" do
     fill_in "Name", with: "Richard Plant"
     fill_in "Description", with: "A boat on a lot."
     fill_in "Price", with: "12.99"
@@ -52,7 +52,7 @@ feature "an admin can create products" do
     expect(current_path).to eq(admin_dashboard_path)
   end
 
-  scenario "admin can create a new Product with no image url" do
+  xscenario "admin can create a new Product with no image url" do
     fill_in "Name", with: "Richard Plant"
     fill_in "Description", with: "A boat on a lot."
     fill_in "Price", with: "12.99"

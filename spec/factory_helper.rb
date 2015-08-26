@@ -1,66 +1,126 @@
 def build_products
-  @sports = Category.create(
-    name: "Sports",
-    description: "The largest selection of carnivorous plants in the world!"
+
+  user_1 = User.create(first_name: "Jane",
+  last_name:  "Doe",
+  username: "Jane's Shop",
+  email:      "jane@doe.com",
+  password:   "password")
+
+  user_2 = User.create(first_name: "John",
+  last_name:  "Doe",
+  username: "John's Shop",
+  email:      "john@doe.com",
+  password:   "password")
+
+  user_3 = User.create(first_name: "Bob",
+  last_name:  "Doe",
+  username: "Bob's Shop",
+  email:      "bob@doe.com",
+  password:   "password")
+
+
+  @cat_1 = Category.create(
+  name: "Sports",
+  description: "Stupid Sports"
   )
 
-  @music = Category.create(
-    name: "Music",
-    description: "Your carnivorous plants, big or small, are guaranteed" \
-    " to love our wide variety of meaty treats."
+  @cat_2 = Category.create(
+  name: "Music",
+  description: "Horrible Music"
   )
 
-  @specials = Category.create(
-    name: "Special Events",
-    description: "From gardening tools to the latest in carnivorous" \
-    " botany fashion, we have you covered."
+  @cat_3 = Category.create(
+  name: "Special",
+  description: "Crazy Events"
   )
 
-  @sports.products.create(
-    name: "Plant 1",
-    description: "This is the description for plant 1",
-    price: 19.99,
-    image_url: "sports/plant-2.jpg")
-  @sports.products.create(
-    name: "Plant 2",
-    description: "This is the description for plant 2",
-    price: 29.99,
-    image_url: "sports/plant-3.jpg")
-  @sports.products.create(
-    name: "Plant 3",
-    description: "This is the description for plant 3",
-    price: 39.99,
-    image_url: "sports/venus-fly-traps.jpg")
+  @event_1 = user_1.events.create(
+  name: "event 1" ,
+  description: "event 1 description",
+  image_url: "http://robohash.org/99.png?set=set2&bgset=bg1&size=200x200",
+  price: 25.00,
+  status: 0,
+  venue: "Denver",
+  event_date: DateTime.now,
+  category_id: @cat_1.id)
 
-  @music.products.create(
-    name: "Food 1",
-    description: "This is the description for music 1",
-    price: 19.99,
-    image_url: "music/bat.jpg")
-  @music.products.create(
-    name: "Food 2",
-    description: "This is the description for music 2",
-    price: 29.99,
-    image_url: "music/beetles.jpg")
-  @music.products.create(
-    name: "Food 3",
-    description: "This is the description for food 3",
-    price: 39.99,
-    image_url: "food/mice.jpg")
+  @event_2 = user_1.events.create(
+  name: "event 2" ,
+  description: "event 2 description",
+  image_url: "http://robohash.org/999.png?set=set2&bgset=bg1&size=200x200",
+  price: 50.00,
+  status: 0,
+  venue: "Denver",
+  event_date: DateTime.now,
+  category_id: @cat_2.id)
 
-  @specials.products.create(
-    name: "Accessory 1",
-    description: "This is the description for accessory 1",
-    price: 19.99,
-    image_url: "specials/kit.jpg")
-  @specials.products.create(
-    name: "Accessory 2",
-    description: "This is the description for accessory 2",
-    price: 29.99,
-    image_url: "specials/rocks.jpg")
-  @specials.products.create(
-    name: "Accessory 3",
-    description: "This is the description for accessory 3",
-    price: 49.99,
-    image_url: "specials/soil.jpg")
+  user_1.events.create(
+  name: "event 3" ,
+  description: "event 3 description",
+  image_url: "http://robohash.org/99.png?set=set2&bgset=bg1&size=200x200",
+  price: 75.00,
+  status: 0,
+  venue: "Denver",
+  event_date: DateTime.now,
+  category_id: @cat_3.id)
+
+  user_2.events.create(
+  name: "event 1 u2" ,
+  description: "event 1 description",
+  image_url: "http://robohash.org/99.png?set=set2&bgset=bg1&size=200x200",
+  price: 25.00,
+  status: 0,
+  venue: "Denver",
+  event_date: DateTime.now,
+  category_id: @cat_1.id)
+
+  user_2.events.create(
+  name: "event 2 u2" ,
+  description: "event 2 description",
+  image_url: "http://robohash.org/899.png?set=set2&bgset=bg1&size=200x200",
+  price: 50.00,
+  status: 0,
+  venue: "Denver",
+  event_date: DateTime.now,
+  category_id: @cat_2.id)
+
+  user_2.events.create(
+  name: "event 3 u2" ,
+  description: "event 3 description",
+  image_url: "http://robohash.org/32499.png?set=set2&bgset=bg1&size=200x200",
+  price: 75.00,
+  status: 0,
+  venue: "Denver",
+  event_date: DateTime.now,
+  category_id: @cat_3.id)
+
+  user_3.events.create(
+  name: "event 1 u3" ,
+  description: "event 1 description",
+  image_url: "http://robohash.org/32499.png?set=set2&bgset=bg1&size=200x200",
+  price: 25.00,
+  status: 0,
+  venue: "Denver",
+  event_date: DateTime.now,
+  category_id: @cat_1.id)
+
+  user_3.events.create(
+  name: "event 2 u3" ,
+  description: "event 2 description",
+  image_url: "http://robohash.org/32499.png?set=set2&bgset=bg1&size=200x200",
+  price: 50.00,
+  status: 0,
+  venue: "Denver",
+  event_date: DateTime.now,
+  category_id: @cat_2.id)
+
+  user_3.events.create(
+  name: "event 3 u3" ,
+  description: "event 3 description",
+  image_url: "http://robohash.org/32499.png?set=set2&bgset=bg1&size=200x200",
+  price: 75.00,
+  status: 0,
+  venue: "Denver",
+  event_date: DateTime.now,
+  category_id: @cat_3.id)
 end

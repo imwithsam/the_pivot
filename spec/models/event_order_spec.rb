@@ -4,6 +4,7 @@ RSpec.describe EventOrder, type: :model do
   before do
     user = User.create(first_name: "Jane",
                        last_name:  "Doe",
+                       username: "Jane's Shop",
                        email:      "jane@doe.com",
                        password:   "password")
 
@@ -17,14 +18,12 @@ RSpec.describe EventOrder, type: :model do
     event = user.events.create(
       name: "event 1" ,
       description: "event",
-      image_url: "http://robohash.org/#{i}.png?set=set2&bgset=bg1&size=200x200",
+      image_url: "http://robohash.org/50.png?set=set2&bgset=bg1&size=200x200",
       price: "22.00",
       status: 0,
       venue: "Denver",
-      event_date: Datetime.now,
-      category_id: Random.new.rand(1..25)
-
-      )
+      event_date: DateTime.now,
+      category_id: category.id)
 
     @event_order = EventOrder.create(order_id: order.id,
                                    event_id: event.id,
@@ -41,7 +40,7 @@ RSpec.describe EventOrder, type: :model do
   end
 
   it "has a unit_price" do
-    expect(@event_order.unit_price).to eq(19.99)
+    expect(@event_order.unit_price).to eq(22.00)
   end
 
   it "has a created_at and updated_at" do

@@ -1,7 +1,7 @@
 require "rails_helper"
 
 feature "Admin can view Admin Dashboard" do
-  scenario "Admin logs in and sees Admin Dashboard for /admin/dashboard" do
+  xscenario "Admin logs in and sees Admin Dashboard for /admin/dashboard" do
     User.create(first_name: "Admin",
                 last_name: "Admin",
                 email: "admin@admin.com",
@@ -20,7 +20,7 @@ feature "Admin can view Admin Dashboard" do
     expect(page).to have_content("Admin Dashboard")
   end
 
-  scenario "Non-admin logs in and sees 404 page for /admin/dashboard" do
+  xscenario "Non-admin logs in and sees 404 page for /admin/dashboard" do
     User.create(first_name: "Jane",
                 last_name: "Doe",
                 email: "jane@doe.com",

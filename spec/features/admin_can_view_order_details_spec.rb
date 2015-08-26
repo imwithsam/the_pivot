@@ -2,7 +2,7 @@ require "rails_helper"
 require "factory_helper"
 
 feature "admin user" do
-  scenario "can view individual orders" do
+  xscenario "can view individual orders" do
     skip
     category = Category.create(
       name: "Plants",
