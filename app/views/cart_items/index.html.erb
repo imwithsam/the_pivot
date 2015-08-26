@@ -47,7 +47,7 @@
     </div> <!-- /table -->
   </div>
 
-  <%= link_to "Continue Shopping", products_path,
+  <%= link_to "Continue Shopping", root_path,
               class: "btn btn-lg btn-primary pull-left" %>
 
   <% unless current_user.nil? || cart.items.empty? %>

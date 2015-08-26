@@ -9,7 +9,7 @@ class CartItemsController < ApplicationController
     flash[:success] = "#{@event.name} added to cart"
     cart.add_item(@event)
     session[:cart] = cart.data
-    redirect_to event_path(@event)
+    redirect_to vendor_event_path(vendor: @event.user.id, id: @event.id)
   end
 
   def update
@@ -23,7 +23,7 @@ class CartItemsController < ApplicationController
 
   def destroy
     flash[:success] = "Successfully removed " \
-                      "<a href=\"#{event_path(@event)}\">" \
+                      "<a href=\"#{vendor_event_path(vendor: @event.user.url, id: @event.id)}\">" \
                       "#{@event.name}</a> from your cart."
     cart.delete_item(@event)
     session[:cart] = cart.data

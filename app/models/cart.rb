@@ -14,7 +14,7 @@ class Cart
 
   def items
     @data.map do |event_id, _quantity|
-      Product.find(event_id)
+      Event.find(event_id)
     end
   end
 

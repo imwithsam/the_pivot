@@ -5,14 +5,14 @@
 # )
 #
 # # Event
-# vendor = User.create(
-# email: "andrew@turing.io",
-# password: "password",
-# first_name: "Andrew",
-# last_name: "Comber",
-# username: "Andrew's Crap Shack",
-# role: 0
-# )
+vendor = User.create(
+email: "andrew@turing.io",
+password: "password",
+first_name: "Andrew",
+last_name: "Comber",
+username: "Andrew's Crap Shack",
+role: 0
+)
 #
 # vendor.events.create(
 #   name: "Tazer Ball",
