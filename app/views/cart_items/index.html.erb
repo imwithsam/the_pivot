@@ -60,7 +60,7 @@
 
       <script>
         var handler = StripeCheckout.configure({
-        key: 'pk_test_YgrOz8qCBn0k7cjnNMSdh1Xz',
+        key: 'pk_test_Sc54Tr3cr3BehQcnGzyCz5xu',
         token: function(token) {
           // Use the token to create the charge with a server-side script.
           // You can access the token ID with `token.id`
@@ -73,7 +73,7 @@
         $('#customButton').on('click', function(e) {
           // Open Checkout with further options
           handler.open({
-          name: 'Redrum Nursery',
+          name: 'The Ocho Tickets',
           description: 'Satisfaction Guaranteed',
           amount: <%= cart.total_price*100 %>
         });

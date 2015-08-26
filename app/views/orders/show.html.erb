@@ -66,7 +66,7 @@
     <script src="https://checkout.stripe.com/checkout.js"
             class="stripe-button"
             data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
-            data-description="Redrum Nursery"
+            data-description="The Ocho Tickets"
             data-amount="<%= @order.total*100 %>">
     </script>
   <% end %>

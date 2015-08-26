@@ -6,7 +6,7 @@ class SessionsController < ApplicationController
     user = User.find_by(email: params[:session][:email])
     if user && user.authenticate(params[:session][:password])
       session[:user_id] = user.id
-      flash[:success] = "Welcome back to Redrum Nursery, #{user.first_name}" \
+      flash[:success] = "Welcome back to The Ocho Tickets, #{user.first_name}" \
         " #{user.last_name}!"
       if current_admin?
         redirect_to admin_dashboard_path
