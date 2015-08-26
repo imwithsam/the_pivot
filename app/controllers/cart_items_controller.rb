@@ -33,6 +33,6 @@ class CartItemsController < ApplicationController
   private
 
   def set_event
-    @event = Event.find(params[:id] || params[:product_id])
+    @event = Event.find(params[:id] || params[:event_id])
   end
 end

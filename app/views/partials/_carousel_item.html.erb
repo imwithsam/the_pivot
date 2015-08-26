@@ -15,7 +15,7 @@
       <%= button_to "Retired", {}, class: "btn btn-primary btn-lg",
           disabled: "disabled" %>
       <% else %>
-      <%= button_to "Add to Cart", cart_items_path(product_id: featured_event.id),
+      <%= button_to "Add to Cart", cart_items_path(event_id: featured_event.id),
           class: "btn btn-primary btn-sm pull-right" %>
       <% end %>
     </div>
