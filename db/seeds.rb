@@ -11,7 +11,7 @@ password: "password",
 first_name: "Andrew",
 last_name: "Comber",
 username: "Andrew's Crap Shack",
-role: 0
+role: 1
 )
 
 Category.create(

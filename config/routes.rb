@@ -1,6 +1,19 @@
 Rails.application.routes.draw do
   root to: "static_pages#index"
 
+  namespace :admin do
+    resources :events
+    resources :orders, only: [:index, :show, :update]
+
+    get "/",           to: "admins#index"
+    get "/dashboard",  to: "admins#index"
+  end
+
+  get "/admin/ordered-orders",   to: "admin/orders#index_ordered"
+  get "/admin/paid-orders",      to: "admin/orders#index_paid"
+  get "/admin/cancelled-orders", to: "admin/orders#index_cancelled"
+  get "/admin/completed-orders", to: "admin/orders#index_completed"
+
   namespace :users, path: ":vendor", as: :vendor do
     resources :events, only: [:index, :show]
   end
@@ -23,19 +36,6 @@ Rails.application.routes.draw do
   get "/login",        to: "sessions#new"
   post "/login",       to: "sessions#create"
   delete "/logout",    to: "sessions#destroy"
-
-  namespace :admin do
-    resources :products
-    resources :orders, only: [:index, :show, :update]
-
-    get "/",           to: "admins#index"
-    get "/dashboard",  to: "admins#index"
-  end
-
-  get "/admin/ordered-orders",   to: "admin/orders#index_ordered"
-  get "/admin/paid-orders",      to: "admin/orders#index_paid"
-  get "/admin/cancelled-orders", to: "admin/orders#index_cancelled"
-  get "/admin/completed-orders", to: "admin/orders#index_completed"
 
   resources :charges
 
