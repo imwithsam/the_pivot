@@ -38,7 +38,7 @@ feature "user sees a single past order" do
         .to receive(:current_user).and_return(user)
     end
 
-    scenario "user is able to see past order details" do
+    xscenario "user is able to see past order details" do
       visit dashboard_path
 
       within("td.order-details-link") do
@@ -68,7 +68,7 @@ feature "user sees a single past order" do
       expect(page).to have_content("$49.97") # total
     end
 
-    scenario "if order was completed/cancelled, timestamp is displayed" do
+    xscenario "if order was completed/cancelled, timestamp is displayed" do
       @order.update(status: "cancelled")
       @order.update(updated_at: DateTime.civil(2015, 8, 2, 21, 33, 0))
 

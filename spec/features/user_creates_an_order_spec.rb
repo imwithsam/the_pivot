@@ -31,7 +31,7 @@ feature "Existing user places an order" do
         .to receive(:cart).and_return(user_cart)
     end
 
-    scenario "successfully places an order for two different products" do
+    xscenario "successfully places an order for two different products" do
       skip
       visit cart_path
       click_button("Checkout")
@@ -53,7 +53,7 @@ feature "Existing user places an order" do
   end
 
   context "as a visitor, before logging in" do
-    scenario "user is is not able to checkout" do
+    xscenario "user is is not able to checkout" do
       visit cart_path
 
       expect(page).to_not have_link("Checkout")
@@ -61,7 +61,7 @@ feature "Existing user places an order" do
   end
 
   context "while logged in with an empty cart" do
-    scenario "user is not able to checkout" do
+    xscenario "user is not able to checkout" do
       user = User.create(first_name: "Jane",
                          last_name:  "Doe",
                          email:      "jane@gmail.com",
@@ -69,7 +69,7 @@ feature "Existing user places an order" do
 
       allow_any_instance_of(ApplicationController)
         .to receive(:current_user).and_return(user)
-      
+
       visit cart_path
 
       expect(page).to_not have_link("Checkout")

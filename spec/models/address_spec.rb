@@ -4,6 +4,7 @@ RSpec.describe Address, type: :model do
   let(:user) do
     User.create(first_name: "Jane",
                 last_name:  "Doe",
+                username: "Jane's Shop",
                 email:      "jane@doe.com",
                 password:   "password")
   end

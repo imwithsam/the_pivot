@@ -7,7 +7,7 @@ feature "a visitor" do
   end
 
   context "visits /categories/food" do
-    scenario "and sees all food products" do
+    xscenario "and sees all food products" do
       visit root_path
       within("#food-panel") do
         click_link("Shop Now")
@@ -32,7 +32,7 @@ feature "a visitor" do
   end
 
   context "visits /categories/plants" do
-    scenario "and sees all plants products" do
+    xscenario "and sees all plants products" do
       visit root_path
       within("#plants-panel") do
         click_link("Shop Now")
@@ -56,7 +56,7 @@ feature "a visitor" do
   end
 
   context "visits /categories/accessories" do
-    scenario "and sees all accessories" do
+    xscenario "and sees all accessories" do
       visit root_path
       within("#accessories-panel") do
         click_link("Shop Now")

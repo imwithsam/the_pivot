@@ -6,36 +6,49 @@ RSpec.describe Category, type: :model do
       name: "Plants",
       description: "The largest carnivorous plant selection in the world!")
 
-    product_1 = Product.create(
-      name: "Venus Fly Trap",
-      description: "The gold standard of carnivorous plants!",
-      image_url: "venus_fly_trap.jpg",
-      price: "19.99",
+    user = User.create(first_name: "Jane",
+                  last_name:  "Doe",
+                  username: "Jane's Shop",
+                  email:      "jane@doe.com",
+                  password:   "password")
+
+    event = user.events.create(
+      name: "event 1" ,
+      description: "event",
+      image_url: "http://robohash.org/99.png?set=set2&bgset=bg1&size=200x200",
+      price: 25,
+      status: 0,
+      venue: "Denver",
+      event_date: DateTime.now,
       category_id: category.id)
-    product_2 = Product.create(
-      name: "Pitcher Plant",
-      description: "The silver standard of carnivorous plants!",
-      image_url: "pitcher_plant.jpg",
-      price: "14.99",
+
+    event_2 = user.events.create(
+      name: "event 2" ,
+      description: "event",
+      image_url: "http://robohash.org/100.png?set=set2&bgset=bg1&size=200x200",
+      price: 50,
+      status: 0,
+      venue: "Denver",
+      event_date: DateTime.now,
       category_id: category.id)
 
     expect(category.name).to eq("Plants")
     expect(category.description).to eq(
       "The largest carnivorous plant selection in the world!")
 
-    expect(category.products.find(product_1.id).name).to eq("Venus Fly Trap")
-    expect(category.products.find(product_1.id).description).to eq(
-      "The gold standard of carnivorous plants!")
-    expect(category.products.find(product_1.id).image_url).to eq(
-      "venus_fly_trap.jpg")
-    expect(category.products.find(product_1.id).price).to eq(19.99)
+    expect(user.events.find(event.id).name).to eq("event 1")
+    expect(user.events.find(event.id).description).to eq(
+      "event")
+    expect(user.events.find(event.id).image_url).to eq(
+      "http://robohash.org/99.png?set=set2&bgset=bg1&size=200x200",)
+    expect(user.events.find(event.id).price).to eq(25)
 
-    expect(category.products.find(product_2.id).name).to eq("Pitcher Plant")
-    expect(category.products.find(product_2.id).description).to eq(
-      "The silver standard of carnivorous plants!")
-    expect(category.products.find(product_2.id).image_url).to eq(
-      "pitcher_plant.jpg")
-    expect(category.products.find(product_2.id).price).to eq(14.99)
+    expect(user.events.find(event_2.id).name).to eq("event 2")
+    expect(user.events.find(event_2.id).description).to eq(
+      "event")
+    expect(user.events.find(event_2.id).image_url).to eq(
+      "http://robohash.org/100.png?set=set2&bgset=bg1&size=200x200")
+    expect(user.events.find(event_2.id).price).to eq(50)
   end
 
   it "requires a name" do

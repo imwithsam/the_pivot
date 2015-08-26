@@ -6,7 +6,7 @@ feature "a visitor can create an account" do
     click_link "Create Account"
   end
 
-  scenario "a visitor clicks on the create account button and" \
+  xscenario "a visitor clicks on the create account button and" \
     " sees create account form" do
     expect(page).to have_content("First Name")
     expect(page).to have_content("Last Name")
@@ -15,7 +15,7 @@ feature "a visitor can create an account" do
     expect(page).to have_button("Create Account")
   end
 
-  scenario "a vistor fills out and submits a valid create account form" do
+  xscenario "a vistor fills out and submits a valid create account form" do
     fill_in "First Name", with: "Jane"
     fill_in "Last Name", with: "Doe"
     fill_in "Email", with: "jane@doe.com"

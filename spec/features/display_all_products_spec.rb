@@ -7,7 +7,7 @@ feature "a visitor" do
       build_products
     end
 
-    scenario "and sees all products" do
+    xscenario "and sees all products" do
       visit products_path
 
       expect(page).to have_selector(".thumbnail", count: 9)

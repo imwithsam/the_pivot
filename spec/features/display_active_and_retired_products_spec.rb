@@ -28,7 +28,7 @@ feature "a user" do
                  status:      "inactive")
   end
 
-  scenario "can see all active products" do
+  xscenario "can see all active products" do
     visit products_path
 
     within(".thumbnail", text: "Plant 1") do
@@ -41,14 +41,14 @@ feature "a user" do
     end
   end
 
-  scenario "cannot see retired products in the products index" do
+  xscenario "cannot see retired products in the products index" do
     visit products_path
 
     expect(page).not_to have_content("This is the description for plant 3")
     expect(page).not_to have_content("$39.99")
   end
 
-  scenario "can access a retired product but cannot add it to the cart" do
+  xscenario "can access a retired product but cannot add it to the cart" do
     visit product_path(@plant3)
 
     expect(current_path).to eq product_path(@plant3)

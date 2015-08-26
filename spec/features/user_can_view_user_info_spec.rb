@@ -26,7 +26,7 @@ feature "User can view User info" do
       .and_return(user)
   end
 
-  scenario "User visits Dashboard and sees all User info" do
+  xscenario "User visits Dashboard and sees all User info" do
     visit dashboard_path
 
     expect(page).to have_content("Jane")

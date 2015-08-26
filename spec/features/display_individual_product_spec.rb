@@ -16,7 +16,7 @@ feature "a visitor" do
         image_url: "plants/plant-2.jpg")
     end
 
-    scenario "and sees product details" do
+    xscenario "and sees product details" do
       visit product_path(product)
 
       expect(page).to have_content("Plant 1")
@@ -30,7 +30,7 @@ feature "a visitor" do
       end
     end
 
-    scenario "and sees featured products" do
+    xscenario "and sees featured products" do
       category.products.create(
         name: "Plant 2",
         description: "This is the description for plant 2",
