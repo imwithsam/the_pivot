@@ -102,7 +102,7 @@
       <% end %>
 
     <% else %>
-      <%= flash[:warning] = "Please login before checking out." %>
+      <%# flash[:warning] = "Please login before checking out." %>
       <%= link_to "Checkout",
                     login_path,
                     id:    "customButton",
