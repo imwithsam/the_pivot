@@ -9,17 +9,18 @@
     </tr>
   </thead>
   <tbody>
-    <% @order.order_items.each do |order_item| %>
+    <% @order.event_orders.each do |event_order_item| %>
       <tr>
         <td>
-          <a href="<%= product_path(order_item.product) %>">
-            <%= order_item.product.name %>
+          <a href="<%= vendor_event_path(vendor: event_order_item.event.user.url,
+                                         id: event_order_item.event_id) %>">
+            <%= event_order_item.event.name %>
           </a>
         </td>
         <td><%= @order.status %></td>
-        <td><%= order_item.quantity %></td>
-        <td><%= number_to_currency(order_item.unit_price) %></td>
-        <td><%= number_to_currency(order_item.subtotal) %></td>
+        <td><%= event_order_item.quantity %></td>
+        <td><%= number_to_currency(event_order_item.unit_price) %></td>
+        <td><%= number_to_currency(event_order_item.subtotal) %></td>
       </tr>
     <% end %>
     <tr>
