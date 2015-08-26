@@ -1,26 +1,93 @@
-# Categories
-sports = Category.create(
-  name:        "Stupid Sports",
-  description: "The name says itself"
-)
+# # Categories
+# sports = Category.create(
+#   name:        "Stupid Sports",
+#   description: "The name says itself"
+# )
+#
+# # Event
+# vendor = User.create(
+# email: "andrew@turing.io",
+# password: "password",
+# first_name: "Andrew",
+# last_name: "Comber",
+# username: "Andrew's Crap Shack",
+# role: 0
+# )
+#
+# vendor.events.create(
+#   name: "Tazer Ball",
+#   description: "This is real dumb",
+#   image_url: "sports/ultimate-tazer-ball.jpg",
+#   price: 12,
+#   status: 0,
+#   venue: "Pepsi Centro",
+#   event_date: DateTime.new(2018, 2,5),
+#   category_id: sports.id
+# )
 
-# Event
-vendor = User.create(
-email: "andrew@turing.io",
-password: "password",
-first_name: "Andrew",
-last_name: "Comber",
-username: "Andrew's Crap Shack",
-role: 0
-)
+class Seed
+  def initialize
+    generate_category
+    generate_users
+    generate_events
+    # generate_orders
+  end
 
-vendor.events.create(
-  name: "Tazer Ball",
-  description: "This is real dumb",
-  image_url: "sports/ultimate-tazer-ball.jpg",
-  price: 12,
-  status: 0,
-  venue: "Pepsi Centro",
-  event_date: DateTime.new(2018, 2,5),
-  category_id: sports.id
-)
+  def generate_category
+    Category.create(name: "Stupid Sports", description: "This is stupid")
+  end
+
+  def generate_users
+    50.times do |i|
+      user = User.create!(
+      username: Faker::Name.name,
+      email: Faker::Internet.email,
+      first_name: Faker::Name.name,
+      last_name: Faker::Name.name,
+      password: "password",
+      role: 0
+
+      )
+      puts "User #{i}: #{user.username} - #{user.email} created!"
+    end
+  end
+
+  def generate_events
+    500.times do |i|
+      user = User.find((1..50).to_a.sample)
+      event = user.events.create!(
+      name: "#{Faker::Commerce.product_name}_#{i}" ,
+      description: Faker::Lorem.paragraph,
+      image_url: "http://robohash.org/#{i}.png?set=set2&bgset=bg1&size=200x200",
+      price: Faker::Commerce.price,
+      status: 0,
+      venue: Faker::Address.city,
+      event_date: Faker::Date.forward((1..300).to_a.sample),
+      category_id: 1
+
+      )
+      puts "Event #{i}: #{event.name} created!"
+    end
+  end
+
+  # def generate_orders
+  #   100.times do |i|
+  #     user  = User.find(Random.new.rand(1..50))
+  #     order = Order.create!(user_id: user.id)
+  #     add_events(order)
+  #     puts "Order #{i}: Order for #{user.username} created!"
+  #   end
+  # end
+  #
+  # private
+  #
+  # def add_events(order)
+  #   10.times do |i|
+  #     event = Event.find(Random.new.rand(1..50))
+  #     order.events << event
+  #     puts "#{i}: Added event #{event.name} to order #{order.id}."
+  #   end
+  # end
+end
+
+Seed.new
