@@ -9,7 +9,7 @@ class CartItemsController < ApplicationController
     flash[:success] = "#{@event.name} added to cart"
     cart.add_item(@event)
     session[:cart] = cart.data
-    redirect_to vendor_event_path(vendor: @event.user.id, id: @event.id)
+    redirect_to vendor_event_path(vendor: @event.user.url, id: @event.id)
   end
 
   def update
