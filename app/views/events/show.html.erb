@@ -4,12 +4,12 @@
   <div class="row">
 
     <div class="thumbnail col-md-12">
-      <%= image_tag @product.image_url, class: "img-responsive col-md-5",
-                    alt: "#{@product.name} image" %>
+      <%= image_tag @event.image_url, class: "img-responsive col-md-5",
+                    alt: "#{@event.name} image" %>
       <div class="caption-full col-md-7">
-        <h3><%= @product.name %></h3>
-        <p><%= @product.description %></p>
-        <h4><%= number_to_currency(@product.price) %></h4><br>
+        <h3><%= @event.name %></h3>
+        <p><%= @event.description %></p>
+        <h4><%= number_to_currency(@event.price) %></h4><br>
         <%= render partial: "partials/add_to_cart" %>
       </div>
     </div>
