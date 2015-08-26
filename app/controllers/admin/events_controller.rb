@@ -10,7 +10,8 @@ class Admin::EventsController < Admin::BaseController
   end
 
   def create
-    @event = Event.new(event_params)
+    @event = current_user.events.new(event_params)
+
     if @event.save
       flash[:success] = "#{@event.name} has been added."
       redirect_to admin_dashboard_path
