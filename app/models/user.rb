@@ -3,7 +3,7 @@ class User < ActiveRecord::Base
   has_many :orders
   has_many :addresses
   has_many :events
-  has_many :categories, through: :events
+
 
   before_validation :strip_whitespace, :generate_url
   validates :first_name, :last_name, :email, presence: true

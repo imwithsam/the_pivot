@@ -1,9 +1,10 @@
 require "rails_helper"
 
 feature "a user can login" do
-  xscenario "an existing user logs in" do
+  scenario "an existing user logs in" do
     User.create(first_name: "Jane",
                 last_name: "Doe",
+                username: "Jane's Shop",
                 email: "jane@doe.com",
                 password: "12345678")
 
@@ -11,7 +12,7 @@ feature "a user can login" do
     click_link "Login"
 
     expect(current_path).to eq(login_path)
-    expect(page).to have_content("Welcome Back to Redrum Nursery!")
+    expect(page).to have_content("Welcome Back to The Ocho Tickets!")
     expect(page).to have_content("Email")
     expect(page).to have_content("Password")
     expect(page).to have_button("Login")
@@ -22,7 +23,7 @@ feature "a user can login" do
 
     expect(current_path).to eq(dashboard_path)
     within(".alert-success") do
-      expect(page).to have_content("Welcome back to Redrum Nursery, Jane Doe!")
+      expect(page).to have_content("Welcome back to The Ocho Tickets, Jane Doe!")
     end
     within(".navbar-right") do
       expect(page).to have_link("Logged in as Jane Doe")
@@ -34,12 +35,12 @@ feature "a user can login" do
     expect(page).to have_content("Logout")
   end
 
-  xscenario "a visitor without an account can not login" do
+  scenario "a visitor without an account can not login" do
     visit root_path
     click_link "Login"
 
     expect(current_path).to eq(login_path)
-    expect(page).to have_content("Welcome Back to Redrum Nursery!")
+    expect(page).to have_content("Welcome Back to The Ocho Tickets!")
     expect(page).to have_content("Email")
     expect(page).to have_content("Password")
     expect(page).to have_button("Login")

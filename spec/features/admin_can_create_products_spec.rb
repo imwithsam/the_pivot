@@ -1,11 +1,11 @@
 require "rails_helper"
 
-feature "an admin can create products" do
+feature "an admin can create events" do
   before do
-    admin = User.create(first_name: "Mike",
-                        last_name: "Dorrance",
-                        email: "mike@mike.com",
-                        password: "12345678",
+    admin = User.create(first_name: "Dave",
+                        last_name: "Shim",
+                        email: "dave@daveshim.com",
+                        password: "password",
                         role: "admin")
 
     visit root_path

@@ -6,15 +6,16 @@ feature "User can create User info" do
     click_link "Create Account"
   end
 
-  xscenario "creates Login Info, Billing and Shipping Addresses" do
+  scenario "creates Login Info, Billing and Shipping Addresses" do
     find('input[type="text"][name*="user[first_name]"]').set("Jane")
     find('input[type="text"][name*="user[last_name]"]').set("Doe")
+    find('input[type="text"][name*="user[username]"]').set("Jane's Shop")
     find('input[type="text"][name*="user[email]"]').set("jane@doe.com")
     find('input[type="password"][name*="user[password]"]').set("password")
     click_button "Create Account"
 
     within(".alert-success") do
-      expect(page).to have_content("Welcome to Redrum Nursery, Jane Doe!")
+      expect(page).to have_content("Welcome to The Ocho Tickets, Jane Doe!")
     end
 
     expect(page).to have_content("Jane Doe")
@@ -43,8 +44,8 @@ feature "User can create User info" do
       expect(find_field("address_zip_code").value).to eq("76014")
     end
 
-    click_link "Add Addres"
-
+    click_link "Add Address"
+    
     select "Shipping", from: "address[type_of]"
     find('input[type="text"][name*="address[address_1]"]').set("2 Shipping Address Pl")
     find('input[type="text"][name*="address[address_2]"]').set("#5")

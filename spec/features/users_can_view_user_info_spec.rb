@@ -4,6 +4,7 @@ feature "User can view User info" do
   before do
     user = User.create(first_name: "Jane",
                        last_name:  "Doe",
+                       username:   "Jane's Shop",
                        email:      "jane@doe.com",
                        password:   "password")
 
@@ -26,7 +27,7 @@ feature "User can view User info" do
       .and_return(user)
   end
 
-  xscenario "User visits Dashboard and sees all User info" do
+  scenario "User visits Dashboard and sees all User info" do
     visit dashboard_path
 
     expect(page).to have_content("Jane")

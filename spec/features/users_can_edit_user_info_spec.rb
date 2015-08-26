@@ -4,6 +4,7 @@ feature "User can edit User info" do
   before do
     user = User.create(first_name: "Jane",
                        last_name:  "Doe",
+                       username: "Jane's Shop",
                        email:      "jane@doe.com",
                        password:   "password")
 
@@ -29,7 +30,7 @@ feature "User can edit User info" do
     click_link "Edit Account"
   end
 
-  xscenario "views edit form and updates Login Info" do
+  scenario "views edit form and updates Login Info" do
     within("#login-info") do
       expect(find_field("user_first_name").value).to eq("Jane")
       expect(find_field("user_last_name").value).to eq("Doe")

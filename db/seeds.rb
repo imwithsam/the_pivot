@@ -13,6 +13,21 @@ last_name: "Comber",
 username: "Andrew's Crap Shack",
 role: 0
 )
+
+Category.create(
+name: "Sports",
+description: "Stupid Sports"
+)
+
+Category.create(
+name: "Music",
+description: "Horrible Music"
+)
+
+Category.create(
+name: "Special",
+description: "Crazy Events"
+)
 #
 # vendor.events.create(
 #   name: "Tazer Ball",
@@ -42,7 +57,7 @@ class Seed
   end
 
   def generate_users
-      100.times do |i|
+      99.times do |i|
         user = User.create!(
         username: Faker::Name.name,
         email: Faker::Internet.email,
@@ -65,7 +80,7 @@ class Seed
         status: 0,
         venue: Faker::Address.city,
         event_date: Faker::Date.forward((1..300).to_a.sample),
-        category_id: Random.new.rand(1..25)
+        category_id: Random.new.rand(1..28)
 
         )
         puts "Event #{i}: #{event.name} created!"
