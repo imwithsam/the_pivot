@@ -13,7 +13,7 @@ class Order < ActiveRecord::Base
   scope :completed, -> { where(status: 3) }
 
   def total
-    order_items.reduce(0) do |total, order_item|
+    event_orders.reduce(0) do |total, order_item|
       total + (order_item.quantity * order_item.unit_price)
     end
   end
