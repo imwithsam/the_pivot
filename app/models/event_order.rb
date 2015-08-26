@@ -1,6 +1,6 @@
-class OrderItem < ActiveRecord::Base
+class EventOrder < ActiveRecord::Base
   belongs_to :order
-  belongs_to :product
+  belongs_to :event
   validates :quantity, numericality: { greater_than: 0 }
 
   def subtotal

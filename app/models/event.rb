@@ -1,8 +1,8 @@
 class Event < ActiveRecord::Base
   belongs_to :category
   belongs_to :user
-  has_many :order_items
-  has_many :orders, through: :order_items
+  has_many :event_orders
+  has_many :orders, through: :event_orders
 
   before_validation :set_default_image
   validates :name, :description, :price, :category_id, presence: true
