@@ -1,8 +1,8 @@
 class CartItem < SimpleDelegator
   attr_reader :quantity
 
-  def initialize(product, quantity = 0)
-    super(product)
+  def initialize(event, quantity = 0)
+    super(event)
     @quantity = quantity
   end
 

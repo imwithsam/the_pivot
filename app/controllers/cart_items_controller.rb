@@ -1,19 +1,19 @@
 class CartItemsController < ApplicationController
-  before_action :set_product, only: [:create, :update, :destroy]
+  before_action :set_event, only: [:create, :update, :destroy]
 
   def index
     @cart_items = cart.cart_items
   end
 
   def create
-    flash[:success] = "#{@product.name} added to cart"
-    cart.add_item(@product)
+    flash[:success] = "#{@event.name} added to cart"
+    cart.add_item(@event)
     session[:cart] = cart.data
-    redirect_to product_path(@product)
+    redirect_to event_path(@event)
   end
 
   def update
-    if cart.update_item_quantity(@product, params[:product][:quantity].to_i)
+    if cart.update_item_quantity(@event, params[:event][:quantity].to_i)
       session[:cart] = cart.data
     else
       flash[:warning] = "Cannot set quantity below one."
@@ -23,16 +23,16 @@ class CartItemsController < ApplicationController
 
   def destroy
     flash[:success] = "Successfully removed " \
-                      "<a href=\"#{product_path(@product)}\">" \
-                      "#{@product.name}</a> from your cart."
-    cart.delete_item(@product)
+                      "<a href=\"#{event_path(@event)}\">" \
+                      "#{@event.name}</a> from your cart."
+    cart.delete_item(@event)
     session[:cart] = cart.data
     redirect_to cart_path
   end
 
   private
 
-  def set_product
-    @product = Product.find(params[:id] || params[:product_id])
+  def set_event
+    @event = Event.find(params[:id] || params[:product_id])
   end
 end
