@@ -4,7 +4,7 @@ class EventsController < ApplicationController
   end
 
   def show
-    load_featured_products
+    load_featured_events
     @event = Event.find(params[:id])
   end
 end
