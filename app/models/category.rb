@@ -1,5 +1,6 @@
 class Category < ActiveRecord::Base
   has_many :events
+  has_many :users, through: :events
 
   before_validation :add_slug
   validates :name, presence: true
