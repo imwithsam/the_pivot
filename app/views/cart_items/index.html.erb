@@ -5,7 +5,7 @@
     <div class="table table-hover">
       <div class="row cart-header">
         <div class="col-sm-3 col-md-2">&nbsp;</div>
-        <div class="col-sm-5 col-md-5 cart-header-title">Product</div>
+        <div class="col-sm-5 col-md-5 cart-header-title">Event</div>
         <div class="col-sm-1 col-md-1 cart-header-title">Price</div>
         <div class="col-sm-1 col-md-1 cart-header-title">Quantity</div>
         <div class="col-sm-1 col-md-1 cart-header-title">Total</div>
@@ -47,7 +47,7 @@
     </div> <!-- /table -->
   </div>
 
-  <%= link_to "Continue Shopping", products_path,
+  <%= link_to "Continue Shopping", root_path,
               class: "btn btn-lg btn-primary pull-left" %>
 
   <% unless current_user.nil? || cart.items.empty? %>

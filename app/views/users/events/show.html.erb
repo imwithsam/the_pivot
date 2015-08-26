@@ -14,4 +14,46 @@
       </div>
     </div>
   </div> <!-- /.row -->
+
+
+  <div class="container hidden-xs">
+    <div class="col-lg-12">
+      <h2 class="page-header featured">More Events from <%=@event.user.username %> </h2>
+    </div>
+    <div class="col-md-12">
+      <div id="product-carousel" class="carousel slide">
+
+        <div class="carousel-inner">
+
+          <div class="item active">
+            <div class="row">
+              <%= render partial: "partials/carousel_item",
+                         collection: @featured_events,
+                         as: :featured_event %>
+            </div><!--.row-->
+          </div><!--.item-->
+
+
+
+        </div><!--.carousel-inner-->
+
+        <!-- <a data-slide="prev" href="#product-carousel"
+           class="left carousel-control">‹</a>
+        <a data-slide="next" href="#product-carousel"
+           class="right carousel-control">›</a> -->
+      </div><!--.Carousel-->
+
+    </div>
+  </div>
+
+  <script>
+  $(document).ready(function() {
+    $('#product-carousel').carousel({
+      interval: 5000
+    })
+  });
+  </script>
+
+
+
 </div> <!-- /.container -->

@@ -1,66 +1,66 @@
 def build_products
-  @plants = Category.create(
-    name: "Plants",
+  @sports = Category.create(
+    name: "Sports",
     description: "The largest selection of carnivorous plants in the world!"
   )
 
-  @food = Category.create(
-    name: "Food",
+  @music = Category.create(
+    name: "Music",
     description: "Your carnivorous plants, big or small, are guaranteed" \
     " to love our wide variety of meaty treats."
   )
 
-  @accessories = Category.create(
-    name: "Accessories",
+  @specials = Category.create(
+    name: "Special Events",
     description: "From gardening tools to the latest in carnivorous" \
     " botany fashion, we have you covered."
   )
 
-  @plants.products.create(
+  @sports.products.create(
     name: "Plant 1",
     description: "This is the description for plant 1",
     price: 19.99,
-    image_url: "plants/plant-2.jpg")
-  @plants.products.create(
+    image_url: "sports/plant-2.jpg")
+  @sports.products.create(
     name: "Plant 2",
     description: "This is the description for plant 2",
     price: 29.99,
-    image_url: "plants/plant-3.jpg")
-  @plants.products.create(
+    image_url: "sports/plant-3.jpg")
+  @sports.products.create(
     name: "Plant 3",
     description: "This is the description for plant 3",
     price: 39.99,
-    image_url: "plants/venus-fly-traps.jpg")
+    image_url: "sports/venus-fly-traps.jpg")
 
-  @food.products.create(
+  @music.products.create(
     name: "Food 1",
-    description: "This is the description for food 1",
+    description: "This is the description for music 1",
     price: 19.99,
-    image_url: "food/bat.jpg")
-  @food.products.create(
+    image_url: "music/bat.jpg")
+  @music.products.create(
     name: "Food 2",
-    description: "This is the description for food 2",
+    description: "This is the description for music 2",
     price: 29.99,
-    image_url: "food/beetles.jpg")
-  @food.products.create(
+    image_url: "music/beetles.jpg")
+  @music.products.create(
     name: "Food 3",
     description: "This is the description for food 3",
     price: 39.99,
     image_url: "food/mice.jpg")
 
-  @accessories.products.create(
+  @specials.products.create(
     name: "Accessory 1",
     description: "This is the description for accessory 1",
     price: 19.99,
-    image_url: "accessories/kit.jpg")
-  @accessories.products.create(
+    image_url: "specials/kit.jpg")
+  @specials.products.create(
     name: "Accessory 2",
     description: "This is the description for accessory 2",
     price: 29.99,
-    image_url: "accessories/rocks.jpg")
-  @accessories.products.create(
+    image_url: "specials/rocks.jpg")
+  @specials.products.create(
     name: "Accessory 3",
     description: "This is the description for accessory 3",
     price: 49.99,
-    image_url: "accessories/soil.jpg")
+    image_url: "specials/soil.jpg")
 end

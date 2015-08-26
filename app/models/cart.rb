@@ -6,33 +6,33 @@ class Cart
   end
 
   def cart_items
-    @data.map do |product_id, quantity|
-      product = Product.find(product_id)
-      CartItem.new(product, quantity)
+    @data.map do |event_id, quantity|
+      event = Event.find(event_id)
+      CartItem.new(event, quantity)
     end
   end
 
   def items
-    @data.map do |product_id, _quantity|
-      Product.find(product_id)
+    @data.map do |event_id, _quantity|
+      Event.find(event_id)
     end
   end
 
-  def add_item(product)
-    data[product.id.to_s] ||= 0
-    data[product.id.to_s] +=  1
+  def add_item(event)
+    data[event.id.to_s] ||= 0
+    data[event.id.to_s] +=  1
   end
 
-  def update_item_quantity(product, quantity)
+  def update_item_quantity(event, quantity)
     if quantity > 0
-      data[product.id.to_s] = quantity
+      data[event.id.to_s] = quantity
     else
       return false
     end
   end
 
-  def delete_item(product)
-    data.delete(product.id.to_s)
+  def delete_item(event)
+    data.delete(event.id.to_s)
   end
 
   def total_price
