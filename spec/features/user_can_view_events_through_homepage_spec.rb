@@ -13,7 +13,7 @@ feature "user can visit events" do
     click_link(event.name)
 
     expect(current_path).to eq(vendor_event_path(vendor: vendor.url, id: event.id))
+    expect(page).to have_content(event.name)
   end
 
-  scenario
 end
