@@ -75,7 +75,7 @@ class Seed
         event = user.events.create!(
         name: "#{Faker::Commerce.product_name}_#{i}" ,
         description: Faker::Lorem.paragraph,
-        image_url: "http://robohash.org/#{i}.png?set=set2&bgset=bg1&size=200x200",
+        image_url: "http://loremflickr.com/320/240/sports?random=#{i}",
         price: Faker::Commerce.price,
         status: 0,
         venue: Faker::Address.city,
