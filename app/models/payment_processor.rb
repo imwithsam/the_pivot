@@ -35,6 +35,4 @@ class PaymentProcessor
       card:  card_token
     )
   end
-
-
 end

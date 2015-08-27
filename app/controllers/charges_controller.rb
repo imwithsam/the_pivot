@@ -23,7 +23,7 @@ class ChargesController < ApplicationController
   end
 
   private
-  
+
   def calculate_amount
     total          = cart.total_price * 100
     total.to_i

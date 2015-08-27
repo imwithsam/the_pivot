@@ -45,5 +45,4 @@ RSpec.describe PaymentProcessor, type: :model do
 
     expect(pp.make_payment).to eq(false)
   end
-
 end
