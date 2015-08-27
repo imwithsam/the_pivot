@@ -22,12 +22,12 @@ class ChargesController < ApplicationController
     end
   end
 
+  private
+  
   def calculate_amount
     total          = cart.total_price * 100
     total.to_i
   end
-
-  private
 
   def add_events_to_order(id, cart)
     cart.cart_items.each do |cart_item|
