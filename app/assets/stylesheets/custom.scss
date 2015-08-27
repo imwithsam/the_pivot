@@ -54,9 +54,9 @@ h6 {
   float: none;
 }
 
-#index-foods,
-#index-accessories,
-#index-plants {
+#index-sports,
+#index-music,
+#index-special {
   background: no-repeat center center;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -69,15 +69,15 @@ h6 {
   }
 }
 
-#index-foods {
-  background-image: url(image-path("frog-in-pitcher-plant.jpg"));
+#index-sports {
+  background-image: url(image-path("curling.jpg"));
 }
 
-#index-plants {
+#index-music {
   background-image: url(image-path("venus_flytrap.jpg"));
 }
 
-#index-accessories {
+#index-special {
   background-image: url(image-path("planters.jpg"));
 }
 
