@@ -1,6 +1,6 @@
 def build_products
 
-  user_1 = User.create(first_name: "Jane",
+  @user_1 = User.create(first_name: "Jane",
   last_name:  "Doe",
   username: "Jane's Shop",
   email:      "jane@doe.com",
@@ -34,7 +34,7 @@ def build_products
   description: "Crazy Events"
   )
 
-  @event_1 = user_1.events.create(
+  @event_1 = @user_1.events.create(
   name: "event 1" ,
   description: "event 1 description",
   image_url: "http://robohash.org/99.png?set=set2&bgset=bg1&size=200x200",
@@ -44,7 +44,7 @@ def build_products
   event_date: DateTime.now,
   category_id: @cat_1.id)
 
-  @event_2 = user_1.events.create(
+  @event_2 = @user_1.events.create(
   name: "event 2" ,
   description: "event 2 description",
   image_url: "http://robohash.org/999.png?set=set2&bgset=bg1&size=200x200",
@@ -54,7 +54,7 @@ def build_products
   event_date: DateTime.now,
   category_id: @cat_2.id)
 
-  user_1.events.create(
+  @user_1.events.create(
   name: "event 3" ,
   description: "event 3 description",
   image_url: "http://robohash.org/99.png?set=set2&bgset=bg1&size=200x200",
@@ -66,7 +66,7 @@ def build_products
 
   user_2.events.create(
   name: "event 1 u2" ,
-  description: "event 1 description",
+  description: "event 1 u2 description",
   image_url: "http://robohash.org/99.png?set=set2&bgset=bg1&size=200x200",
   price: 25.00,
   status: 0,
@@ -76,7 +76,7 @@ def build_products
 
   user_2.events.create(
   name: "event 2 u2" ,
-  description: "event 2 description",
+  description: "event 2 u2 description",
   image_url: "http://robohash.org/899.png?set=set2&bgset=bg1&size=200x200",
   price: 50.00,
   status: 0,
@@ -86,7 +86,7 @@ def build_products
 
   user_2.events.create(
   name: "event 3 u2" ,
-  description: "event 3 description",
+  description: "event 3 u2 description",
   image_url: "http://robohash.org/32499.png?set=set2&bgset=bg1&size=200x200",
   price: 75.00,
   status: 0,
@@ -96,7 +96,7 @@ def build_products
 
   user_3.events.create(
   name: "event 1 u3" ,
-  description: "event 1 description",
+  description: "event 1 u3 description",
   image_url: "http://robohash.org/32499.png?set=set2&bgset=bg1&size=200x200",
   price: 25.00,
   status: 0,
@@ -106,7 +106,7 @@ def build_products
 
   user_3.events.create(
   name: "event 2 u3" ,
-  description: "event 2 description",
+  description: "event 2 u3 description",
   image_url: "http://robohash.org/32499.png?set=set2&bgset=bg1&size=200x200",
   price: 50.00,
   status: 0,
@@ -116,7 +116,7 @@ def build_products
 
   user_3.events.create(
   name: "event 3 u3" ,
-  description: "event 3 description",
+  description: "event 3 u3 description",
   image_url: "http://robohash.org/32499.png?set=set2&bgset=bg1&size=200x200",
   price: 75.00,
   status: 0,

@@ -1,9 +1,12 @@
 require "rails_helper"
+require "factory_helper"
 
 feature "admin can see all orders" do
   before do
+    build_products
     admin = User.create(first_name: "Jane",
                         last_name:  "Doe",
+                        username: "Admin Jane",
                         email:      "jane@gmail.com",
                         password:   "password",
                         role:       1)
@@ -11,61 +14,49 @@ feature "admin can see all orders" do
     allow_any_instance_of(ApplicationController)
       .to receive(:current_user).and_return(admin)
 
-    user = User.create(first_name: "Jane",
-                       last_name:  "Doe",
-                       email:      "jane@gmail.com",
-                       password:   "password")
-
-    category = Category.create(name: "Plants",
-                               description: "Plants category description",
-                               slug: "plants")
-
-    product = category.products.create(name:        "Plant1",
-                                       description: "Plant 1 description",
-                                       price:       9.99)
-    @order_1 = Order.create(user_id: user.id,
+    @order_1 = Order.create(user_id: @user_1.id,
                             status: "ordered",
                             created_at: DateTime.civil(2015, 07, 05, 21, 33, 0))
 
-    @order_1.order_items.create(product_id: product.id,
+    @order_1.event_orders.create(event_id: @event_1.id,
                                 quantity: 1,
-                                unit_price: product.price)
+                                unit_price: @event_1.price)
 
-    @order_2 = Order.create(user_id: user.id,
+    @order_2 = Order.create(user_id: @user_1.id,
                             status: "paid",
                             created_at: DateTime.civil(2015, 07, 05, 21, 33, 0))
 
-    @order_2.order_items.create(product_id: product.id,
+    @order_2.event_orders.create(event_id: @event_1.id,
                                 quantity: 1,
-                                unit_price: product.price)
+                                unit_price: @event_1.price)
 
-    @order_3 = Order.create(user_id: user.id,
+    @order_3 = Order.create(user_id: @user_1.id,
                             status: "cancelled",
                             created_at: DateTime.civil(2015, 07, 05, 21, 33, 0))
 
-    @order_3.order_items.create(product_id: product.id,
+    @order_3.event_orders.create(event_id: @event_1.id,
                                 quantity: 1,
-                                unit_price: product.price)
+                                unit_price: @event_1.price)
 
-    @order_4 = Order.create(user_id: user.id,
+    @order_4 = Order.create(user_id: @user_1.id,
                             status: "completed",
                             created_at: DateTime.civil(2015, 07, 05, 21, 33, 0))
 
-    @order_4.order_items.create(product_id: product.id,
+    @order_4.event_orders.create(event_id: @event_1.id,
                                 quantity: 1,
-                                unit_price: product.price)
+                                unit_price: @event_1.price)
 
-    @order_5 = Order.create(user_id: user.id,
+    @order_5 = Order.create(user_id: @user_1.id,
                             status: "completed",
                             created_at: DateTime.civil(2015, 07, 05, 21, 33, 0))
 
 
-    @order_5.order_items.create(product_id: product.id,
+    @order_5.event_orders.create(event_id: @event_1.id,
                                 quantity: 1,
-                                unit_price: product.price)
+                                unit_price: @event_1.price)
   end
 
-  xscenario "and the the total number of orders for each status" do
+  scenario "and the the total number of orders for each status" do
     visit admin_dashboard_path
 
     expect(current_path).to eq(admin_dashboard_path)
@@ -91,7 +82,7 @@ feature "admin can see all orders" do
     end
   end
 
-  xscenario "and a link for each individual order" do
+  scenario "and a link for each individual order" do
     visit admin_orders_path
 
     expect(current_path).to eq(admin_orders_path)
@@ -99,41 +90,41 @@ feature "admin can see all orders" do
     within("tr", text: "# #{@order_1.id}") do
       # expect(page).to have_xpath("//a[@href=\"#{admin_order_path(@order_1)}\"]")
       expect(page).to have_content("Ordered")
-      expect(page).to have_content("$9.99")
+      expect(page).to have_content("$25.00")
       expect(page).to have_content("July  5, 2015 at  9:33 PM")
     end
 
     within("tr", text: "# #{@order_2.id}") do
       expect(page).to have_xpath("//a[@href=\"#{admin_order_path(@order_2)}\"]")
       expect(page).to have_content("Paid")
-      expect(page).to have_content("$9.99")
+      expect(page).to have_content("$25.00")
       expect(page).to have_content("July  5, 2015 at  9:33 PM")
     end
 
     within("tr", text: "# #{@order_3.id}") do
       expect(page).to have_xpath("//a[@href=\"#{admin_order_path(@order_3)}\"]")
       expect(page).to have_content("Cancelled")
-      expect(page).to have_content("$9.99")
+      expect(page).to have_content("$25.00")
       expect(page).to have_content("July  5, 2015 at  9:33 PM")
     end
 
     within("tr", text: "# #{@order_4.id}") do
       expect(page).to have_xpath("//a[@href=\"#{admin_order_path(@order_4)}\"]")
       expect(page).to have_content("Completed")
-      expect(page).to have_content("$9.99")
+      expect(page).to have_content("$25.00")
       expect(page).to have_content("July  5, 2015 at  9:33 PM")
     end
 
     within("tr", text: "# #{@order_5.id}") do
       expect(page).to have_xpath("//a[@href=\"#{admin_order_path(@order_5)}\"]")
       expect(page).to have_content("Completed")
-      expect(page).to have_content("$9.99")
+      expect(page).to have_content("$25.00")
       expect(page).to have_content("July  5, 2015 at  9:33 PM")
     end
 
   end
 
-  xscenario "and admin can filter orders to display each status type" do
+  scenario "and admin can filter orders to display each status type" do
     visit admin_orders_path
 
     expect(current_path).to eq(admin_orders_path)
@@ -143,7 +134,7 @@ feature "admin can see all orders" do
     within("tr", text: "# #{@order_1.id}") do
       expect(page).to have_xpath("//a[@href=\"#{admin_order_path(@order_1)}\"]")
       expect(page).to have_content("Ordered")
-      expect(page).to have_content("$9.99")
+      expect(page).to have_content("$25.00")
       expect(page).to have_content("July  5, 2015 at  9:33 PM")
     end
 
@@ -158,7 +149,7 @@ feature "admin can see all orders" do
     within("tr", text: "# #{@order_2.id}") do
       expect(page).to have_xpath("//a[@href=\"#{admin_order_path(@order_2)}\"]")
       expect(page).to have_content("Paid")
-      expect(page).to have_content("$9.99")
+      expect(page).to have_content("$25.00")
       expect(page).to have_content("July  5, 2015 at  9:33 PM")
     end
 
@@ -173,7 +164,7 @@ feature "admin can see all orders" do
     within("tr", text: "# #{@order_3.id}") do
       expect(page).to have_xpath("//a[@href=\"#{admin_order_path(@order_3)}\"]")
       expect(page).to have_content("Cancelled")
-      expect(page).to have_content("$9.99")
+      expect(page).to have_content("$25.00")
       expect(page).to have_content("July  5, 2015 at  9:33 PM")
     end
 
@@ -188,7 +179,7 @@ feature "admin can see all orders" do
     within("tr", text: "# #{@order_4.id}") do
       expect(page).to have_xpath("//a[@href=\"#{admin_order_path(@order_4)}\"]")
       expect(page).to have_content("Completed")
-      expect(page).to have_content("$9.99")
+      expect(page).to have_content("$25.00")
       expect(page).to have_content("July  5, 2015 at  9:33 PM")
     end
 
@@ -198,7 +189,7 @@ feature "admin can see all orders" do
     expect(status).not_to eq("Cancelled")
   end
 
-  xscenario "and there are links to transition the status" do
+  scenario "and there are links to transition the status" do
     visit admin_orders_path
 
     expect(current_path).to eq(admin_orders_path)
@@ -226,7 +217,7 @@ feature "admin can see all orders" do
     end
   end
 
-  xscenario "and the status of the orders can be changed" do
+  scenario "and the status of the orders can be changed" do
     visit admin_orders_path
 
     within("tr", text: "# #{@order_1.id}") do
