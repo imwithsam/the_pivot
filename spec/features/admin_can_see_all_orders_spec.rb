@@ -14,19 +14,6 @@ feature "admin can see all orders" do
     allow_any_instance_of(ApplicationController)
       .to receive(:current_user).and_return(admin)
 
-    # @user_1 = User.create(first_name: "Jane",
-    #                    last_name:  "Doe",
-    #                    username: "Jane's Shop",
-    #                    email:      "jane@gmail.com",
-    #                    password:   "password")
-    #
-    # category = Category.create(name: "Plants",
-    #                            description: "Plants category description",
-    #                            slug: "plants")
-    #
-    # @event_1 = category.products.create(name:        "Plant1",
-    #                                    description: "Plant 1 description",
-    #                                    price:       25.00)
     @order_1 = Order.create(user_id: @user_1.id,
                             status: "ordered",
                             created_at: DateTime.civil(2015, 07, 05, 21, 33, 0))
