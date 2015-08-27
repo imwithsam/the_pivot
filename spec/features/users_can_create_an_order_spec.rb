@@ -49,7 +49,7 @@ feature "Existing user places an order" do
       visit cart_path
       click_button("Checkout")
 
-      save_and_open_page
+      # save_and_open_page
       expect(current_path).to eq(orders_path)
       within("h1") do
         expect(page).to have_content("Orders")
