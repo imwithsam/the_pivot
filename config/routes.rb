@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   root to: "static_pages#index"
 
   namespace :admin do
-    resources :events
+    resources :events, only: [:index, :new, :create, :edit, :update]
     resources :orders, only: [:index, :show, :update]
 
     get "/",           to: "admins#index"
@@ -13,10 +13,6 @@ Rails.application.routes.draw do
   get "/admin/paid-orders",      to: "admin/orders#index_paid"
   get "/admin/cancelled-orders", to: "admin/orders#index_cancelled"
   get "/admin/completed-orders", to: "admin/orders#index_completed"
-
-  namespace :users, path: ":vendor", as: :vendor do
-    resources :events, only: [:index, :show]
-  end
 
   resources :events, only: [:index, :show]
   resources :categories, param: :slug, only: [:show]
@@ -37,7 +33,11 @@ Rails.application.routes.draw do
   post "/login",       to: "sessions#create"
   delete "/logout",    to: "sessions#destroy"
 
-  resources :charges
+  resources :charges,  only: [:create]
 
   post "twilio/connect_customer" => "twilio#connect_customer"
+
+  namespace :users, path: ":vendor", as: :vendor do
+    resources :events, only: [:index, :show]
+  end
 end
