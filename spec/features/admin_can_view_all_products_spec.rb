@@ -3,10 +3,11 @@ require "factory_helper"
 
 feature "Admin can view all Products from Admin Dashboard" do
   before do
-    admin = User.create(first_name: "Mike",
-                        last_name: "Dorrance",
-                        email: "mike@mike.com",
-                        password: "12345678",
+    admin = User.create(first_name: "Dave",
+                        last_name: "Shim",
+                        username: "admin",
+                        email: "dave@daveshim.com",
+                        password: "password",
                         role: "admin")
     build_products
 
@@ -16,17 +17,16 @@ feature "Admin can view all Products from Admin Dashboard" do
     visit admin_dashboard_path
   end
 
-  xscenario "Admin logs in and sees View All Products button" do
-    expect(page).to have_content("View All Products")
+  scenario "Admin logs in and sees View All Events button" do
+    expect(page).to have_content("View All Events")
   end
 
-  xscenario "Admin clicks on View All Products and sees all products" do
-    product1 = @plants.products.first
+  scenario "Admin clicks on View All Events and sees all events" do
 
-    click_link "View All Products"
+    click_link "View All Events"
 
-    expect(current_path).to eq(admin_products_path)
-    expect(page).to have_content("All Products")
+    expect(current_path).to eq(admin_events_path)
+    expect(page).to have_content("All Events")
     expect(page).to have_content("Image")
     expect(page).to have_content("Name")
     expect(page).to have_content("Description")
@@ -34,68 +34,67 @@ feature "Admin can view all Products from Admin Dashboard" do
     expect(page).to have_content("Category")
     expect(page).to have_content("Status")
 
-    within("tr", text: product1.name) do
-      expect(page).to have_css("img[src*='plants/plant-2.jpg']")
-      expect(page).to have_content("Plant 1")
-      expect(page).to have_content("This is the description for plant 1")
-      expect(page).to have_content("19.99")
-      expect(page).to have_content("Plants")
+    within("tr", text: @event_1.description) do
+      expect(page).to have_css("img[src*='http://robohash.org/99.png?set=set2&bgset=bg1&size=200x200']")
+      expect(page).to have_content("event 1")
+      expect(page).to have_content("event 1 description")
+      expect(page).to have_content("25.00")
+      expect(page).to have_content("Sports")
       expect(page).to have_content("active")
       expect(page).to have_link("edit")
     end
   end
-  xscenario "Admin clicks on edit button and can edit that Product" do
-    product1 = @plants.products.first
+  scenario "Admin clicks on edit button and can edit that Product" do
 
-    click_link "View All Products"
+    click_link "View All Events"
 
-    within("tr", text: product1.name) do
-      expect(page).to have_css("img[src*='plants/plant-2.jpg']")
-      expect(page).to have_content("Plant 1")
-      expect(page).to have_content("This is the description for plant 1")
-      expect(page).to have_content("19.99")
-      expect(page).to have_content("Plants")
+    within("tr", text: @event_1.description) do
+      expect(page).to have_css("img[src*='http://robohash.org/99.png?set=set2&bgset=bg1&size=200x200']")
+      expect(page).to have_content("event 1")
+      expect(page).to have_content("event 1 description")
+      expect(page).to have_content("25.00")
+      expect(page).to have_content("Sports")
       expect(page).to have_content("active")
       expect(page).to have_link("edit")
 
       click_link "edit"
     end
 
-    expect(current_path).to eq(edit_admin_product_path(product1))
-    expect(page).to have_content("Edit Product")
+    expect(current_path).to eq(edit_admin_event_path(@event_1))
+    expect(page).to have_content("Edit Event")
     expect(page).to have_content("Name")
 
-    name = find("#product_form_name").value
-    expect(name).to eq("Plant 1")
+    name = find("#event_form_name").value
+    expect(name).to eq("event 1")
 
-    description = find("#product_form_description").value
-    expect(description).to eq("This is the description for plant 1")
+    description = find("#event_form_description").value
+    expect(description).to eq("event 1 description")
     expect(page).to have_content("Price")
-    price = find("#product_form_price").value
-    expect(price).to eq("19.99")
+    price = find("#event_form_price").value
+    expect(price).to eq("25.0")
     expect(page).to have_content("Status")
-    expect(page).to have_content("Plants")
+    expect(page).to have_content("Sports")
     expect(page).to have_content("Active")
     expect(page).to have_content("Image Url")
-    url = find("#product_form_image_url").value
-    expect(url).to eq("plants/plant-2.jpg")
-    expect(page).to have_button("Edit Product")
+    url = find("#event_form_image_url").value
+    expect(url).to eq("http://robohash.org/99.png?set=set2&bgset=bg1&size=200x200")
+    expect(page).to have_button("Edit Event")
 
     find('input[type="text"][name*="name"]').set("Richard")
     find('input[type="text"][name*="description"]').set("A boat.")
-    find('input[type="text"][name*="price"]').set("12.99")
+    find('input[type="text"][name*="price"]').set("50.00")
     find('input[type="text"][name*="image_url"]').set("")
-    select "Food", from: "product[category_id]"
-    select "Retired", from: "product[status]"
-    click_button "Edit Product"
+    select "Music", from: "event[category_id]"
+    select "Retired", from: "event[status]"
+    click_button "Edit Event"
 
-    expect(current_path).to eq(admin_products_path)
+    expect(current_path).to eq(admin_events_path)
     within("tr", text: "Richard") do
       expect(page).to have_css("img[src*='default_image.jpg']")
       expect(page).to have_content("Richard")
       expect(page).to have_content("A boat.")
-      expect(page).to have_content("12.99")
-      expect(page).to have_content("Food")
+      expect(page).to have_content("50.00")
+      expect(page).to have_content("Music")
       expect(page).to have_content("inactive")
       expect(page).to have_link("edit")
     end
