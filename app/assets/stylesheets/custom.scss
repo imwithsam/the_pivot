@@ -1,7 +1,7 @@
 // Global Styles
 @font-face {
-  font-family: "Kaushan Script Regular";
-  src: url("/assets/youmurdererbb_reg.otf") format("truetype");
+  font-family: "SF Sports Night";
+  src: font-url("sf-sports-night.ttf") format("truetype");
 }
 
 html,
@@ -22,10 +22,20 @@ h6 {
   font-weight: 400;
 }
 
-.blood-xl {
-  font-family: "Kaushan Script Regular";
+#main-title {
+  font-family: "SF Sports Night";
   font-size: 75px;
   letter-spacing: 5px;
+  text-shadow: 1px 1px 2px black;
+}
+
+.main-image {
+  background: url(image-path("blowd-up.jpg")) no-repeat center center;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  -webkit-background-size: cover;
+  background-size: cover;
+  height: 362px;
 }
 
 .navbar {
@@ -42,15 +52,6 @@ h6 {
 .featured {
   color: #000;
   float: none;
-}
-
-.main-image {
-  background: url(image-path("dew-drops-carnivorous-plant.jpg")) no-repeat center center;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  -webkit-background-size: cover;
-  background-size: cover;
-  height: 362px;
 }
 
 #index-foods,
