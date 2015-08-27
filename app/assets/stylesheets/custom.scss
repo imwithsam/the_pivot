@@ -7,6 +7,8 @@
 html,
 body {
   height: 100%;
+  max-width: 100%;
+   overflow-x: hidden;
 }
 
 body {
@@ -274,7 +276,7 @@ footer {
   .product-card.thumbnail {
     height: 380px;
   }
-  
+
   .feature-card.thumbnail {
     height: 280px;
   }
@@ -298,4 +300,9 @@ footer {
   .feature-card.thumbnail {
     height: 375px;
   }
+}
+
+.stripe-button-el{
+  position: absolute;
+  left: 10000px;
 }

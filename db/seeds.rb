@@ -9,7 +9,7 @@ vendor = User.create(
 email: "andrew@turing.io",
 password: "password",
 first_name: "Andrew",
-last_name: "Comber",
+last_name: "Carmer",
 username: "Andrew's Crap Shack",
 role: 1
 )
