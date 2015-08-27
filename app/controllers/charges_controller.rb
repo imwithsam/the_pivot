@@ -1,12 +1,9 @@
 class ChargesController < ApplicationController
   def create
-    total          = cart.total_price
-    total_in_cents = total * 100
-
     # Amount in cents
-    @amount        = total_in_cents.to_i
+    @amount        = calculate_amount
+
     @order         = create_order
-    add_events_to_order(@order.id, cart)
     empty_cart
 
     payment_processor = PaymentProcessor.new(
@@ -23,9 +20,14 @@ class ChargesController < ApplicationController
       flash[:error] = "There was a problem processing your payment."
       redirect_to cart_path
     end
-
-
   end
+
+  def calculate_amount
+    total          = cart.total_price * 100
+    total.to_i
+  end
+
+  private
 
   def add_events_to_order(id, cart)
     cart.cart_items.each do |cart_item|
@@ -36,12 +38,13 @@ class ChargesController < ApplicationController
     end
   end
 
-
-  private
-
   def create_order
-    Order.create(user_id: current_user.id,
+    order = Order.create(user_id: current_user.id,
                  status:  "ordered")
+
+    add_events_to_order(order.id, cart)
+
+    order
   end
 
   def notify_boss
