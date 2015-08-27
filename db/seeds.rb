@@ -1,10 +1,24 @@
-# # Categories
-# sports = Category.create(
-#   name:        "Stupid Sports",
-#   description: "The name says itself"
-# )
-#
-# # Event
+platform_role = Role.create(
+  name: "platform_admin"
+)
+
+store_role = Role.create(
+  name: "store_admin"
+)
+
+user_role = Role.create(
+  name: "registered_user"
+)
+
+admin = User.create(
+email: "jorge@turing.io",
+password: "password",
+first_name: "Jorge",
+last_name: "Tellez",
+username: "Jorge's Mierda Choza",
+role: 1
+)
+
 vendor = User.create(
 email: "andrew@turing.io",
 password: "password",
@@ -13,6 +27,19 @@ last_name: "Carmer",
 username: "Andrew's Crap Shack",
 role: 1
 )
+
+user = User.create(
+email: "josh@turing.io",
+password: "password",
+first_name: "Josh",
+last_name: "Mejia",
+username: "Capn Dick's Shrimp Boat Shack",
+role: 0
+)
+
+admin.roles << platform_role
+vendor.roles << store_role
+user.roles << user_role
 
 Category.create(
 name: "Sports",
@@ -28,17 +55,6 @@ Category.create(
 name: "Special",
 description: "Crazy Events"
 )
-#
-# vendor.events.create(
-#   name: "Tazer Ball",
-#   description: "This is real dumb",
-#   image_url: "sports/ultimate-tazer-ball.jpg",
-#   price: 12,
-#   status: 0,
-#   venue: "Pepsi Centro",
-#   event_date: DateTime.new(2018, 2,5),
-#   category_id: sports.id
-# )
 
 class Seed
   def initialize
