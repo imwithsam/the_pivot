@@ -36,5 +36,5 @@ class ApplicationController < ActionController::Base
     current_user && current_user.url == params[:vendor] if params[:vendor]
   end
 
-  helper_method :current_user, :cart
+  helper_method :current_user, :cart, :validate_store_admin
 end
