@@ -20,7 +20,7 @@
             " #{current_user.last_name}", dashboard_path %>
         </li>
         <% end %>
-        <% if current_admin? %>
+        <% if is_platform_admin? %>
         <li>
           <%= link_to "Admin Dashboard", admin_dashboard_path %>
         </li>

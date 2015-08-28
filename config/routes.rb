@@ -14,7 +14,7 @@ Rails.application.routes.draw do
   get "/admin/cancelled-orders", to: "admin/orders#index_cancelled"
   get "/admin/completed-orders", to: "admin/orders#index_completed"
 
-  resources :events, only: [:index, :show]
+  resources :events, only: [:index]
   resources :categories, param: :slug, only: [:show]
   resources :orders, only: [:index, :show]
   resources :cart_items, only: [:create, :update, :destroy]
@@ -38,6 +38,6 @@ Rails.application.routes.draw do
   post "twilio/connect_customer" => "twilio#connect_customer"
 
   namespace :users, path: ":vendor", as: :vendor do
-    resources :events, only: [:index, :show]
+    resources :events, only: [:index, :show, :new, :create, :edit, :update]
   end
 end

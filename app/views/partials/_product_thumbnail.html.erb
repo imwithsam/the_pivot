@@ -1,5 +1,5 @@
 <div class="col-sm-4 col-lg-4 col-md-4">
-  <a href="<%= event_path(event) %>">
+  <a href="<%= vendor_event_path(vendor: event.user.url, id: event.id) %>">
     <div class="product-card thumbnail">
       <%= image_tag event.image_url, class: "img-responsive",
                     alt: "#{event.name} image" %>
