@@ -8,7 +8,7 @@ class SessionsController < ApplicationController
       session[:user_id] = user.id
       flash[:success] = "Welcome back to The Ocho Tickets, #{user.first_name}" \
         " #{user.last_name}!"
-      if current_admin?
+      if user.platform_admin?
         redirect_to admin_dashboard_path
       else
         redirect_to dashboard_path

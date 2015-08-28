@@ -3,7 +3,8 @@ class User < ActiveRecord::Base
   has_many :orders
   has_many :addresses
   has_many :events
-
+  has_many :user_roles
+  has_many :roles, through: :user_roles
 
   before_validation :strip_whitespace, :generate_url
   validates :first_name, :last_name, :email, presence: true
@@ -11,10 +12,20 @@ class User < ActiveRecord::Base
   format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i }
   validates :password, length: { minimum: 8 }
 
-  enum role: %w(default admin)
-
   def full_name
     "#{first_name} #{last_name}"
+  end
+
+  def registered_user?
+    roles.exists?(name: "registered_user")
+  end
+
+  def store_admin?
+    roles.exists?(name: "store_admin")
+  end
+
+  def platform_admin?
+    roles.exists?(name: "platform_admin")
   end
 
   private

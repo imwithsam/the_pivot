@@ -1,44 +1,60 @@
-# # Categories
-# sports = Category.create(
-#   name:        "Stupid Sports",
-#   description: "The name says itself"
-# )
-#
-# # Event
+platform_role = Role.create(
+  name: "platform_admin"
+)
+
+store_role = Role.create(
+  name: "store_admin"
+)
+
+user_role = Role.create(
+  name: "registered_user"
+)
+
+admin = User.create(
+  email: "jorge@turing.io",
+  password: "password",
+  first_name: "Jorge",
+  last_name: "Tellez",
+  username: "Jorge's Mierda Choza",
+  role: 1
+)
+
 vendor = User.create(
-email: "andrew@turing.io",
-password: "password",
-first_name: "Andrew",
-last_name: "Carmer",
-username: "Andrew's Crap Shack",
-role: 1
+  email: "andrew@turing.io",
+  password: "password",
+  first_name: "Andrew",
+  last_name: "Carmer",
+  username: "Andrew's Crap Shack",
+  role: 1
+)
+
+user = User.create(
+  email: "josh@turing.io",
+  password: "password",
+  first_name: "Josh",
+  last_name: "Mejia",
+  username: "Capn Dick's Shrimp Boat Shack",
+  role: 0
+)
+
+admin.roles << platform_role
+vendor.roles << store_role
+user.roles << user_role
+
+Category.create(
+  name: "Sports",
+  description: "Stupid Sports"
 )
 
 Category.create(
-name: "Sports",
-description: "Stupid Sports"
+  name: "Music",
+  description: "Horrible Music"
 )
 
 Category.create(
-name: "Music",
-description: "Horrible Music"
+  name: "Special",
+  description: "Crazy Events"
 )
-
-Category.create(
-name: "Special",
-description: "Crazy Events"
-)
-#
-# vendor.events.create(
-#   name: "Tazer Ball",
-#   description: "This is real dumb",
-#   image_url: "sports/ultimate-tazer-ball.jpg",
-#   price: 12,
-#   status: 0,
-#   venue: "Pepsi Centro",
-#   event_date: DateTime.new(2018, 2,5),
-#   category_id: sports.id
-# )
 
 class Seed
   def initialize
@@ -51,7 +67,7 @@ class Seed
   def generate_category
     25.times do |i|
       cat = Category.create!(name: "#{Faker::Hacker.adjective} #{i}",
-      description: Faker::Hacker.say_something_smart)
+        description: Faker::Hacker.say_something_smart)
       puts "Category #{i}: #{cat.name} created!"
     end
   end
@@ -59,29 +75,29 @@ class Seed
   def generate_users
       99.times do |i|
         user = User.create!(
-        username: Faker::Name.name,
-        email: Faker::Internet.email,
-        first_name: Faker::Name.name,
-        last_name: Faker::Name.name,
-        password: "password",
-        role: 0)
+          username: Faker::Name.name,
+          email: Faker::Internet.email,
+          first_name: Faker::Name.name,
+          last_name: Faker::Name.name,
+          password: "password",
+        )
+        user.roles << Role.find_by(name: "store_admin")
         puts "User #{i}: #{user.username} - #{user.email} created!"
     end
   end
 
   def generate_events
       500.times do |i|
-        user = User.find((1..50).to_a.sample)
+        user = User.find((1..100).to_a.sample)
         event = user.events.create!(
-        name: "#{Faker::Commerce.product_name}_#{i}" ,
-        description: Faker::Lorem.paragraph,
-        image_url: "http://loremflickr.com/320/240/sports?random=#{i}",
-        price: Faker::Commerce.price,
-        status: 0,
-        venue: Faker::Address.city,
-        event_date: Faker::Date.forward((1..300).to_a.sample),
-        category_id: Random.new.rand(1..28)
-
+          name: "#{Faker::Commerce.product_name}_#{i}" ,
+          description: Faker::Lorem.paragraph,
+          image_url: "http://loremflickr.com/320/240/sports?random=#{i}",
+          price: Faker::Commerce.price,
+          status: 0,
+          venue: Faker::Address.city,
+          event_date: Faker::Date.forward((1..300).to_a.sample),
+          category_id: Random.new.rand(1..28)
         )
         puts "Event #{i}: #{event.name} created!"
     end

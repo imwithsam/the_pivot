@@ -38,7 +38,6 @@ class Admin::EventsController < Admin::BaseController
                                   :image_url,
                                   :category_id,
                                   :status,
-                                  :category,
                                   :user_id,
                                   :venue,
                                   :event_date)
