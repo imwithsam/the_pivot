@@ -11,7 +11,11 @@
         <h3><%= @event.name %></h3>
         <p><%= @event.description %></p>
         <h4><%= number_to_currency(@event.price) %></h4><br>
+        <% if validate_store_admin %>
+        <%= render partial: "partials/store_admin_buttons" %>
+        <% else %>
         <%= render partial: "partials/add_to_cart" %>
+        <% end %>
       </div>
     </div>
   </div> <!-- /.row -->
@@ -37,11 +41,6 @@
 
 
         </div><!--.carousel-inner-->
-
-        <!-- <a data-slide="prev" href="#product-carousel"
-           class="left carousel-control">‹</a>
-        <a data-slide="next" href="#product-carousel"
-           class="right carousel-control">›</a> -->
       </div><!--.Carousel-->
 
     </div>
