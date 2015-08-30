@@ -1,7 +1,7 @@
 require "rails_helper"
 require "factory_helper"
 
-feature "Admin can view all Products from Admin Dashboard" do
+feature "Admin can view all events from Admin Dashboard" do
   before do
     admin = User.create(first_name: "Dave",
                         last_name: "Shim",
@@ -9,6 +9,13 @@ feature "Admin can view all Products from Admin Dashboard" do
                         email: "dave@daveshim.com",
                         password: "password",
                         role: "admin")
+
+    platform_role = Role.create(
+      name: "platform_admin"
+    )
+
+    admin.roles << platform_role
+
     build_products
 
     allow_any_instance_of(ApplicationController)
@@ -44,7 +51,7 @@ feature "Admin can view all Products from Admin Dashboard" do
       expect(page).to have_link("edit")
     end
   end
-  scenario "Admin clicks on edit button and can edit that Product" do
+  scenario "Admin clicks on edit button and can edit that event" do
 
     click_link "View All Events"
 

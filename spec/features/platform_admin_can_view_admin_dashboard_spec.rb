@@ -2,12 +2,18 @@ require "rails_helper"
 
 feature "Admin can view Admin Dashboard" do
   scenario "Admin logs in and sees Admin Dashboard for /admin/dashboard" do
-    User.create(first_name: "Admin",
+    admin = User.create(first_name: "Admin",
                 last_name: "Admin",
                 username: "Platform Admin",
                 email: "admin@admin.com",
                 password: "password",
                 role: 1)
+
+    platform_role = Role.create(
+      name: "platform_admin"
+    )
+
+    admin.roles << platform_role
 
     visit login_path
 
@@ -21,14 +27,19 @@ feature "Admin can view Admin Dashboard" do
     expect(page).to have_content("Admin Dashboard")
   end
 
-  scenario "Non-admin logs in and sees 404 page for /admin/dashboard" do
-    User.create(first_name: "Jane",
+  scenario "Non-admin logs in and sees a unauthorized warning when visiting /admin/dashboard" do
+    user = User.create(first_name: "Jane",
                 last_name: "Doe",
                 username: "Jane's Shop",
                 email: "jane@doe.com",
                 password: "password",
                 role: 0)
 
+    role = Role.create(
+      name: "registered_user"
+    )
+
+    user.roles << role
     visit login_path
 
     fill_in "Email", with: "jane@doe.com"
@@ -37,12 +48,12 @@ feature "Admin can view Admin Dashboard" do
 
     visit admin_dashboard_path
 
-    expect(page).to have_content("The page you were looking for doesn't exist.")
+    expect(page).to have_content("You are an unauthorized boat owner!")
   end
 
-  scenario "Non-user sees 404 page for /admin/dashboard" do
+  scenario "Guest user sees unauthorized message when trying to visit /admin/dashboard" do
     visit admin_dashboard_path
 
-    expect(page).to have_content("The page you were looking for doesn't exist.")
+    expect(page).to have_content("You are an unauthorized boat owner!")
   end
 end
