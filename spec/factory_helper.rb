@@ -59,7 +59,6 @@ def build_test_data
   @store_admin_2.roles << @store_admin_role
   @platform_admin_1.roles << @platform_admin_role
   @platform_admin_2.roles << @platform_admin_role
->>>>>>> Refactor and add admins to factory helper for testing
 
   @cat_1 = Category.create(
     name: "Sports",
