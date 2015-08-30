@@ -30,7 +30,50 @@
     </div>
   </div>
   <div class="well col-sm-12">
-    <h3 class="text-center">Your Past Orders</h3>
+    <h3 class="text-center">Your Past Sales</h3>
+    <div class="table-responsive">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>Event Name</th>
+            <th>Order Number</th>
+            <th>Order Quantity</th>
+            <th>Unit Price</th>
+            <th>Order Date</th>
+            <th>Status</th>
+            <th>Order Total</th>
+            <th>&nbsp;</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @sales.each do |user_event| %>
+            <% user_event.event_orders.each do |event_order| %>
+            <tr>
+              <td><%= user_event.name %></td>
+              <td><%= event_order.order.id %></td>
+              <td><%= event_order.quantity %></td>
+              <td><%= event_order.unit_price %></td>
+              <td><%= event_order.order.created_at.strftime("%b %d, %Y") %></td>
+              <td><%= event_order.order.status %></td>
+              <td>$<%= event_order.subtotal %></td>
+              <td class="order-details-link">
+                <a href="<%= order_path(event_order.order) %>">
+                  <span class="glyphicon glyphicon-list-alt" aria-hidden="true">
+                  </span>
+                  View Order Details
+                </a>
+              </td>
+            </tr>
+          <% end %>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+
+  <div class="well col-sm-12">
+    <h3 class="text-center">Your Past Purchases</h3>
     <div class="table-responsive">
 
 
@@ -67,4 +110,6 @@
 
     </div>
   </div>
+
+
 </div>

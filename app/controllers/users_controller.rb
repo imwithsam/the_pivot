@@ -30,8 +30,7 @@ class UsersController < ApplicationController
   end
 
   def show
-    byebug
-    @sales = Order.events(user_id: current_user[])
+    @sales = current_user.events
   end
 
   def edit
