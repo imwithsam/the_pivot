@@ -1,9 +1,9 @@
 class ChargesController < ApplicationController
   def create
     # Amount in cents
-    @amount        = calculate_amount
+    @amount = calculate_amount
 
-    @order         = create_order
+    @order = create_order
     empty_cart
 
     payment_processor = PaymentProcessor.new(
@@ -25,22 +25,24 @@ class ChargesController < ApplicationController
   private
 
   def calculate_amount
-    total          = cart.total_price * 100
+    total = cart.total_price * 100
     total.to_i
   end
 
   def add_events_to_order(id, cart)
     cart.cart_items.each do |cart_item|
-      EventOrder.create(order_id:   id,
-                        event_id:   cart_item.id,
-                        quantity:   cart_item.quantity,
-                        unit_price: cart_item.price)
+      EventOrder.create(
+        order_id:   id,
+        event_id:   cart_item.id,
+        quantity:   cart_item.quantity,
+        unit_price: cart_item.price
+      )
     end
   end
 
   def create_order
     order = Order.create(user_id: current_user.id,
-                 status:  "ordered")
+                         status:  "ordered")
 
     add_events_to_order(order.id, cart)
 

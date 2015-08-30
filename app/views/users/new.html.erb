@@ -1,28 +1,35 @@
 <div class="container">
   <h1 class="text-center">Welcome to The Ocho Tickets</h1>
+
   <p class="lead text-center">Create Account</p>
+
   <div class="well col-sm-6 col-sm-offset-3">
     <%= form_for @user, url: account_path do |f| %>
-    <div class="form-group">
-      <%= f.label :first_name, "First Name" %>
-      <%= f.text_field :first_name, class: "form-control" %>
-    </div>
-    <div class="form-group">
-      <%= f.label :last_name, "Last Name" %>
-      <%= f.text_field :last_name, class: "form-control" %>
-    </div>
-    <div class="form-group">
-      <%= f.label :username, "Username" %>
-      <%= f.text_field :username, class: "form-control" %>
-    </div>
-    <div class="form-group">
-      <%= f.label :email %>
-      <%= f.text_field :email, class: "form-control" %>
-    </div>
-    <div class="form-group">
-      <%= f.label :password, "Password (min 8 characters)" %>
-      <%= f.password_field :password, class: "form-control" %>
-    </div>
+      <div class="form-group">
+        <%= f.label :first_name, "First Name" %>
+        <%= f.text_field :first_name, class: "form-control" %>
+      </div>
+      <div class="form-group">
+        <%= f.label :last_name, "Last Name" %>
+        <%= f.text_field :last_name, class: "form-control" %>
+      </div>
+      <div class="form-group">
+        <%= f.label :username, "Username" %>
+        <%= f.text_field :username, class: "form-control" %>
+      </div>
+      <div class="form-group">
+        <%= f.label :email %>
+        <%= f.text_field :email, class: "form-control" %>
+      </div>
+      <div class="form-group">
+        <%= f.label :role, "Create Vendor Account?", value: 0 %>
+        <%= f.check_box :role, value: 1, class: "form-control" %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :password, "Password (min 8 characters)" %>
+        <%= f.password_field :password, class: "form-control" %>
+      </div>
       <%= f.submit "Create Account", class: "btn btn-success" %>
     <% end %>
   </div>

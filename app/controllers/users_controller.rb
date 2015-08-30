@@ -9,8 +9,10 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
 
     if @user.save
+      assign_role
+
       session[:user_id] = @user.id
-      flash[:success] = "Welcome to The Ocho Tickets," \
+      flash[:success]   = "Welcome to The Ocho Tickets," \
         " #{@user.first_name} #{@user.last_name}!"
       redirect_to dashboard_path
     else
@@ -19,18 +21,28 @@ class UsersController < ApplicationController
     end
   end
 
+  def assign_role
+    if params[:user][:role].eql?("1")
+      @user.roles << Role.find_by(name: "store_admin")
+    else
+      @user.roles << Role.find_by(name: "registered_user")
+    end
+  end
+
   def show
+    byebug
+    @sales = Order.events(user_id: current_user[])
   end
 
   def edit
-    @user = current_user
-    @billing = @user.addresses.billing.last
+    @user     = current_user
+    @billing  = @user.addresses.billing.last
     @shipping = @user.addresses.shipping.last
   end
 
   def update
-    @user = current_user
-    @billing = @user.addresses.billing.last
+    @user     = current_user
+    @billing  = @user.addresses.billing.last
     @shipping = @user.addresses.shipping.last
 
     if !@user.authenticate(params[:user][:password])
@@ -48,7 +60,7 @@ class UsersController < ApplicationController
 
   def user_params
     params.require(:user)
-          .permit(:first_name, :last_name, :email, :password, :username)
+      .permit(:first_name, :last_name, :email, :password, :username, :role)
   end
 
   def logged_in_user
