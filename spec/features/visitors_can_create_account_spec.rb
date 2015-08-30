@@ -3,7 +3,7 @@ require "factory_helper"
 
 feature "a visitor can create an account" do
   before do
-    build_products
+    build_test_data
     visit root_path
     click_link "Create Account"
   end

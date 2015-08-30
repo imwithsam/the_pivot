@@ -3,7 +3,8 @@ require "factory_helper"
 
 feature "admin user" do
   scenario "can view individual orders" do
-    build_products
+    build_test_data
+
     @user_1.addresses.create(type_of: "billing",
                           address_1: "1234 Main St", city: "Seattle",
                           state: "WA", zip_code: 98111)

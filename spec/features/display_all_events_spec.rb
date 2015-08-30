@@ -4,7 +4,7 @@ require "factory_helper"
 feature "a visitor" do
   context "visits /products" do
     before do
-      build_products
+      build_test_data
     end
 
     scenario "and sees all products" do

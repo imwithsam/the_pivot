@@ -3,7 +3,8 @@ require "factory_helper"
 
 feature "admin can see all orders" do
   before do
-    build_products
+    build_test_data
+
     admin = User.create(first_name: "Jane",
                         last_name:  "Doe",
                         username: "Admin Jane",

@@ -16,7 +16,7 @@ feature "Admin can view all events from Admin Dashboard" do
 
     admin.roles << platform_role
 
-    build_products
+    build_test_data
 
     allow_any_instance_of(ApplicationController)
       .to receive(:current_user).and_return(admin)

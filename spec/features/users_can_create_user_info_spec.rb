@@ -3,7 +3,7 @@ require 'factory_helper'
 
 feature "User can create User info" do
   before do
-    build_products
+    build_test_data
     visit root_path
     click_link "Create Account"
   end
