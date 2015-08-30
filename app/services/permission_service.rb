@@ -48,6 +48,7 @@ class PermissionService
                 "events" => %w(index),
                 "categories" => %w(show),
                 "orders" => %w(index show),
+                "users/event_orders" => %w(destroy),
                 "cart_items" => %w(index create update destroy),
                 "addresses" => %w(create new update),
                 "sessions" => %w(new create destroy),

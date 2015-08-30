@@ -57,6 +57,9 @@
               <td><%= event_order.order.status %></td>
               <td>$<%= event_order.subtotal %></td>
               <td class="order-details-link">
+                <%= link_to "Delete", vendor_event_order_path(vendor: user_event.user.url, id: event_order.id), method: :delete %>
+              </td>
+              <td class="order-details-link">
                 <a href="<%= order_path(event_order.order) %>">
                   <span class="glyphicon glyphicon-list-alt" aria-hidden="true">
                   </span>
