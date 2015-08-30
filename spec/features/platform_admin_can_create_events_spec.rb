@@ -9,6 +9,13 @@ feature "an admin can create events" do
                         password: "password",
                         role: "admin")
 
+    platform_role = Role.create(
+      name: "platform_admin"
+    )
+
+    admin.roles << platform_role
+
+
     visit root_path
 
     allow_any_instance_of(ApplicationController)

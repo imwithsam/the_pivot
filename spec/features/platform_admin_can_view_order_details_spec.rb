@@ -30,6 +30,13 @@ feature "admin user" do
                         password:   "password",
                         role:       "admin")
 
+
+    platform_role = Role.create(
+      name: "platform_admin"
+    )
+
+    admin.roles << platform_role
+
     allow_any_instance_of(ApplicationController).to receive(
       :current_user).and_return(admin)
 

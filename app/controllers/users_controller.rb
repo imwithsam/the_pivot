@@ -41,7 +41,6 @@ class UsersController < ApplicationController
     else
       flash.now[:warning] = @user.errors.full_messages.join(". ")
     end
-
     render :edit
   end
 

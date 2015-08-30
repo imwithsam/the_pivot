@@ -89,12 +89,11 @@ feature "Visitor" do
       end
 
       find("#cart").click
-
       within(".row", text: "event 1") do
         find(".quantity").set("4")
         click_button("update")
       end
-
+      
       expect(current_path).to eq(cart_path)
 
       within(".row", text: "event 1") do
@@ -160,7 +159,7 @@ feature "Visitor" do
         find(".quantity").set("0")
         click_button("update")
       end
-    
+
       expect(current_path).to eq(cart_path)
       expect(page).to have_content("Cannot set quantity below one.")
 

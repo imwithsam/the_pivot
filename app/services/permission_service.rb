@@ -77,6 +77,7 @@ class PermissionService
                 "users/events" => %w(index show),
                 "events" => %w(index),
                 "categories" => %w(show),
+                "cart_items" => %w(index create update destroy),
                 "addresses" => %w(create new update),
                 "sessions" => %w(new create destroy) }
     check_permissions(allowed)

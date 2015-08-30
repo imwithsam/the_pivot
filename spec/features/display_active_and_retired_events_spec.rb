@@ -50,7 +50,7 @@ feature "a user" do
 
   scenario "can see all active products" do
     visit events_path
-    
+
     within(".thumbnail", text: "event 1") do
       expect(page).to have_content("event 1 description")
       expect(page).to have_content("$25.00")
@@ -69,9 +69,9 @@ feature "a user" do
   end
 
   scenario "can access a retired product but cannot add it to the cart" do
-    visit event_path(@event_3)
+    visit vendor_event_path(vendor: @event_3.user.url, id: @event_3.id)
 
-    expect(current_path).to eq event_path(@event_3)
+    expect(current_path).to eq vendor_event_path(vendor: @event_3.user.url, id: @event_3.id)
     expect(page).to have_css("input[value*='Retired']")
   end
 end
