@@ -22,6 +22,9 @@ def build_products
     name: "registered_user"
   )
 
+  Role.create(name: "platform_admin")
+  Role.create(name: "store_admin")
+
   @user_1.roles << reg_user_role
   user_2.roles << reg_user_role
   user_3.roles << reg_user_role
