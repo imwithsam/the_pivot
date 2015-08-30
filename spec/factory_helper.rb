@@ -18,6 +18,13 @@ def build_products
   email:      "bob@doe.com",
   password:   "password")
 
+  reg_user_role = Role.create(
+    name: "registered_user"
+  )
+
+  @user_1.roles << reg_user_role
+  user_2.roles << reg_user_role
+  user_3.roles << reg_user_role
 
   @cat_1 = Category.create(
   name: "Sports",

@@ -5,22 +5,6 @@ feature "user sees a single past order" do
   context "as an authenticated user with one previous order" do
     before do
       build_products
-      # user = User.create(first_name: "Jane",
-      #                    last_name:  "Doe",
-      #                    username: "Jane's Shop",
-      #                    email:      "jane@gmail.com",
-      #                    password:   "password")
-      #
-      # category = Category.create(name: "Plants",
-      #                            description: "Plants description")
-      #
-      # @product_1 = category.products.create(name:        "Plant1",
-      #                                       description: "Plant 1 description",
-      #                                       price:       9.99)
-      #
-      # @product_2 = category.products.create(name:        "Plant2",
-      #                                       description: "Plant 2 description",
-      #                                       price:       19.99)
 
       @order = Order.create(user_id: @event_1.user.id,
                             status: "ordered",

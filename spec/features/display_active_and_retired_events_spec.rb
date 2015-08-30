@@ -69,7 +69,7 @@ feature "a user" do
   end
 
   scenario "can access a retired product but cannot add it to the cart" do
-    visit event_path(@event_3)
+    visit vendor_event_path(vendor: @event_3.user.url, id: @event_3.id)
 
     expect(current_path).to eq vendor_event_path(vendor: @event_3.user.url, id: @event_3.id)
     expect(page).to have_css("input[value*='Retired']")
