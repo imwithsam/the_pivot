@@ -3,3 +3,10 @@
 
 <%= link_to "Create New Event", new_vendor_event_path,
   class: "btn btn-primary btn-lg" %>
+<% if @event.inactive? %>
+  <%= link_to "Retired", {}, class: "btn btn-primary btn-lg",
+                disabled: "disabled" %>
+<% else %>
+  <%= link_to "Remove Event", vendor_event_path, method: :delete,
+    class: "btn btn-primary btn-lg" %>
+<% end %>

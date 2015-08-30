@@ -38,6 +38,6 @@ Rails.application.routes.draw do
   post "twilio/connect_customer" => "twilio#connect_customer"
 
   namespace :users, path: ":vendor", as: :vendor do
-    resources :events, only: [:index, :show, :new, :create, :edit, :update]
+    resources :events, only: [:show, :new, :create, :edit, :update, :destroy]
   end
 end

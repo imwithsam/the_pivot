@@ -44,7 +44,7 @@ class PermissionService
     allowed = { "static_pages" => %w(index),
                 "admin/events" => %w(create new edit update),
                 "users" => %w(show update create new edit),
-                "users/events" => %w(index new create show edit update),
+                "users/events" => %w(index new create show edit update destroy),
                 "events" => %w(index),
                 "categories" => %w(show),
                 "orders" => %w(index show),
