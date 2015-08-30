@@ -20,6 +20,7 @@ Rails.application.routes.draw do
   resources :cart_items, only: [:create, :update, :destroy]
   resources :addresses, only: [:new, :update, :create]
 
+
   get "/dashboard",    to: "users#show"
 
   patch "/account",    to: "users#update"
@@ -38,6 +39,7 @@ Rails.application.routes.draw do
   post "twilio/connect_customer" => "twilio#connect_customer"
 
   namespace :users, path: ":vendor", as: :vendor do
-    resources :events, only: [:index, :show, :new, :create, :edit, :update]
+    resources :events, only: [:show, :new, :create, :edit, :update, :destroy]
+    resources :event_orders, only: [:destroy]
   end
 end

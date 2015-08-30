@@ -1,25 +1,27 @@
 require "rails_helper"
+require 'factory_helper'
 
 feature "User can create User info" do
   before do
+    build_products
     visit root_path
     click_link "Create Account"
   end
 
   scenario "creates Login Info, Billing and Shipping Addresses" do
-    find('input[type="text"][name*="user[first_name]"]').set("Jane")
-    find('input[type="text"][name*="user[last_name]"]').set("Doe")
-    find('input[type="text"][name*="user[username]"]').set("Jane's Shop")
-    find('input[type="text"][name*="user[email]"]').set("jane@doe.com")
+    find('input[type="text"][name*="user[first_name]"]').set("Janes")
+    find('input[type="text"][name*="user[last_name]"]').set("Doeb")
+    find('input[type="text"][name*="user[username]"]').set("Janes's Shop")
+    find('input[type="text"][name*="user[email]"]').set("jane98@doe.com")
     find('input[type="password"][name*="user[password]"]').set("password")
     click_button "Create Account"
 
     within(".alert-success") do
-      expect(page).to have_content("Welcome to The Ocho Tickets, Jane Doe!")
+      expect(page).to have_content("Welcome to The Ocho Tickets, Janes Doeb!")
     end
 
-    expect(page).to have_content("Jane Doe")
-    expect(page).to have_content("jane@doe.com")
+    expect(page).to have_content("Janes Doeb")
+    expect(page).to have_content("jane98@doe.com")
 
     click_link "Edit Account"
     click_link "Add Address"
@@ -45,7 +47,7 @@ feature "User can create User info" do
     end
 
     click_link "Add Address"
-    
+
     select "Shipping", from: "address[type_of]"
     find('input[type="text"][name*="address[address_1]"]').set("2 Shipping Address Pl")
     find('input[type="text"][name*="address[address_2]"]').set("#5")

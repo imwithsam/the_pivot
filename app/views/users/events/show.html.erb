@@ -12,7 +12,7 @@
         <p><%= @event.description %></p>
         <h4><%= number_to_currency(@event.price) %></h4><br>
         <% if validate_store_admin %>
-        <%= render partial: "partials/store_admin_buttons" %>
+        <%= render partial: "partials/store_admin_buttons"%>
         <% else %>
         <%= render partial: "partials/add_to_cart" %>
         <% end %>

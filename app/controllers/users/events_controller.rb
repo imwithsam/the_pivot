@@ -37,6 +37,13 @@ class Users::EventsController < ApplicationController
     end
   end
 
+  def destroy
+    event = Event.find(params[:id])
+    event.status = 1
+    event.save
+    redirect_to vendor_event_path
+  end
+
   private
 
   def event_params
