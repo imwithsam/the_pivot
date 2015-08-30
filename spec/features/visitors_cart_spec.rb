@@ -2,7 +2,7 @@ require "rails_helper"
 require "factory_helper"
 
 feature "Visitor" do
-  before { build_products }
+  before { build_test_data }
 
   context "who is not logged in with an empty cart" do
     scenario "adds one item to cart twice" do

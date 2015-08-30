@@ -4,7 +4,7 @@ require "factory_helper"
 feature "a visitor" do
   context "visits vendor event show pages" do
     before do
-      build_products
+      build_test_data
     end
 
     scenario "and sees product details" do

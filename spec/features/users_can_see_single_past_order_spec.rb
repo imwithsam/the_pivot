@@ -4,7 +4,7 @@ require "factory_helper"
 feature "user sees a single past order" do
   context "as an authenticated user with one previous order" do
     before do
-      build_products
+      build_test_data
 
       @order = Order.create(user_id: @event_1.user.id,
                             status: "ordered",

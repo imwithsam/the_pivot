@@ -3,7 +3,7 @@ require "factory_helper"
 
 feature "a visitor" do
   before do
-    build_products
+    build_test_data
   end
 
   context "visits /categories/sports" do
