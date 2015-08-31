@@ -63,6 +63,8 @@ group :development, :test do
 
   # Mock stripe api calls in tests
   gem 'stripe-ruby-mock'
+
+  gem 'simplecov', :require => false
 end
 
 group :production do

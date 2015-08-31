@@ -17,6 +17,9 @@
 #
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 RSpec.configure do |config|
+  require 'simplecov'
+  SimpleCov.start 'rails'
+
   # elimiate garbage in backtrace
   config.backtrace_exclusion_patterns << %r{/gems/}
 
