@@ -16,7 +16,7 @@ Rails.application.routes.draw do
 
   resources :events, only: [:index]
   resources :categories, param: :slug, only: [:show]
-  resources :orders, only: [:index, :show]
+  resources :orders, only: [:index, :show, :update]
   resources :cart_items, only: [:create, :update, :destroy]
   resources :addresses, only: [:new, :update, :create]
 

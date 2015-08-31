@@ -46,18 +46,27 @@
           </tr>
         </thead>
         <tbody>
-          <% @sales.each do |user_event| %>
-            <% user_event.event_orders.sort_by{|event| event.order_id }.each do |event_order| %>
+          <% @events.each do |event| %>
+            <% event.event_orders.each do |event_order| %>
             <tr>
-              <td><%= user_event.name %></td>
+              <td><%= event_order.event.name %></td>
               <td><%= event_order.order.id %></td>
               <td><%= event_order.quantity %></td>
-              <td><%= event_order.unit_price %></td>
+              <td><%= number_to_currency(event_order.unit_price) %></td>
               <td><%= event_order.order.created_at.strftime("%b %d, %Y") %></td>
               <td><%= event_order.order.status %></td>
               <td>$<%= event_order.subtotal %></td>
+              <td>
+                <% event_order.order.available_status_transitions.each do |transition| %>
+                  <%= link_to transition.capitalize,
+                              order_path(id: event_order.order.id,
+                                               status: transition),
+                                               method: :patch %>
+
+              <% end %>
+              </td>
               <td class="sales-order-details-link">
-                <%= link_to "Delete", vendor_event_order_path(vendor: user_event.user.url, id: event_order.id), method: :delete %>
+                <%= link_to "Delete", vendor_event_order_path(vendor: event_order.order.user.url, id: event_order.id), method: :delete %>
               </td>
               <td class="sale-order-details-link">
                 <a href="<%= order_path(event_order.order) %>">
@@ -130,13 +139,13 @@
           </tr>
         </thead>
         <tbody>
-          <% @sales.each do |user_event| %>
-            <% user_event.event_orders.each do |event_order| %>
+          <% @events.each do |event| %>
+            <% event.event_orders.each do |event_order| %>
             <tr>
-              <td><%= event_order.order.user.first_name %> <%= event_order.order.user.last_name %></td>
+              <td><%= event_order.order.user.full_name %></td>
               <td><%= event_order.order.id %></td>
               <td><%= event_order.quantity %></td>
-              <td><%= event_order.unit_price %></td>
+              <td><%= number_to_currency(event_order.unit_price) %></td>
               <td><%= event_order.order.created_at.strftime("%b %d, %Y") %></td>
               <td><%= event_order.order.status %></td>
               <td>$<%= event_order.subtotal %></td>

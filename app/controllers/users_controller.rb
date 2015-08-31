@@ -29,7 +29,8 @@ class UsersController < ApplicationController
   end
 
   def show
-    @sales = current_user.events
+    @events = current_user.events
+    
   end
 
   def index
