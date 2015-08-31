@@ -1,0 +1,32 @@
+<div class="container">
+  <div class="page-header featured">
+    <h1>Vendors</h1>
+  </div>
+  <div class="row">
+    <% @users.each do |user| %>
+    <div class="col-sm-4 col-lg-4 col-md-4">
+      <a href="<%= vendor_event_path(vendor: user.url, id: user.events.first.id) %>">
+        <div class="product-card thumbnail">
+          <%= image_tag user.events.first.image_url, class: "img-responsive",
+          alt: "#{user.events.first.name} image" %>
+          <div class="caption">
+            <h4 class="pull-right"><%= number_to_currency(user.events.first.price) %></h4>
+            <h4><%= user.username %></h4>
+            <p><%= user.events.first.description %></p>
+            <div class="clearfix btm-right">
+              <% if user.events.first.inactive? %>
+              <%= button_to "Retired", {}, class: "btn btn-primary btn-lg",
+              disabled: "disabled" %>
+              <% else %>
+              <%= button_to "Add to Cart", cart_items_path(event_id: user.events.first.id),
+              class: "btn btn-primary btn-sm pull-right" %>
+              <% end %>
+
+            </div>
+          </div>
+        </div>
+      </a>
+    </div>
+    <% end %>
+  </div> <!-- end row -->
+</div> <!-- end container -->

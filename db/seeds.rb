@@ -73,7 +73,7 @@ class Seed
   end
 
   def generate_users
-      99.times do |i|
+      100.times do |i|
         user = User.create!(
           username: Faker::Name.name,
           email: Faker::Internet.email,
@@ -88,7 +88,7 @@ class Seed
 
   def generate_events
       500.times do |i|
-        user = User.find((1..100).to_a.sample)
+        user = User.find((1..103).to_a.sample)
         event = user.events.create!(
           name: "#{Faker::Commerce.product_name}_#{i}" ,
           description: Faker::Lorem.paragraph,

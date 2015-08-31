@@ -32,6 +32,10 @@ class UsersController < ApplicationController
     @sales = current_user.events
   end
 
+  def index
+    @users = User.all.select{|user| user.store_admin?}
+  end
+
   def edit
     @user     = current_user
     @billing  = @user.addresses.billing.last

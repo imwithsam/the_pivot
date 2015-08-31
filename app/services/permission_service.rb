@@ -27,7 +27,7 @@ class PermissionService
                 "admin/events" => %w(index create new edit update),
                 "admin/orders" => %w(index show update index_ordered index_paid index_cancelled index_completed),
                 "admin/admins" => %w(index),
-                "users" => %w(show update create new edit),
+                "users" => %w(index show update create new edit),
                 "users/events" => %w(index show),
                 "events" => %w(index),
                 "categories" => %w(show),
@@ -43,7 +43,7 @@ class PermissionService
   def store_admin_permissions
     allowed = { "static_pages" => %w(index),
                 "admin/events" => %w(create new edit update),
-                "users" => %w(show update create new edit),
+                "users" => %w(index show update create new edit),
                 "users/events" => %w(index new create show edit update destroy),
                 "events" => %w(index),
                 "categories" => %w(show),
@@ -59,7 +59,7 @@ class PermissionService
 
   def registered_user_permissions
     allowed = { "static_pages" => %w(index),
-                "users" => %w(show update create new edit),
+                "users" => %w(index show update create new edit),
                 "users/events" => %w(index show),
                 "events" => %w(index),
                 "categories" => %w(show),
@@ -74,7 +74,7 @@ class PermissionService
 
   def guest_user_permissions
     allowed = { "static_pages" => %w(index),
-                "users" => %w(show update create new edit),
+                "users" => %w(index show update create new edit),
                 "users/events" => %w(index show),
                 "events" => %w(index),
                 "categories" => %w(show),

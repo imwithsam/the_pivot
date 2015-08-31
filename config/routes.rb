@@ -27,6 +27,7 @@ Rails.application.routes.draw do
   post "/account",     to: "users#create"
   get "/account/new",  to: "users#new"
   get "/account/edit", to: "users#edit"
+  get "/vendors",      to: "users#index"
 
   get "/cart",         to: "cart_items#index"
 
@@ -42,4 +43,6 @@ Rails.application.routes.draw do
     resources :events, only: [:show, :new, :create, :edit, :update, :destroy]
     resources :event_orders, only: [:destroy]
   end
+
+  get "/:vendor", to: "users/events#index"
 end

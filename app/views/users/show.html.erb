@@ -47,7 +47,7 @@
         </thead>
         <tbody>
           <% @sales.each do |user_event| %>
-            <% user_event.event_orders.each do |event_order| %>
+            <% user_event.event_orders.sort_by{|event| event.order_id }.each do |event_order| %>
             <tr>
               <td><%= user_event.name %></td>
               <td><%= event_order.order.id %></td>
