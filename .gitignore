@@ -18,3 +18,4 @@
 /config/application.yml
 
 # Ignore SimpleCov test coverage results
+/coverage/*
