@@ -4,6 +4,9 @@ class ChargesController < ApplicationController
     @amount = calculate_amount
 
     @order = create_order
+
+    create_order_for_vendors
+
     empty_cart
 
     payment_processor = PaymentProcessor.new(
@@ -23,6 +26,39 @@ class ChargesController < ApplicationController
   end
 
   private
+
+  def create_order_for_vendors
+    unique_vendor_ids = {}
+
+    cart.cart_items.each do |cart_item|
+      unique_vendor_ids[cart_item.user.id] = 0
+    end
+
+    unique_vendor_ids.each_key do |vendor_id|
+      order = Order.create(
+        user_id: vendor_id,
+        status:  "ordered"
+      )
+
+      vendors_cart = []
+
+      cart.cart_items.each do |item|
+        if item.user_id.eql?(vendor_id)
+          vendors_cart << item
+        end
+      end
+
+      vendors_cart.each do |vendor_event|
+        EventOrder.create(
+          order_id:   order.id,
+          event_id:   vendor_event.id,
+          quantity:   vendor_event.quantity,
+          unit_price: vendor_event.price
+        )
+      end
+
+    end
+  end
 
   def calculate_amount
     total = cart.total_price * 100
