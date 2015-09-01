@@ -13,4 +13,6 @@
 //= require jquery
 //= require bootstrap-sprockets
 //= require jquery_ujs
+//= require jquery-tablesorter
+//= require table_sorter
 //= require_tree .
