@@ -105,10 +105,12 @@ class Seed
 
   def generate_orders
     100.times do |i|
-      user  = User.find(Random.new.rand(1..100))
-      order = user.orders.create!
+      vendors  = User.select{|user| user.store_admin?}
+      vendor = vendors.sample
+      customer = User.find(Random.new.rand(1..100))
+      order = vendor.orders.create(customer_id: customer.id)
       add_events(order)
-      puts "Order #{i}: Order for #{user.username} created!"
+      puts "Order #{i}: Order for #{vendor.username} created!"
     end
   end
 

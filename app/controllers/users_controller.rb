@@ -30,7 +30,7 @@ class UsersController < ApplicationController
 
   def show
     @events = current_user.events
-    
+    @my_orders = Order.where(customer_id: current_user.id)
   end
 
   def index

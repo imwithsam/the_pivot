@@ -99,7 +99,7 @@
           </tr>
         </thead>
         <tbody>
-          <% current_user.orders.each do |order| %>
+          <% @my_orders.each do |order| %>
             <tr>
               <td><%= order.created_at.strftime("%b %d, %Y") %></td>
               <td><%= order.id %></td>
