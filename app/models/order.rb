@@ -2,7 +2,6 @@ class Order < ActiveRecord::Base
   belongs_to :user
   has_many :event_orders
   has_many :events, through: :event_orders
-  # belongs_to :vendor, class_name: "User"
   enum status: ["ordered", "paid", "cancelled", "completed"]
   validates :status,
     inclusion: { in: ["ordered", "paid", "cancelled", "completed"] }

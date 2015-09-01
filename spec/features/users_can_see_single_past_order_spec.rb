@@ -9,7 +9,8 @@ feature "user sees a single past order" do
       @order = Order.create(user_id: @event_1.user.id,
                             status: "ordered",
                             created_at: DateTime.civil(2015, 07, 05, 21, 33, 0),
-                            updated_at: DateTime.civil(2015, 07, 05, 21, 33, 0))
+                            updated_at: DateTime.civil(2015, 07, 05, 21, 33, 0),
+                            customer_id: @event_1.user.id)
 
       EventOrder.create(order_id: @order.id,
                        event_id: @event_1.id,
