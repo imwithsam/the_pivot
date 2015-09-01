@@ -164,22 +164,22 @@ class Seed
         customer_id: Random.new.rand(1..100)
         )
 
-    vendors_cart = []
+      vendors_cart = []
 
-    cart.each do |item|
-      if item.user_id.eql?(vendor_id)
-        vendors_cart << item
+      cart.each do |item|
+        if item.user_id.eql?(vendor_id)
+          vendors_cart << item
+        end
       end
-    end
 
-    vendors_cart.each do |vendor_event|
-      EventOrder.create(
-        order_id:   order.id,
-        event_id:   vendor_event.id,
-        quantity:   Random.new.rand(1..5),
-        unit_price: vendor_event.price
-        )
-    end
+      vendors_cart.each do |vendor_event|
+        EventOrder.create(
+          order_id:   order.id,
+          event_id:   vendor_event.id,
+          quantity:   Random.new.rand(1..5),
+          unit_price: vendor_event.price
+          )
+      end
     end
   end
 end
