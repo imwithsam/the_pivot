@@ -88,8 +88,9 @@ class Seed
 
   def generate_events
       500.times do |i|
-        user = User.find((1..103).to_a.sample)
-        event = user.events.create!(
+        vendors  = Role.find_by(name: "store_admin").users
+        vendor = vendors.sample
+        event = vendor.events.create!(
           name: "#{Faker::Commerce.product_name}_#{i}" ,
           description: Faker::Lorem.paragraph,
           image_url: "http://loremflickr.com/320/240/sports?random=#{i}",
@@ -105,7 +106,7 @@ class Seed
 
   def generate_orders
     100.times do |i|
-      vendors  = User.select{|user| user.store_admin?}
+      vendors  = Role.find_by(name: "store_admin").users
       vendor = vendors.sample
       customer = User.find(Random.new.rand(1..100))
       order = vendor.orders.create(customer_id: customer.id)
