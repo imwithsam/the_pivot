@@ -1,41 +1,41 @@
 platform_role = Role.create(
-name: "platform_admin"
-)
+  name: "platform_admin"
+  )
 
 store_role = Role.create(
-name: "store_admin"
-)
+  name: "store_admin"
+  )
 
 user_role = Role.create(
-name: "registered_user"
-)
+  name: "registered_user"
+  )
 
 admin = User.create(
-email: "jorge@turing.io",
-password: "password",
-first_name: "Jorge",
-last_name: "Tellez",
-username: "Jorge's Mierda Choza",
-role: 1
-)
+  email: "jorge@turing.io",
+  password: "password",
+  first_name: "Jorge",
+  last_name: "Tellez",
+  username: "Jorge's Mierda Choza",
+  role: 1
+  )
 
 vendor = User.create(
-email: "andrew@turing.io",
-password: "password",
-first_name: "Andrew",
-last_name: "Carmer",
-username: "Andrew's Crap Shack",
-role: 1
-)
+  email: "andrew@turing.io",
+  password: "password",
+  first_name: "Andrew",
+  last_name: "Carmer",
+  username: "Andrew's Crap Shack",
+  role: 1
+  )
 
 user = User.create(
-email: "josh@turing.io",
-password: "password",
-first_name: "Josh",
-last_name: "Mejia",
-username: "Capn Dick's Shrimp Boat Shack",
-role: 0
-)
+  email: "josh@turing.io",
+  password: "password",
+  first_name: "Josh",
+  last_name: "Mejia",
+  username: "Capn Dick's Shrimp Boat Shack",
+  role: 0
+  )
 
 admin.roles << platform_role
 vendor.roles << store_role
@@ -54,65 +54,65 @@ class Seed
 
   def generate_category
     Category.create(
-    name: "Dodgeball",
-    description: "Stupid Sports"
-    )
+      name: "Dodgeball",
+      description: "Stupid Sports"
+      )
 
     Category.create(
-    name: "Tazerball",
-    description: "Horrible Music"
-    )
+      name: "Tazerball",
+      description: "Horrible Music"
+      )
 
     Category.create(
-    name: "Robot Fighting Championships",
-    description: "Crazy Events"
-    )
+      name: "Robot Fighting Championships",
+      description: "Crazy Events"
+      )
 
     Category.create(
-    name: "RC Truck Racing",
-    description: "Stupid Sports"
-    )
+      name: "RC Truck Racing",
+      description: "Stupid Sports"
+      )
 
     Category.create(
-    name: "3rd Person Skiing",
-    description: "Horrible Music"
-    )
+      name: "3rd Person Skiing",
+      description: "Horrible Music"
+      )
 
     Category.create(
-    name: "Chess Boxing",
-    description: "Crazy Events"
-    )
+      name: "Chess Boxing",
+      description: "Crazy Events"
+      )
 
     Category.create(
-    name: "Freestyle Canoeing",
-    description: "Stupid Sports"
-    )
+      name: "Freestyle Canoeing",
+      description: "Stupid Sports"
+      )
 
     Category.create(
-    name: "Combat Juggling",
-    description: "Horrible Music"
-    )
+      name: "Combat Juggling",
+      description: "Horrible Music"
+      )
 
     Category.create(
-    name: "Lawnmower Ice Racing",
-    description: "Crazy Events"
-    )
+      name: "Lawnmower Ice Racing",
+      description: "Crazy Events"
+      )
 
     Category.create(
-    name: "Head Pong",
-    description: "Stupid Sports"
-    )
+      name: "Head Pong",
+      description: "Stupid Sports"
+      )
   end
 
   def generate_users
     99.times do |i|
       user = User.create!(
-      username: Faker::Internet.user_name,
-      email: Faker::Internet.email,
-      first_name: Faker::Name.first_name,
-      last_name: Faker::Name.last_name,
-      password: "password",
-      )
+        username: Faker::Internet.user_name,
+        email: Faker::Internet.email,
+        first_name: Faker::Name.first_name,
+        last_name: Faker::Name.last_name,
+        password: "password",
+        )
       if i < 19
         user.roles << Role.find_by(name: "store_admin")
       else
@@ -127,14 +127,14 @@ class Seed
       vendors  = Role.find_by(name: "store_admin").users
       vendor = vendors.sample
       event = vendor.events.create!(
-      name: "#{Faker::Commerce.product_name}_#{i}" ,
-      description: Faker::Hacker.say_something_smart,
-      image_url: "http://loremflickr.com/320/240/sports?random=#{i}",
-      price: Faker::Commerce.price,
-      status: 0,
-      venue: Faker::Address.city,
-      event_date: Faker::Date.forward((1..300).to_a.sample),
-      category_id: 1
+        name: "#{Faker::Commerce.product_name}_#{i}",
+        description: Faker::Hacker.say_something_smart,
+        image_url: "http://loremflickr.com/320/240/sports?random=#{i}",
+        price: Faker::Commerce.price,
+        status: 0,
+        venue: Faker::Address.city,
+        event_date: Faker::Date.forward((1..300).to_a.sample),
+        category_id: 1
       )
       if event.id.to_s.chars.last.to_i == 0
         event.update_attributes(category_id: 10)
@@ -159,27 +159,27 @@ class Seed
 
     unique_vendor_ids.each_key do |vendor_id|
       order = Order.create(
-      user_id: vendor_id,
-      status:  "ordered",
-      customer_id: Random.new.rand(1..100)
-      )
+        user_id: vendor_id,
+        status:  "ordered",
+        customer_id: Random.new.rand(1..100)
+        )
 
-      vendors_cart = []
+    vendors_cart = []
 
-      cart.each do |item|
-        if item.user_id.eql?(vendor_id)
-          vendors_cart << item
-        end
+    cart.each do |item|
+      if item.user_id.eql?(vendor_id)
+        vendors_cart << item
       end
+    end
 
-      vendors_cart.each do |vendor_event|
-        EventOrder.create(
+    vendors_cart.each do |vendor_event|
+      EventOrder.create(
         order_id:   order.id,
         event_id:   vendor_event.id,
         quantity:   Random.new.rand(1..5),
         unit_price: vendor_event.price
         )
-      end
+    end
     end
   end
 end
