@@ -1,5 +1,5 @@
 <div class="container">
-  <h1 class="text-center">Edit Account</h3>
+  <h3 class="text-center">Edit Account</h3>
   <% if @billing && @shipping %>
     <div class="well col-sm-12">
       <div id="login-info" class="col-sm-4">
@@ -24,6 +24,10 @@
           <div class="form-group">
             <%= f.label :email %>
             <%= f.text_field :email, class: "form-control" %>
+          </div>
+          <div class="form-group">
+            <%= f.label :role, "Create Vendor Account?", value: 0 %>
+            <%= f.check_box :role, value: 1, class: "form-control" %>
           </div>
           <div class="form-group">
             <%= f.label :password, "Password (min 8 characters)" %>
