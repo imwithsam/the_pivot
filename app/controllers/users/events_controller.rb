@@ -7,6 +7,12 @@ class Users::EventsController < ApplicationController
     @featured_events = current_user.events
   end
 
+  def index
+    current_user = User.find_by(url: params[:vendor]) if params[:vendor]
+    @event = current_user.events.sample
+    @featured_events = current_user.events
+  end
+
   def edit
     unless validate_store_admin
       flash[:warning] = "This is not your boat!"

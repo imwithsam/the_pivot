@@ -1,6 +1,5 @@
 <div class="container">
   <h1 class="text-center">Orders</h1>
-
   <div class="table-responsive">
     <table class="table table-hover">
       <thead>
@@ -14,26 +13,33 @@
       </thead>
       <tbody>
         <% current_user.orders.each do |order| %>
-          <tr>
-            <td><%= order.created_at.strftime("%b %d, %Y") %></td>
-            <td><%= order.id %></td>
-            <td><%= order.status %></td>
-            <td><%= number_to_currency(order.total) %></td>
-            <td class="order-details-link">
-              <a href="<%= order_path(order) %>">
-                <span class="glyphicon glyphicon-list-alt" aria-hidden="true">
-                </span>
-                View Order Details
-              </a>
-            </td>
-          </tr>
+        <tr>
+          <td><%= order.created_at.strftime("%b %d, %Y") %></td>
+          <td><%= order.id %></td>
+          <td><%= order.status %></td>
+          <td><%= number_to_currency(order.total) %></td>
+          <td>
+            <% order.available_status_transitions.each do |transition| %>
+            <%= link_to transition.capitalize,
+            order_path(id: order.id,
+            status: transition),
+            method: :patch %>
+            <% end %>
+          </td>
+          <td class="order-details-link">
+            <a href="<%= order_path(order) %>">
+              <span class="glyphicon glyphicon-list-alt" aria-hidden="true">
+              </span>
+              View Order Details
+            </a>
+          </td>
+        </tr>
         <% end %>
       </tbody>
     </table>
-
   </div>
-  <%= link_to "Continue Shopping", products_path, 
-              class: "btn btn-lg btn-primary pull-left" %>
+  <%= link_to "Continue Shopping", root_path,
+  class: "btn btn-lg btn-primary pull-left" %>
   <%= link_to "Dashboard", dashboard_path,
-              class: "btn btn-lg btn-success pull-right" %>
+  class: "btn btn-lg btn-success pull-right" %>
 </div><!-- /.container -->

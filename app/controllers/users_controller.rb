@@ -29,7 +29,12 @@ class UsersController < ApplicationController
   end
 
   def show
-    @sales = current_user.events
+    @events = current_user.events
+    @my_orders = Order.where(customer_id: current_user.id)
+  end
+
+  def index
+    @users = User.all.select{|user| user.store_admin?}
   end
 
   def edit

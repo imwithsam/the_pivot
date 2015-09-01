@@ -5,27 +5,27 @@
       <h3><%= current_user.full_name %></h3>
       <p><%= current_user.email %></p>
       <%= link_to "Edit Account",
-          account_edit_path,
-          class: "btn btn-success" %>
+      account_edit_path,
+      class: "btn btn-success" %>
     </div>
     <div id="billing-address" class="col-sm-4">
       <% current_user.addresses.billing.each do |billing| %>
-        <h4>Billing Address</h4>
-        <p><%= billing.address_1 %></p>
-        <p><%= billing.address_2 %></p>
-        <p><%= billing.city %></p>
-        <p><%= billing.state %></p>
-        <p><%= billing.zip_code %></p>
+      <h4>Billing Address</h4>
+      <p><%= billing.address_1 %></p>
+      <p><%= billing.address_2 %></p>
+      <p><%= billing.city %></p>
+      <p><%= billing.state %></p>
+      <p><%= billing.zip_code %></p>
       <% end %>
     </div>
     <div id="shipping-address" class="col-sm-4">
       <% current_user.addresses.shipping.each do |shipping| %>
-        <h4>Shipping Address</h4>
-        <p><%= shipping.address_1 %></p>
-        <p><%= shipping.address_2 %></p>
-        <p><%= shipping.city %></p>
-        <p><%= shipping.state %></p>
-        <p><%= shipping.zip_code %></p>
+      <h4>Shipping Address</h4>
+      <p><%= shipping.address_1 %></p>
+      <p><%= shipping.address_2 %></p>
+      <p><%= shipping.city %></p>
+      <p><%= shipping.state %></p>
+      <p><%= shipping.zip_code %></p>
       <% end %>
     </div>
   </div>
@@ -46,39 +46,44 @@
           </tr>
         </thead>
         <tbody>
-          <% @sales.each do |user_event| %>
-            <% user_event.event_orders.each do |event_order| %>
-            <tr>
-              <td><%= user_event.name %></td>
-              <td><%= event_order.order.id %></td>
-              <td><%= event_order.quantity %></td>
-              <td><%= event_order.unit_price %></td>
-              <td><%= event_order.order.created_at.strftime("%b %d, %Y") %></td>
-              <td><%= event_order.order.status %></td>
-              <td>$<%= event_order.subtotal %></td>
-              <td class="sales-order-details-link">
-                <%= link_to "Delete", vendor_event_order_path(vendor: user_event.user.url, id: event_order.id), method: :delete %>
-              </td>
-              <td class="sale-order-details-link">
-                <a href="<%= order_path(event_order.order) %>">
-                  <span class="glyphicon glyphicon-list-alt" aria-hidden="true">
-                  </span>
-                  View Order Details
-                </a>
-              </td>
-            </tr>
+          <% @events.each do |event| %>
+          <% event.event_orders.each do |event_order| %>
+          <tr>
+            <td><%= event_order.event.name %></td>
+            <td><%= event_order.order.id %></td>
+            <td><%= event_order.quantity %></td>
+            <td><%= number_to_currency(event_order.unit_price) %></td>
+            <td><%= event_order.order.created_at.strftime("%b %d, %Y") %></td>
+            <td><%= event_order.order.status %></td>
+            <td>$<%= event_order.subtotal %></td>
+            <td>
+              <% event_order.order.available_status_transitions.each do |transition| %>
+              <%= link_to transition.capitalize,
+              order_path(id: event_order.order.id,
+              status: transition),
+              method: :patch %>
+              <% end %>
+            </td>
+            <td class="sales-order-details-link">
+              <%= link_to "Delete", vendor_event_order_path(vendor: event_order.order.user.url, id: event_order.id), method: :delete %>
+            </td>
+            <td class="sale-order-details-link">
+              <a href="<%= order_path(event_order.order) %>">
+                <span class="glyphicon glyphicon-list-alt" aria-hidden="true">
+                </span>
+                View Order Details
+              </a>
+            </td>
+          </tr>
           <% end %>
           <% end %>
         </tbody>
       </table>
     </div>
   </div>
-
   <div class="well col-sm-12">
     <h3 class="text-center">Your Past Purchases</h3>
     <div class="table-responsive">
-
-
       <table class="table table-hover">
         <thead>
           <tr>
@@ -90,29 +95,25 @@
           </tr>
         </thead>
         <tbody>
-          <% current_user.orders.each do |order| %>
-            <tr>
-              <td><%= order.created_at.strftime("%b %d, %Y") %></td>
-              <td><%= order.id %></td>
-              <td><%= order.status %></td>
-              <td>$<%= order.total %></td>
-              <td class="order-details-link">
-                <a href="<%= order_path(order) %>">
-                  <span class="glyphicon glyphicon-list-alt" aria-hidden="true">
-                  </span>
-                  View Order Details
-                </a>
-              </td>
-            </tr>
+          <% @my_orders.each do |order| %>
+          <tr>
+            <td><%= order.created_at.strftime("%b %d, %Y") %></td>
+            <td><%= order.id %></td>
+            <td><%= order.status %></td>
+            <td>$<%= order.total %></td>
+            <td class="order-details-link">
+              <a href="<%= order_path(order) %>">
+                <span class="glyphicon glyphicon-list-alt" aria-hidden="true">
+                </span>
+                View Order Details
+              </a>
+            </td>
+          </tr>
           <% end %>
         </tbody>
       </table>
-
-
-
     </div>
   </div>
-
   <div class="well col-sm-12">
     <h3 class="text-center">Customers</h3>
     <div class="table-responsive">
@@ -130,31 +131,28 @@
           </tr>
         </thead>
         <tbody>
-          <% @sales.each do |user_event| %>
-            <% user_event.event_orders.each do |event_order| %>
-            <tr>
-              <td><%= event_order.order.user.first_name %> <%= event_order.order.user.last_name %></td>
-              <td><%= event_order.order.id %></td>
-              <td><%= event_order.quantity %></td>
-              <td><%= event_order.unit_price %></td>
-              <td><%= event_order.order.created_at.strftime("%b %d, %Y") %></td>
-              <td><%= event_order.order.status %></td>
-              <td>$<%= event_order.subtotal %></td>
-              <td class="customer-order-details-link">
-                <a href="<%= order_path(event_order.order) %>">
-                  <span class="glyphicon glyphicon-list-alt" aria-hidden="true">
-                  </span>
-                  View Order Details
-                </a>
-              </td>
-            </tr>
+          <% @events.each do |event| %>
+          <% event.event_orders.each do |event_order| %>
+          <tr>
+            <td><%= event_order.order.user.full_name %></td>
+            <td><%= event_order.order.id %></td>
+            <td><%= event_order.quantity %></td>
+            <td><%= number_to_currency(event_order.unit_price) %></td>
+            <td><%= event_order.order.created_at.strftime("%b %d, %Y") %></td>
+            <td><%= event_order.order.status %></td>
+            <td>$<%= event_order.subtotal %></td>
+            <td class="customer-order-details-link">
+              <a href="<%= order_path(event_order.order) %>">
+                <span class="glyphicon glyphicon-list-alt" aria-hidden="true">
+                </span>
+                View Order Details
+              </a>
+            </td>
+          </tr>
           <% end %>
           <% end %>
         </tbody>
       </table>
     </div>
   </div>
-
-
-
 </div>
