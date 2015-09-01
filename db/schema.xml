@@ -70,7 +70,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="510" y="542" name="events">
+<table x="525" y="545" name="events">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -110,11 +110,15 @@
 <part>id</part>
 </key>
 </table>
-<table x="411" y="264" name="orders">
+<table x="425" y="264" name="orders">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
 <row name="user_id" null="0" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default><relation table="users" row="id" />
+</row>
+<row name="customer_id" null="0" autoincrement="0">
 <datatype>INTEGER</datatype>
 <default>NULL</default><relation table="users" row="id" />
 </row>
@@ -131,7 +135,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="854" y="263" name="categories">
+<table x="873" y="264" name="categories">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -151,7 +155,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="578" y="263" name="event_orders">
+<table x="601" y="263" name="event_orders">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -219,3 +223,4 @@
 </key>
 </table>
 </sql>
+
