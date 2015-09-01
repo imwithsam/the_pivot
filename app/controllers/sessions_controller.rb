@@ -6,13 +6,21 @@ class SessionsController < ApplicationController
     user = User.find_by(email: params[:session][:email])
     if user && user.authenticate(params[:session][:password])
       session[:user_id] = user.id
-      flash[:success] = "Welcome back to The Ocho Tickets, #{user.first_name}" \
+      flash[:success]   = "Welcome back to The Ocho Tickets, #{user.first_name}" \
         " #{user.last_name}!"
+
       if user.platform_admin?
         redirect_to admin_dashboard_path
       else
-        redirect_to dashboard_path
+
+        if cart.cart_items.empty?
+          redirect_to dashboard_path
+        else
+          redirect_to cart_path
+        end
+
       end
+
     else
       flash[:warning] = "Unable to Login with this Email and" \
         " Password combination."
