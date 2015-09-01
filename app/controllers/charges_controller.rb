@@ -26,31 +26,15 @@ class ChargesController < ApplicationController
   private
 
   def create_order_for_vendors
-    unique_vendor_ids = {}
-
-    cart.cart_items.each do |cart_item|
-      unique_vendor_ids[cart_item.user.id] = 0
-    end
-
-    unique_vendor_ids.each_key do |vendor_id|
-      order = Order.create(
-        user_id: vendor_id,
+    cart.cart_items.group_by(&:user).each do |vendor, vendors_cart|
+      order = vendor.orders.create(
         status:  "ordered",
-        customer_id: current_user.id
+        customer: current_user
       )
 
-      vendors_cart = []
-
-      cart.cart_items.each do |item|
-        if item.user_id.eql?(vendor_id)
-          vendors_cart << item
-        end
-      end
-
       vendors_cart.each do |vendor_event|
-        EventOrder.create(
-          order_id:   order.id,
-          event_id:   vendor_event.id,
+        order.event_orders.create(
+          event:   vendor_event,
           quantity:   vendor_event.quantity,
           unit_price: vendor_event.price
         )
@@ -61,17 +45,6 @@ class ChargesController < ApplicationController
   def calculate_amount
     total = cart.total_price * 100
     total.to_i
-  end
-
-  def add_events_to_order(id, cart)
-    cart.cart_items.each do |cart_item|
-      EventOrder.create(
-        order_id:   id,
-        event_id:   cart_item.id,
-        quantity:   cart_item.quantity,
-        unit_price: cart_item.price
-      )
-    end
   end
 
   def notify_boss

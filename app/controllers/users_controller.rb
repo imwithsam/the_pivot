@@ -21,7 +21,7 @@ class UsersController < ApplicationController
   end
 
   def assign_role
-    if params[:user][:role].eql?("1")
+    if params[:user][:role] == "1"
       @user.roles << Role.find_by(name: "store_admin")
     else
       @user.roles << Role.find_by(name: "registered_user")

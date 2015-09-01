@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
   has_secure_password
-  has_many :orders
+  has_many :sales, class_name: "Order", inverse_of: :vendor, foreign_key: :vendor_id
+  has_many :purchases, class_name: "Order", inverse_of: :customer, foreign_key: :customer_id
   has_many :addresses
   has_many :events
   has_many :user_roles

@@ -167,7 +167,7 @@ class Seed
       vendors_cart = []
 
       cart.each do |item|
-        if item.user_id.eql?(vendor_id)
+        if item.user_id == vendor_id
           vendors_cart << item
         end
       end
