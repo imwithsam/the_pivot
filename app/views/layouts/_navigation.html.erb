@@ -24,11 +24,14 @@
         <li>
           <%= link_to "Admin Dashboard", admin_dashboard_path %>
         </li>
-        <% else%>
+        <% elsif is_store_admin?%>
+        <li>
+          <%= link_to "My Store", "/#{current_user.url}" if current_user%>
+        </li>
+        <% end %>
         <li>
           <%= link_to "Vendors", vendors_path %>
         </li>
-        <% end %>
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">Events
             <b class="caret"></b></a>
@@ -38,16 +41,16 @@
             </li>
 
             <li>
+              <a href="/categories/not-quite-sports">Not Quite Sports</a>
+            </li>
+            <li>
+              <a href="/categories/80-s-german-synthpop">80's German SynthPop</a>
+            </li>
+            <li>
+              <a href="/categories/competitive-eating">Competitive Eating</a>
+            </li>
+            <li>
               <a href="/categories/tazerball">Tazerball</a>
-            </li>
-            <li>
-              <a href="/categories/robot-fighting-championships">Robot Fighting Championships</a>
-            </li>
-            <li>
-              <a href="/categories/rc-truck-racing">RC Truck Racing</a>
-            </li>
-            <li>
-              <a href="/categories/dodgeball">Dodgeball</a>
             </li>
             <li>
               <a href="/categories/3rd-person-skiing">3rd Person Skiing</a>

@@ -1,48 +1,6 @@
-platform_role = Role.create(
-  name: "platform_admin"
-  )
-
-store_role = Role.create(
-  name: "store_admin"
-  )
-
-user_role = Role.create(
-  name: "registered_user"
-  )
-
-admin = User.create(
-  email: "jorge@turing.io",
-  password: "password",
-  first_name: "Jorge",
-  last_name: "Tellez",
-  username: "Jorge's Mierda Choza",
-  role: 1
-  )
-
-vendor = User.create(
-  email: "andrew@turing.io",
-  password: "password",
-  first_name: "Andrew",
-  last_name: "Carmer",
-  username: "Andrew's Crap Shack",
-  role: 1
-  )
-
-user = User.create(
-  email: "josh@turing.io",
-  password: "password",
-  first_name: "Josh",
-  last_name: "Mejia",
-  username: "Capn Dick's Shrimp Boat Shack",
-  role: 0
-  )
-
-admin.roles << platform_role
-vendor.roles << store_role
-user.roles << user_role
-
 class Seed
   def initialize
+    generate_roles
     generate_category
     generate_users
     generate_events
@@ -52,9 +10,54 @@ class Seed
     end
   end
 
+  def generate_roles
+    platform_role = Role.create(
+    name: "platform_admin"
+    )
+
+    store_role = Role.create(
+    name: "store_admin"
+    )
+
+    user_role = Role.create(
+    name: "registered_user"
+    )
+
+    admin = User.create(
+      email: "jorge@turing.io",
+      password: "password",
+      first_name: "Jorge",
+      last_name: "Tellez",
+      username: "Jorge's Mierda Choza",
+      role: 1
+      )
+
+    vendor = User.create(
+      email: "andrew@turing.io",
+      password: "password",
+      first_name: "Andrew",
+      last_name: "Carmer",
+      username: "Andrew's Crap Shack",
+      role: 1
+      )
+
+    user = User.create(
+      email: "josh@turing.io",
+      password: "password",
+      first_name: "Josh",
+      last_name: "Mejia",
+      username: "Capn Dick's Shrimp Boat Shack",
+      role: 0
+      )
+
+    admin.roles << platform_role
+    vendor.roles << store_role
+    user.roles << user_role
+  end
+
   def generate_category
     Category.create(
-      name: "Dodgeball",
+      name: "Competitive Eating",
       description: "Stupid Sports"
       )
 
@@ -64,12 +67,12 @@ class Seed
       )
 
     Category.create(
-      name: "Robot Fighting Championships",
+      name: "80's German SynthPop",
       description: "Crazy Events"
       )
 
     Category.create(
-      name: "RC Truck Racing",
+      name: "Not Quite Sports",
       description: "Stupid Sports"
       )
 
