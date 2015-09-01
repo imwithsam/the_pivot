@@ -23,8 +23,7 @@ feature "User can edit User info" do
                           zip_code:  "12345")
 
     allow_any_instance_of(ApplicationController)
-      .to receive(:current_user)
-            .and_return(user)
+      .to receive(:current_user).and_return(user)
 
     visit dashboard_path
     click_link "Edit Account"
