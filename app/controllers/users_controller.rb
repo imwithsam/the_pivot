@@ -10,6 +10,17 @@ class UsersController < ApplicationController
     if @user.save
       assign_role
 
+      NotificationsMailer.contact(
+        @user.email,
+        "Welcome to Ocho Tickets!",
+        "Your new account has been created, giving you access to" \
+          " exclusive events including the Total Ghost concert, the Bubble" \
+          " Soccer Quarterfinals, and the Nathan's Hotdog Eating Qualifiers!" \
+          " \n" \
+          " Bookmark http://ochotickets.herokuapp.com/ and log in with" \
+          " your email address (#{@user.email}) and your password."
+      ).deliver_later
+
       session[:user_id] = @user.id
       flash[:success]   = "Welcome to The Ocho Tickets," \
         " #{@user.first_name} #{@user.last_name}!"

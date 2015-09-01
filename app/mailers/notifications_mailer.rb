@@ -1,10 +1,10 @@
 class NotificationsMailer < ApplicationMailer
-  def contact(email_params)
-    @message = email_params[:message]
+  def contact(to, subject, message)
+    @message = message
 
     mail(
-      to: email_params[:email],
-      subject: "Message from #{email_params[:name]}",
+      to: to,
+      subject: subject,
       message: @message
     )
   end
