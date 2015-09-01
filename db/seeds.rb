@@ -1,4 +1,4 @@
-platform_role = Role.create(  # ~> NameError: uninitialized constant Role
+platform_role = Role.create(
 name: "platform_admin"
 )
 
@@ -143,72 +143,45 @@ class Seed
       end
       puts "Event #{i}: #{event.name} created!"
     end
-    end
-
-    # def generate_orders
-    #   100.times do |i|
-    #     vendors  = Role.find_by(name: "store_admin").users
-    #     vendor = vendors.sample
-    #     customer = User.find(Random.new.rand(1..100))
-    #     order = vendor.orders.create(customer_id: customer.id)
-    #     add_events(order)
-    #     puts "Order #{i}: Order for #{vendor.username} created!"
-    #   end
-    # end
-
-    def generate_orders
-      cart = []
-      10.times do |i|
-        event = Event.find(Random.new.rand(1..500))
-        cart << event
-      end
-      unique_vendor_ids = {}
-
-      cart.each do |cart_item|
-        unique_vendor_ids[cart_item.user.id] = 0
-      end
-
-      unique_vendor_ids.each_key do |vendor_id|
-        order = Order.create(
-          user_id: vendor_id,
-          status:  "ordered",
-          customer_id: Random.new.rand(1..100)
-        )
-
-        vendors_cart = []
-
-        cart.each do |item|
-          if item.user_id.eql?(vendor_id)
-            vendors_cart << item
-          end
-        end
-
-
-        vendors_cart.each do |vendor_event|
-          EventOrder.create(
-            order_id:   order.id,
-            event_id:   vendor_event.id,
-            quantity:   Random.new.rand(1..5),
-            unit_price: vendor_event.price
-          )
-        end
-      end
-    end
-
-    private
-
-    # def add_events(order)
-    #   10.times do |i|
-    #     event = Event.find(Random.new.rand(1..500))
-    #     order.event_orders.create(event_id: event.id, quantity: 1, unit_price: event.price)
-    #     puts "#{i}: Added event #{event.name} to order #{order.id}."
-    #   end
-    # end
   end
 
-  Seed.new
+  def generate_orders
+    cart = []
+    10.times do |i|
+      event = Event.find(Random.new.rand(1..500))
+      cart << event
+    end
+    unique_vendor_ids = {}
 
-# ~> NameError
-# ~> uninitialized constant Role
-# ~>
-# ~> /Users/Dave/Turing/module_3/the_pivot/db/seeds.rb:1:in `<main>'
+    cart.each do |cart_item|
+      unique_vendor_ids[cart_item.user.id] = 0
+    end
+
+    unique_vendor_ids.each_key do |vendor_id|
+      order = Order.create(
+      user_id: vendor_id,
+      status:  "ordered",
+      customer_id: Random.new.rand(1..100)
+      )
+
+      vendors_cart = []
+
+      cart.each do |item|
+        if item.user_id.eql?(vendor_id)
+          vendors_cart << item
+        end
+      end
+
+      vendors_cart.each do |vendor_event|
+        EventOrder.create(
+        order_id:   order.id,
+        event_id:   vendor_event.id,
+        quantity:   Random.new.rand(1..5),
+        unit_price: vendor_event.price
+        )
+      end
+    end
+  end
+end
+
+Seed.new
