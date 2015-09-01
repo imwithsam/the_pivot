@@ -46,7 +46,10 @@ class Seed
     generate_category
     generate_users
     generate_events
-    generate_orders
+
+    15.times do
+      generate_orders
+    end
   end
 
   def generate_category
@@ -155,7 +158,7 @@ class Seed
 
     def generate_orders
       cart = []
-      5.times do |i|
+      10.times do |i|
         event = Event.find(Random.new.rand(1..500))
         cart << event
       end
@@ -185,7 +188,7 @@ class Seed
           EventOrder.create(
             order_id:   order.id,
             event_id:   vendor_event.id,
-            quantity:   vendor_event.quantity,
+            quantity:   Random.new.rand(1..5),
             unit_price: vendor_event.price
           )
         end

@@ -136,7 +136,8 @@
           <% @events.each do |event| %>
           <% event.event_orders.each do |event_order| %>
           <tr>
-            <td><%= event_order.order.user.full_name %></td>
+            <% user = User.find(event_order.order.customer_id) %>
+            <td><%= user.full_name %></td>
             <td><%= event_order.order.id %></td>
             <td><%= event_order.quantity %></td>
             <td><%= number_to_currency(event_order.unit_price) %></td>
