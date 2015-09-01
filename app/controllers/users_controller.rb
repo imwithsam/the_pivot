@@ -34,7 +34,7 @@ class UsersController < ApplicationController
   end
 
   def index
-    @users = User.all.select{|user| user.store_admin?}
+    @users = User.all.select { |user| user.store_admin? && user.events.exists? }
   end
 
   def edit
