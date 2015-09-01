@@ -20,12 +20,12 @@ module RedrumNursery
     config.action_mailer.delivery_method = :smtp
 
     config.action_mailer.smtp_settings = {
-      address: 'smtp.mandrillapp.com',
-      port:    '587',
-      domain:  'ochotickets.herokuapp.com',
-      user_name: 'SamsonLB@gmail.com',
-      password: '_Tye00aoJEvLcE6fsJEpJg',
-      authentication: 'plain',
+      address:              "smtp.mandrillapp.com",
+      port:                 "587",
+      domain:               "ochotickets.herokuapp.com",
+      user_name:            "SamsonLB@gmail.com",
+      password:             "_Tye00aoJEvLcE6fsJEpJg",
+      authentication:       "plain",
       enable_starttls_auto: true
     }
     # Settings in config/environments/* take precedence over those specified here.
