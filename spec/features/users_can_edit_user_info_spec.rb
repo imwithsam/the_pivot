@@ -4,7 +4,7 @@ feature "User can edit User info" do
   before do
     user = User.create(first_name: "Jane",
                        last_name:  "Doe",
-                       username: "Jane's Shop",
+                       username:   "Jane's Shop",
                        email:      "jane@doe.com",
                        password:   "password")
 
@@ -23,8 +23,7 @@ feature "User can edit User info" do
                           zip_code:  "12345")
 
     allow_any_instance_of(ApplicationController)
-      .to receive(:current_user)
-      .and_return(user)
+      .to receive(:current_user).and_return(user)
 
     visit dashboard_path
     click_link "Edit Account"
@@ -35,6 +34,8 @@ feature "User can edit User info" do
       expect(find_field("user_first_name").value).to eq("Jane")
       expect(find_field("user_last_name").value).to eq("Doe")
       expect(find_field("user_email").value).to eq("jane@doe.com")
+      expect(find_field("user_email").value).to eq("jane@doe.com")
+      expect(has_checked_field?("user_role")).to eq(false)
     end
 
     within("#billing-info") do
@@ -60,6 +61,7 @@ feature "User can edit User info" do
       find('input[type="text"][name*="user[last_name]"]').set("Doh")
       find('input[type="text"][name*="user[email]"]').set("john@doh.com")
       find('input[type="password"][name*="user[password]"]').set("password")
+      find('input[type="checkbox"][name*="user[role]"]').set(true)
       click_button "Update Login Info"
     end
 
@@ -70,6 +72,7 @@ feature "User can edit User info" do
     expect(find_field("user_first_name").value).to eq("John")
     expect(find_field("user_last_name").value).to eq("Doh")
     expect(find_field("user_email").value).to eq("john@doh.com")
+    expect(has_checked_field?("user_role")).to eq(true)
   end
 
   scenario "updates Billing Address" do
