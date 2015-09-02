@@ -61,7 +61,7 @@ feature "a user can login" do
     expect(page).to have_content("Login")
   end
 
-  scenario "an existing user with events in cart logs in" do
+  scenario "an existing registered user with events in cart logs in" do
     build_test_data
     event = @event_1
 
@@ -77,6 +77,28 @@ feature "a user can login" do
     expect(current_path).to eq(login_path)
 
     fill_in "Email", with: @user_1.email
+    fill_in "Password", with: "password"
+    click_button "Login"
+
+    expect(current_path).to eq(cart_path)
+  end
+
+  scenario "an existing store admin with events in cart logs in" do
+    build_test_data
+    event = @event_1
+
+    visit vendor_event_path(vendor: event.user.url, id: event.id)
+    within(".caption-full") do
+      click_button "Add to Cart"
+    end
+
+    find("#cart").click
+    expect(current_path).to eq(cart_path)
+
+    click_link_or_button "Checkout"
+    expect(current_path).to eq(login_path)
+
+    fill_in "Email", with: @store_admin_1.email
     fill_in "Password", with: "password"
     click_button "Login"
 

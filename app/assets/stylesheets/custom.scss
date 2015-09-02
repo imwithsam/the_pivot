@@ -87,6 +87,11 @@ table a, a:hover{
   background-image: url(image-path("hot-dog-eating-contest.jpg"));
 }
 
+.img-responsive {
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+
 .img-portfolio {
   margin-bottom: 30px;
 }
@@ -106,8 +111,16 @@ table a, a:hover{
   white-space: nowrap;
 }
 
+.feature-card .img-responsive {
+  margin-bottom: auto;
+}
+
 .feature-card.thumbnail {
   position: relative;
+}
+
+.product-card .img-responsive {
+  margin-bottom: auto;
 }
 
 .product-card.thumbnail {
