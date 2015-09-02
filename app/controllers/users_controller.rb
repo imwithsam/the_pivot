@@ -21,14 +21,6 @@ class UsersController < ApplicationController
     end
   end
 
-  def assign_role
-    if params[:user][:role].eql?("1")
-      @user.roles << Role.find_by(name: "store_admin")
-    else
-      @user.roles << Role.find_by(name: "registered_user")
-    end
-  end
-
   def show
     @events = current_user.events
     @my_orders = Order.where(customer_id: current_user.id)
@@ -53,6 +45,7 @@ class UsersController < ApplicationController
       flash.now[:warning] =
         "Invalid password. Please re-enter to update your login info."
     elsif @user.update(user_params)
+      update_to_vendor if user_params[:role] == "1"
       flash.now[:success] = "Your account has been updated."
     else
       flash.now[:warning] = @user.errors.full_messages.join(". ")
@@ -60,7 +53,14 @@ class UsersController < ApplicationController
     render :edit
   end
 
+
   private
+
+  def update_to_vendor
+    current_role = @user.roles.first
+    @user.roles.destroy(current_role)
+    assign_role
+  end
 
   def user_params
     params.require(:user)
@@ -73,4 +73,13 @@ class UsersController < ApplicationController
       redirect_to login_path
     end
   end
+
+  def assign_role
+    if params[:user][:role].eql?("1")
+      @user.roles << Role.find_by(name: "store_admin")
+    else
+      @user.roles << Role.find_by(name: "registered_user")
+    end
+  end
+
 end
