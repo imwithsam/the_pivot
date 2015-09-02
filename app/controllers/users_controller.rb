@@ -9,7 +9,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.save
       assign_role
-      send_confirmation_email
+      NotificationsMailer.create_new_account(@user).deliver_later
 
       session[:user_id] = @user.id
       flash[:success]   = "Welcome to The Ocho Tickets," \
@@ -72,20 +72,5 @@ class UsersController < ApplicationController
       flash[:warning] = "That's a bold move Cotton. Please log in."
       redirect_to login_path
     end
-  end
-
-  def send_confirmation_email
-    NotificationsMailer.contact(
-      @user.email,
-      "Welcome to Ocho Tickets!",
-      "Welcome to Ocho Tickets, #{@user.full_name}!" \
-        "\n" \
-        "Your new account has been created, giving you access to" \
-        " exclusive events including the Total Ghost concert, the Bubble" \
-        " Soccer Quarterfinals, and the Nathan's Hotdog Eating Qualifiers!" \
-        "\n" \
-        " Bookmark http://ochotickets.herokuapp.com/ and log in with" \
-        " your email address (#{@user.email}) and your password."
-    ).deliver_later
   end
 end
