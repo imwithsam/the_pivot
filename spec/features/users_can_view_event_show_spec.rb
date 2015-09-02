@@ -11,7 +11,7 @@ feature "user can visit events show page" do
     click_link("Tazer Ball")
 
     expect(current_path).to eq(vendor_event_path(vendor: vendor.url, id: event.id))
-    expect(page).to have_content("More Events from #{vendor.username}")
+    expect(page).to have_content("Featured Events")
     expect(page).to have_content(event2.name)
     expect(page).to have_content(event3.name)
   end

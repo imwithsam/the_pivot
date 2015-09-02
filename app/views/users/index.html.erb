@@ -5,22 +5,17 @@
   <div class="row">
     <% @users.each do |user| %>
     <div class="col-sm-4 col-lg-4 col-md-4">
-      <a href="<%= vendor_event_path(vendor: user.url, id: user.events.first.id) %>">
+      <a href="/<%=user.url%>">
         <div class="product-card thumbnail">
           <%= image_tag user.events.first.image_url, class: "img-responsive",
           alt: "#{user.events.first.name} image" %>
           <div class="caption">
-            <h4 class="pull-right"><%= number_to_currency(user.events.first.price) %></h4>
             <h4><%= user.username %></h4>
-            <p><%= user.events.first.description %></p>
+            <p><%= user.email %></p>
             <div class="clearfix btm-right">
-              <% if user.events.first.inactive? %>
-              <%= button_to "Retired", {}, class: "btn btn-primary btn-lg",
-              disabled: "disabled" %>
-              <% else %>
-              <%= button_to "Add to Cart", cart_items_path(event_id: user.events.first.id),
+              <%= button_to "Shop Now!", "/#{user.url}", method: :get,
               class: "btn btn-primary btn-sm pull-right" %>
-              <% end %>
+
 
             </div>
           </div>
