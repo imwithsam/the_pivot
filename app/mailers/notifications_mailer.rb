@@ -1,26 +1,29 @@
 class NotificationsMailer < ApplicationMailer
-  # Customer Email
-  def customer_order(email, name, order_ids)
-    @name = name
+  def customer_order(customer, order_ids)
+    @name = customer.full_name
     @order_ids = order_ids
+    subject = "Your order with Ocho Tickets"
 
     mail(
-      to: email,
-      subject: "Your order with Ocho Tickets"
+      to: customer.email,
+      subject: subject
     )
   end
 
-  # Vendor Email
+  def vendor_order(vendor, customer, order_id)
+    @vendor = vendor
+    @customer = customer
+    @order_id = order_id
+    subject = "A new order has been placed through Ocho Tickets"
+
+    mail(
+      to: @vendor.email,
+      subject: subject
+    )
+  end
+
   # Account Creation Email
+
   # Become a Vendor Email
 
-  def contact(to, subject, message)
-    @message = message
-
-    mail(
-      to: to,
-      subject: subject,
-      message: @message
-    )
-  end
 end

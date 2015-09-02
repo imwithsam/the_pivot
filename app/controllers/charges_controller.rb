@@ -14,8 +14,7 @@ class ChargesController < ApplicationController
     )
 
     if payment_processor.make_payment
-      NotificationsMailer.customer_order(current_user.email,
-                                         current_user.full_name,
+      NotificationsMailer.customer_order(current_user,
                                          @order_ids).deliver_later
       notify_boss
       flash[:success] = "Your payment was successful and your order is placed."
@@ -60,7 +59,10 @@ class ChargesController < ApplicationController
         )
       end
 
-      send_vendor_email(User.find(vendor_id), order.id)
+      NotificationsMailer.vendor_order(User.find(vendor_id),
+                                       current_user,
+                                       order.id).deliver_later
+
       @order_ids << order.id
     end
   end
@@ -92,19 +94,5 @@ class ChargesController < ApplicationController
   def empty_cart
     session[:cart] = {}
     cart.clear
-  end
-
-  def send_vendor_email(vendor, order_id)
-    NotificationsMailer.contact(
-      vendor.email,
-      "A new order has been placed through Ocho Tickets",
-      "#{vendor.full_name}, " \
-      "\n" \
-      "A new order has been placed through Ocho Tickets by" \
-      " #{current_user.full_name}." \
-      "\n" \
-      " For reference, your order number is: #{order_id}." \
-      " Thank you for using Ocho Tickets!"
-    ).deliver_later
   end
 end
