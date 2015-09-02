@@ -9,8 +9,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.save
       assign_role
-      NotificationsMailer.create_new_account(@user).deliver_later
-
+      new_account_notifications
       session[:user_id] = @user.id
       flash[:success]   = "Welcome to The Ocho Tickets," \
         " #{@user.first_name} #{@user.last_name}!"
@@ -22,7 +21,7 @@ class UsersController < ApplicationController
   end
 
   def show
-    @events = current_user.events
+    @events    = current_user.events
     @my_orders = Order.where(customer_id: current_user.id)
   end
 
@@ -45,7 +44,7 @@ class UsersController < ApplicationController
       flash.now[:warning] =
         "Invalid password. Please re-enter to update your login info."
     elsif @user.update(user_params)
-      update_to_vendor if user_params[:role] == "1"
+      update_to_vendor_account if user_params[:role] == "1"
       flash.now[:success] = "Your account has been updated."
     else
       flash.now[:warning] = @user.errors.full_messages.join(". ")
@@ -55,10 +54,12 @@ class UsersController < ApplicationController
 
   private
 
-  def update_to_vendor
+  def update_to_vendor_account
     current_role = @user.roles.first
     @user.roles.destroy(current_role)
     assign_role
+
+    new_account_notifications
   end
 
   def user_params
@@ -80,4 +81,13 @@ class UsersController < ApplicationController
       @user.roles << Role.find_by(name: "registered_user")
     end
   end
+
+  def new_account_notifications
+    if @user.store_admin?
+      NotificationsMailer.create_vendor_account(@user).deliver_later
+    else
+      NotificationsMailer.create_new_account(@user).deliver_later
+    end
+  end
+
 end
