@@ -16,7 +16,7 @@ class CartItemsController < ApplicationController
     if cart.update_item_quantity(@event, params[:event][:quantity].to_i)
       session[:cart] = cart.data
     else
-      flash[:warning] = "Cannot set quantity below one."
+      flash[:warning] = "That's a bold move Cotton! But you can't set quantity below one!"
     end
     redirect_to cart_path
   end

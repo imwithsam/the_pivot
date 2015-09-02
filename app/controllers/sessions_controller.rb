@@ -11,7 +11,7 @@ class SessionsController < ApplicationController
         " #{user.last_name}!"
       redirect_to authenticated_user_paths(user)
     else
-      flash[:warning] = "Unable to Login with this Email and" \
+      flash[:warning] = "That's a bold move Cotton. But You're unable to Login with this Email and" \
         " Password combination."
       render :new
     end

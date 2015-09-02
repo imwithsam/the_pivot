@@ -28,6 +28,7 @@ feature "a store admin can edit events" do
 
   scenario "can edit his/her own event" do
     visit edit_vendor_event_path(vendor: @store_admin_1.url, id: @event_1.id)
+
     fill_in "event_form_name", with: "New Event Name"
     fill_in "event_form_description", with: "New Event Description"
     fill_in "event_form_price", with: "999.99"
@@ -57,7 +58,7 @@ feature "a store admin can edit events" do
     expect(current_path).to_not eq(
       edit_vendor_event_path(vendor: @store_admin_1.url, id: @event_1.id))
     within(".alert-warning") do
-      expect(page).to have_content("You are an unauthorized boat owner!!")
+      expect(page).to have_content("Bold move Cotton but you are an unauthorized boat owner!!")
     end
   end
 
@@ -72,7 +73,7 @@ feature "a store admin can edit events" do
     expect(current_path).to_not eq(
       edit_vendor_event_path(vendor: @store_admin_1.url, id: @event_1.id))
     within(".alert-warning") do
-      expect(page).to have_content("This is not your boat!")
+      expect(page).to have_content("That's a bold move Cotton but this is not your boat!")
     end
   end
 end
