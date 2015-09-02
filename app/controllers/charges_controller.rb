@@ -14,7 +14,9 @@ class ChargesController < ApplicationController
     )
 
     if payment_processor.make_payment
-      send_customer_email
+      NotificationsMailer.customer_order(current_user.email,
+                                         current_user.full_name,
+                                         @order_ids).deliver_later
       notify_boss
       flash[:success] = "Your payment was successful and your order is placed."
       redirect_to dashboard_path
@@ -90,19 +92,6 @@ class ChargesController < ApplicationController
   def empty_cart
     session[:cart] = {}
     cart.clear
-  end
-
-  def send_customer_email
-    NotificationsMailer.contact(
-      current_user.email,
-      "Your order with Ocho Tickets",
-      "#{current_user.full_name}, " \
-      "\n" \
-      "Your order with Ocho Tickets has been processed and is on its way!" \
-      "\n" \
-      " For reference, your order number(s) are: #{@order_ids.join(', ')}." \
-      " Thank you for using Ocho Tickets!"
-    ).deliver_later
   end
 
   def send_vendor_email(vendor, order_id)
