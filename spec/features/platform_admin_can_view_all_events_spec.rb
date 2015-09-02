@@ -91,17 +91,16 @@ feature "Admin can view all events from Admin Dashboard" do
     find('input[type="text"][name*="description"]').set("A boat.")
     find('input[type="text"][name*="price"]').set("50.00")
     find('input[type="text"][name*="image_url"]').set("")
-    select "Music", from: "event[category_id]"
+    select "80's German SynthPop", from: "event[category_id]"
     select "Retired", from: "event[status]"
     click_button "Edit Event"
-
     expect(current_path).to eq(admin_events_path)
     within("tr", text: "Richard") do
       expect(page).to have_css("img[src*='default_image.jpg']")
       expect(page).to have_content("Richard")
       expect(page).to have_content("A boat.")
       expect(page).to have_content("50.00")
-      expect(page).to have_content("Music")
+      expect(page).to have_content("80's German SynthPop")
       expect(page).to have_content("inactive")
       expect(page).to have_link("edit")
     end

@@ -61,15 +61,15 @@ def build_test_data
   @platform_admin_2.roles << @platform_admin_role
 
   @cat_1 = Category.create(
-    name: "Sports",
+    name: "Not Quite Sports",
     description: "Stupid Sports")
 
   @cat_2 = Category.create(
-    name: "Music",
+    name: "80's German SynthPop",
     description: "Horrible Music")
 
   @cat_3 = Category.create(
-    name: "Special",
+    name: "Competitive Eating",
     description: "Crazy Events")
 
   @event_1 = Event.create(

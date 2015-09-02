@@ -25,7 +25,7 @@ class ApplicationController < ActionController::Base
 
   def authorize!
     redirect_to root_url,
-      warning: "You are an unauthorized boat owner!!" unless authorized?
+      warning: "Bold move Cotton but you are an unauthorized boat owner!!" unless authorized?
   end
 
   def authorized?

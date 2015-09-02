@@ -93,7 +93,7 @@ feature "Visitor" do
         find(".quantity").set("4")
         click_button("update")
       end
-      
+
       expect(current_path).to eq(cart_path)
 
       within(".row", text: "event 1") do
@@ -161,7 +161,7 @@ feature "Visitor" do
       end
 
       expect(current_path).to eq(cart_path)
-      expect(page).to have_content("Cannot set quantity below one.")
+      expect(page).to have_content("That's a bold move Cotton! But you can't set quantity below one!")
 
       within(".row", text: "event 2") do
         quantity = find(".quantity").value
@@ -177,7 +177,7 @@ feature "Visitor" do
       end
 
       expect(current_path).to eq(cart_path)
-      expect(page).to have_content("Cannot set quantity below one.")
+      expect(page).to have_content("That's a bold move Cotton! But you can't set quantity below one!")
         quantity = find(".quantity").value
         expect(quantity).to eq("1")
         within(".sub-total") do

@@ -16,7 +16,7 @@ feature "a visitor" do
       expect(current_path).to eq(category_path(@cat_1.slug))
 
       within("h1") do
-        expect(page).to have_content("Sports")
+        expect(page).to have_content("Not Quite Sports")
       end
 
       within("#category-description") do
@@ -38,9 +38,8 @@ feature "a visitor" do
       end
 
       expect(current_path).to eq(category_path(@cat_2.slug))
-
       within("h1") do
-        expect(page).to have_content("Music")
+        expect(page).to have_content("80's German SynthPop")
       end
 
       within("#category-description") do
@@ -64,7 +63,7 @@ feature "a visitor" do
       expect(current_path).to eq(category_path(@cat_3.slug))
 
       within("h1") do
-        expect(page).to have_content("Special")
+        expect(page).to have_content("Competitive Eating")
       end
 
       within("#category-description") do

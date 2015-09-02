@@ -69,7 +69,7 @@ class UsersController < ApplicationController
 
   def logged_in_user
     unless current_user
-      flash[:warning] = "Please log in."
+      flash[:warning] = "That's a bold move Cotton. Please log in."
       redirect_to login_path
     end
   end

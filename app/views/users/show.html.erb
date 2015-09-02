@@ -29,6 +29,7 @@
       <% end %>
     </div>
   </div>
+  <% if current_user.store_admin? %>
   <div class="well col-sm-12">
     <h3 class="text-center">Your Past Sales</h3>
     <div class="table-responsive">
@@ -83,6 +84,7 @@
       </table>
     </div>
   </div>
+  <% end %>
   <div class="well col-sm-12">
     <h3 class="text-center">Your Past Purchases</h3>
     <div class="table-responsive">
@@ -116,6 +118,11 @@
       </table>
     </div>
   </div>
+  <% if @my_orders.empty? %>
+  <%= link_to "Shop Now!", events_path,
+    class: "btn btn-primary btn-lg", id: "shop-now" %>
+  <% end %>
+  <% if current_user.store_admin? %>
   <div class="well col-sm-12">
     <h3 class="text-center">Customers</h3>
     <div class="table-responsive">
@@ -158,4 +165,5 @@
       </table>
     </div>
   </div>
+  <% end %>
 </div>

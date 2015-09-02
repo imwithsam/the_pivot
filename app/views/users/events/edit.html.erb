@@ -22,6 +22,16 @@
                        id: "event_form_price" %>
     </div>
     <div class="form-group">
+      <%= f.label :event_date %>
+      <%= f.date_field :event_date, class: "form-control",
+                       id: "event_form_date" %>
+    </div>
+    <div class="form-group">
+      <%= f.label :venue %>
+      <%= f.text_field :venue, class: "form-control",
+                       id: "event_form_venue" %>
+    </div>
+    <div class="form-group">
       <%= f.label :category %>
       <%= collection_select :event, :category_id, Category.all, :id,
           :name, {},

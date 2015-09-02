@@ -47,8 +47,8 @@ feature "a user can login" do
 
     expect(current_path).to eq(login_path)
     within(".alert-warning") do
-      expect(page).to have_content("Unable to Login with this Email and" \
-        " Password combination.")
+      expect(page).to have_content("That's a bold move Cotton. But You're
+      unable to Login with this Email and Password combination.")
     end
     within(".navbar-right") do
       expect(page).to_not have_content("Logged in as Jane Doe")

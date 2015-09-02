@@ -48,12 +48,12 @@ feature "Admin can view Admin Dashboard" do
 
     visit admin_dashboard_path
 
-    expect(page).to have_content("You are an unauthorized boat owner!")
+    expect(page).to have_content("Bold move Cotton but you are an unauthorized boat owner!")
   end
 
   scenario "Guest user sees unauthorized message when trying to visit /admin/dashboard" do
     visit admin_dashboard_path
 
-    expect(page).to have_content("You are an unauthorized boat owner!")
+    expect(page).to have_content("Bold move Cotton but you are an unauthorized boat owner!")
   end
 end

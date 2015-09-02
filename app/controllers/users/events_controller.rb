@@ -15,7 +15,7 @@ class Users::EventsController < ApplicationController
 
   def edit
     unless validate_store_admin
-      flash[:warning] = "This is not your boat!"
+      flash[:warning] = "That's a bold move Cotton but this is not your boat!"
       redirect_to vendor_event_path
     end
 
