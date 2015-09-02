@@ -36,7 +36,7 @@ table a, a:hover{
 }
 
 .main-image {
-  background: url(image-path("blowd-up.jpg")) no-repeat center center;
+  background: url(image-path("ticket-banner.jpg")) no-repeat center center;
   -moz-background-size: cover;
   -o-background-size: cover;
   -webkit-background-size: cover;
@@ -48,16 +48,32 @@ table a, a:hover{
   font-weight: 400;
 }
 
+.navbar-brand{
+  font-family: "SF Sports Night";
+}
+
 .page-header {
   border: 0;
   color: #fff;
-  float: right;
   font-weight: 500;
+  margin-top: 10%;
+  text-shadow: 1px 1px 2px black;
+}
+
+.welcome-message {
+  color: #fff;
+  text-shadow: 1px 1px 2px black;
 }
 
 .featured {
   color: #000;
   float: none;
+  text-shadow: none;
+  margin-top: -.2%;
+}
+
+.featured-event {
+  margin-top: 5%;
 }
 
 #index-sports,
@@ -121,6 +137,10 @@ table a, a:hover{
 
 .product-card .img-responsive {
   margin-bottom: auto;
+}
+
+div .feature-card.thumbnail {
+  height: 425px;
 }
 
 .product-card.thumbnail {
@@ -326,4 +346,12 @@ footer {
 
 #shop-now {
   margin-left: 45%;
+}
+
+.new-account-btn {
+  margin-top: -7%;
+}
+
+.vendor-btn {
+  margin-bottom: 2%;
 }
