@@ -100,7 +100,7 @@ class ChargesController < ApplicationController
       "\n" \
       "Your order with Ocho Tickets has been processed and is on its way!" \
       "\n" \
-      " For reference, your order number(s) are: #{@order_ids.join(", ")}." \
+      " For reference, your order number(s) are: #{@order_ids.join(', ')}." \
       " Thank you for using Ocho Tickets!"
     ).deliver_later
   end
