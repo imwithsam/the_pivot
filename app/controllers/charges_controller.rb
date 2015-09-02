@@ -14,6 +14,7 @@ class ChargesController < ApplicationController
     )
 
     if payment_processor.make_payment
+      send_customer_email
       notify_boss
       flash[:success] = "Your payment was successful and your order is placed."
       redirect_to dashboard_path
@@ -27,6 +28,7 @@ class ChargesController < ApplicationController
 
   def create_order_for_vendors
     unique_vendor_ids = {}
+    @order_ids = []
 
     cart.cart_items.each do |cart_item|
       unique_vendor_ids[cart_item.user.id] = 0
@@ -55,6 +57,9 @@ class ChargesController < ApplicationController
           unit_price: vendor_event.price
         )
       end
+
+      send_vendor_email(User.find(vendor_id), order.id)
+      @order_ids << order.id
     end
   end
 
@@ -79,11 +84,38 @@ class ChargesController < ApplicationController
                                       ENV["twilio_auth_token"])
     client.messages.create(from: "5005550006",
                            to:   "3039002304",
-                           body: "You've received a $ order!")
+                           body: "You've received an order!")
   end
 
   def empty_cart
     session[:cart] = {}
     cart.clear
+  end
+
+  def send_customer_email
+    NotificationsMailer.contact(
+      current_user.email,
+      "Your order with Ocho Tickets",
+      "#{current_user.full_name}, " \
+      "\n" \
+      "Your order with Ocho Tickets has been processed and is on its way!" \
+      "\n" \
+      " For reference, your order number(s) are: #{@order_ids.join(", ")}." \
+      " Thank you for using Ocho Tickets!"
+    ).deliver_later
+  end
+
+  def send_vendor_email(vendor, order_id)
+    NotificationsMailer.contact(
+      vendor.email,
+      "A new order has been placed through Ocho Tickets",
+      "#{vendor.full_name}, " \
+      "\n" \
+      "A new order has been placed through Ocho Tickets by" \
+      " #{current_user.full_name}." \
+      "\n" \
+      " For reference, your order number is: #{order_id}." \
+      " Thank you for using Ocho Tickets!"
+    ).deliver_later
   end
 end
