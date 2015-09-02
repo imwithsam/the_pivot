@@ -23,7 +23,7 @@ feature "User can edit User info" do
                           zip_code:  "12345")
 
     reg_user_role = Role.create(name: "registered_user")
-    store_admin_role = Role.create(name: "store_admin")
+    Role.create(name: "store_admin")
     user.roles << reg_user_role
 
     allow_any_instance_of(ApplicationController)

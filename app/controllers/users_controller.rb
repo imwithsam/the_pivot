@@ -53,7 +53,6 @@ class UsersController < ApplicationController
     render :edit
   end
 
-
   private
 
   def update_to_vendor
@@ -81,5 +80,4 @@ class UsersController < ApplicationController
       @user.roles << Role.find_by(name: "registered_user")
     end
   end
-
 end
