@@ -12,16 +12,16 @@ class Seed
 
   def generate_roles
     platform_role = Role.create(
-    name: "platform_admin"
-    )
+      name: "platform_admin"
+      )
 
     store_role = Role.create(
-    name: "store_admin"
-    )
+      name: "store_admin"
+      )
 
     user_role = Role.create(
-    name: "registered_user"
-    )
+      name: "registered_user"
+      )
 
     admin = User.create(
       email: "jorge@turing.io",

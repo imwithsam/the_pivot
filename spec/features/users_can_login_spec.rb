@@ -46,7 +46,6 @@ feature "a user can login" do
     click_button "Login"
 
     expect(current_path).to eq(login_path)
-    
     within(".alert-warning") do
       expect(page).to have_content("That's a bold move Cotton. But You're
       unable to Login with this Email and Password combination.")
