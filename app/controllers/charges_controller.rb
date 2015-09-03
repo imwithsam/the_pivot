@@ -64,17 +64,6 @@ class ChargesController < ApplicationController
     total.to_i
   end
 
-  def add_events_to_order(id, cart)
-    cart.cart_items.each do |cart_item|
-      EventOrder.create(
-        order_id:   id,
-        event_id:   cart_item.id,
-        quantity:   cart_item.quantity,
-        unit_price: cart_item.price
-      )
-    end
-  end
-
   def notify_boss
     client = Twilio::REST::Client.new(ENV["twilio_account_sid"],
                                       ENV["twilio_auth_token"])
