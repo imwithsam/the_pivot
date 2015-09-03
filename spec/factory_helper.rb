@@ -27,6 +27,15 @@ def build_test_data
   email: "golick@example.com",
   password: "password")
 
+  @store_admin_1.addresses.create(
+    type_of: 0,
+    address_1: "123 Fake St",
+    address_2: "Apt 100",
+    city:      "Denver",
+    state:     "CO",
+    zip_code:  80101
+    )
+
   @store_admin_2 = User.create(
   first_name: "Jose",
   last_name: "Valim",
