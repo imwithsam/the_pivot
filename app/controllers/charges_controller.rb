@@ -37,23 +37,26 @@ class ChargesController < ApplicationController
   def create_order_for_vendors
     cart.cart_items.group_by(&:user).each do |vendor, vendors_cart|
       order = vendor.orders.create(
-        status:   "ordered",
-        customer: current_user
+        status:      "ordered",
+        customer_id: current_user.id
       )
 
       vendors_cart.each do |vendor_event|
         order.event_orders.create(
-          event:      vendor_event,
+          event_id:   vendor_event.id,
           quantity:   vendor_event.quantity,
           unit_price: vendor_event.price
         )
       end
-    end
 
-    NotificationsMailer.vendor_order(User.find(vendor_id),
+      send_vendor_orders_email(order, vendor)
+    end
+  end
+
+  def send_vendor_orders_email(order, vendor)
+    NotificationsMailer.vendor_order(User.find(vendor.id),
                                      current_user,
                                      order.id).deliver_later
-
   end
 
   def calculate_amount
