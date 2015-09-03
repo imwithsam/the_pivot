@@ -7,10 +7,12 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
+
     if @user.save
       assign_role
       new_account_notifications
-      session[:user_id] = @user.id
+      login_user
+
       flash[:success]   = "Welcome to The Ocho Tickets," \
         " #{@user.first_name} #{@user.last_name}!"
       redirect_to authenticated_user_paths(@user)
@@ -18,6 +20,10 @@ class UsersController < ApplicationController
       flash.now[:warning] = @user.errors.full_messages.join(". ")
       render :new
     end
+  end
+
+  def login_user
+    session[:user_id] = @user.id
   end
 
   def show
@@ -44,7 +50,7 @@ class UsersController < ApplicationController
       flash.now[:warning] =
         "Invalid password. Please re-enter to update your login info."
     elsif @user.update(user_params)
-      update_to_vendor_account if user_params[:role] == "1"
+      update_to_vendor_account if user_changing_role?
       flash.now[:success] = "Your account has been updated."
     else
       flash.now[:warning] = @user.errors.full_messages.join(". ")
@@ -53,6 +59,11 @@ class UsersController < ApplicationController
   end
 
   private
+
+  def user_changing_role?
+    checkbox_checked = "1"
+    user_params[:role] == checkbox_checked
+  end
 
   def update_to_vendor_account
     current_role = @user.roles.first
