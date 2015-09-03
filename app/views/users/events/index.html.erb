@@ -1,5 +1,6 @@
 <div class="container">
   <div class="page-header featured">
+    <% if !@event.nil? %>
     <h2> <%= @event.user.username %>'s Ticket Shop</h2>
     <h6> <%= @event.user.email %> </h6>
     <% if validate_store_admin && current_user.url == params[:vendor]%>
@@ -54,4 +55,13 @@
     })
   });
   </script>
-</div> <!-- /.container -->
+</div>
+<% else %>
+<h2> <%= current_user.username %>'s Ticket Shop</h2>
+<h6> <%= current_user.email %> </h6>
+<% if validate_store_admin && current_user.url == params[:vendor]%>
+<%= link_to "Create New Event", new_vendor_event_path,
+  class: "btn btn-primary btn-lg" %>
+<% end %>
+</div>
+<% end %><!-- /.container -->
