@@ -44,26 +44,6 @@ feature "Existing user places an order" do
       allow_any_instance_of(ApplicationController)
         .to receive(:cart).and_return(user_cart)
     end
-
-    xscenario "successfully places an order for two different products" do
-      visit cart_path
-      click_button("Checkout")
-
-      save_and_open_page
-      expect(current_path).to eq(orders_path)
-      within("h1") do
-        expect(page).to have_content("Orders")
-      end
-      expect(page).to have_content("Order was successfully placed!")
-      expect(page).to have_content("ordered")
-      expect(page).to have_content("$25.00")
-
-      visit cart_path
-      expect(current_path).to eq(cart_path)
-
-      expect(page).to_not have_content("event 1")
-      expect(page).to_not have_content("event 2")
-    end
   end
 
   context "as a visitor, before logging in" do

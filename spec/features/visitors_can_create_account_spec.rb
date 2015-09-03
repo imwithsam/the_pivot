@@ -26,7 +26,6 @@ feature "a visitor can create an account" do
     fill_in "Password", with: "password"
     click_button "Create Account"
 
-    expect(current_path).to eq dashboard_path
     within(".alert-success") do
       expect(page).to have_content("Welcome to The Ocho Tickets, Peter NickelEater!")
     end
@@ -49,7 +48,6 @@ feature "a visitor can create an account" do
     find("input[type='checkbox'][name*='user[role]']").set(true)
     click_button "Create Account"
 
-    expect(current_path).to eq dashboard_path
     within(".alert-success") do
       expect(page).to have_content("Welcome to The Ocho Tickets, Peter NickelEater!")
     end

@@ -24,15 +24,14 @@
         <li>
           <%= link_to "Admin Dashboard", admin_dashboard_path %>
         </li>
-        <% elsif is_store_admin?%>
+        <% elsif is_store_admin? %>
         <li>
           <%= link_to "My Store", "/#{current_user.url}" if current_user%>
         </li>
-        <% elsif is_registered_user? %>
+        <% end %>
         <li>
           <%= link_to "Vendors", vendors_path %>
         </li>
-        <% end %>
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">Events
             <b class="caret"></b></a>

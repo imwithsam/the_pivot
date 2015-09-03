@@ -23,22 +23,4 @@ class SessionsController < ApplicationController
   end
 
   private
-
-  def authenticated_user_paths(user)
-    if user.platform_admin?
-      return admin_dashboard_path
-    elsif can_make_purchases?(user) && has_events_in_cart?
-      return dashboard_path
-    else
-      return cart_path
-    end
-  end
-
-  def has_events_in_cart?
-    cart.cart_items.empty?
-  end
-
-  def can_make_purchases?(user)
-    user.registered_user? || user.store_admin?
-  end
 end
