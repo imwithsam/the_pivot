@@ -57,7 +57,7 @@
   </script>
 </div>
 <% else %>
-
+<h2>This Shop Has No Events!</h2>
 <% if validate_store_admin && current_user.url == params[:vendor]%>
 <div class = "row">
 <%= link_to "Create New Event", new_vendor_event_path,
