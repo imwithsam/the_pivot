@@ -70,11 +70,10 @@ RSpec.describe NotificationsMailer, type: :mailer do
       expect(email.subject).to eq("Welcome to Ocho Tickets!")
       email.body.parts.each do |part|
         expect(part.to_s).to include(
-                               "Welcome to Ocho Tickets, #{@store_admin_1.full_name}!")
+          "Welcome to Ocho Tickets, #{@store_admin_1.full_name}!")
         expect(part.to_s).to include(
-                               "log in with your email address (#{@store_admin_1.email}) and your password.")
+          "log in with your email address (#{@store_admin_1.email}) and your password.")
       end
     end
-
   end
 end

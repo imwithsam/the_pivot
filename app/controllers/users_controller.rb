@@ -89,5 +89,4 @@ class UsersController < ApplicationController
       NotificationsMailer.create_new_account(@user).deliver_later
     end
   end
-
 end
