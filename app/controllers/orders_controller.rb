@@ -4,6 +4,8 @@ class OrdersController < ApplicationController
 
   def show
     @order = Order.find(params[:id])
+    customer = User.find(Order.find(params[:id]).customer_id)
+    @addresses = customer.addresses
   end
 
   def update

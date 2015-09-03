@@ -5,6 +5,7 @@
     <h5 class="col-md-4 col-md-offset-5"><strong>Purchase Date/Time: </strong>
       <%= @order.created_at.strftime("%B %e, %Y at %l:%M %p") %>
     </h5>
+    <h5 class="col-md-3"><strong>Customer: </strong><%= User.find(@order.customer_id).full_name %></h5>
   </div>
 
   <br>
@@ -12,7 +13,7 @@
   <div class="row">
     <div class="col-md-6">
       <h5><strong>Billing Address</strong></h5>
-      <% @order.user.addresses.billing.each do |address| %>
+      <% @addresses.billing.each do |address| %>
         <p>
           <%= address.address_1 %><br>
           <% if address.address_2 %>
@@ -26,7 +27,7 @@
     </div>
     <div class="col-md-6">
       <h5><strong>Shipping Address</strong></h5>
-      <% @order.user.addresses.shipping.each do |address| %>
+      <% @addresses.shipping.each do |address| %>
       <p>
         <%= address.address_1 %><br>
         <% if address.address_2 %>
