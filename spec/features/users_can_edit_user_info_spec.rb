@@ -3,31 +3,31 @@ require "rails_helper"
 feature "User can edit User info" do
   before do
     user = User.create(first_name: "Jane",
-    last_name:  "Doe",
-    username:   "Jane's Shop",
-    email:      "jane@doe.com",
-    password:   "password")
+      last_name:  "Doe",
+      username:   "Jane's Shop",
+      email:      "jane@doe.com",
+      password:   "password")
 
     user.addresses.create(type_of:   0,
-    address_1: "1313 Mockingbird Ln",
-    address_2: "Ste 13",
-    city:      "Walla Walla",
-    state:     "PA",
-    zip_code:  "13131")
+      address_1: "1313 Mockingbird Ln",
+      address_2: "Ste 13",
+      city:      "Walla Walla",
+      state:     "PA",
+      zip_code:  "13131")
 
     user.addresses.create(type_of:   1,
-    address_1: "123 Sesame St",
-    address_2: "Apt 123",
-    city:      "New York",
-    state:     "NY",
-    zip_code:  "12345")
+      address_1: "123 Sesame St",
+      address_2: "Apt 123",
+      city:      "New York",
+      state:     "NY",
+      zip_code:  "12345")
 
     reg_user_role = Role.create(name: "registered_user")
     Role.create(name: "store_admin")
     user.roles << reg_user_role
 
     allow_any_instance_of(ApplicationController)
-    .to receive(:current_user).and_return(user)
+      .to receive(:current_user).and_return(user)
 
     visit dashboard_path
     click_link "Edit Account"
@@ -169,7 +169,6 @@ feature "User can edit User info" do
       expect(find_field("address_zip_code").value).to eq("80223")
     end
   end
-
 
   scenario "cannot update while not logged in" do
     allow_any_instance_of(ApplicationController)
