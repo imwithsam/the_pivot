@@ -29,7 +29,6 @@ feature "Admin can view all events from Admin Dashboard" do
   end
 
   scenario "Admin clicks on View All Events and sees all events" do
-
     click_link "View All Events"
 
     expect(current_path).to eq(admin_events_path)
@@ -51,8 +50,8 @@ feature "Admin can view all events from Admin Dashboard" do
       expect(page).to have_link("edit")
     end
   end
-  scenario "Admin clicks on edit button and can edit that event" do
 
+  scenario "Admin clicks on edit button and can edit that event" do
     click_link "View All Events"
 
     within("tr", text: @event_1.description) do
