@@ -68,4 +68,52 @@ feature "User can create User info" do
       expect(find_field("address_zip_code").value).to eq("80223")
     end
   end
+
+  scenario "user receives error after submitting invalid account data" do
+    click_button "Create Account"
+
+    within(".alert-warning") do
+      expect(page).to have_content("First name can't be blank")
+      expect(page).to have_content("Last name can't be blank")
+      expect(page).to have_content("Email can't be blank")
+      expect(page).to have_content("Email is invalid")
+      expect(page).to have_content("Password can't be blank")
+      expect(page).to have_content("Password is too short")
+    end
+  end
+
+  scenario "user receives error after submitting invalid address data" do
+    find('input[type="text"][name*="user[first_name]"]').set("Janes")
+    find('input[type="text"][name*="user[last_name]"]').set("Doeb")
+    find('input[type="text"][name*="user[username]"]').set("Janes's Shop")
+    find('input[type="text"][name*="user[email]"]').set("jane98@doe.com")
+    find('input[type="password"][name*="user[password]"]').set("password")
+    click_button "Create Account"
+    click_link "Edit Account"
+    click_link "Add Address"
+
+    select "Billing", from: "address[type_of]"
+    click_button "Add Address"
+
+    within(".alert-warning") do
+      expect(page).to have_content("Address 1 can't be blank")
+      expect(page).to have_content("City can't be blank")
+      expect(page).to have_content("State can't be blank")
+      expect(page).to have_content("Zip code can't be blank")
+      expect(page).to have_content("Zip code is not a number")
+      expect(page).to have_content("Zip code is too short")
+    end
+
+    select "Shipping", from: "address[type_of]"
+    click_button "Add Address"
+
+    within(".alert-warning") do
+      expect(page).to have_content("Address 1 can't be blank")
+      expect(page).to have_content("City can't be blank")
+      expect(page).to have_content("State can't be blank")
+      expect(page).to have_content("Zip code can't be blank")
+      expect(page).to have_content("Zip code is not a number")
+      expect(page).to have_content("Zip code is too short")
+    end
+  end
 end

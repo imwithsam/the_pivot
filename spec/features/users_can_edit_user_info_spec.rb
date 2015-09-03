@@ -139,4 +139,79 @@ feature "User can edit User info" do
       expect(find_field("address_zip_code").value).to eq("80223")
     end
   end
+
+  scenario "receives error after submitting Login Info with invalid password" do
+    within("#login-info") do
+      find('input[type="text"][name*="user[first_name]"]').set("John")
+      find('input[type="text"][name*="user[last_name]"]').set("Doh")
+      find('input[type="text"][name*="user[email]"]').set("john@doh.com")
+      find('input[type="password"][name*="user[password]"]').set("password1")
+      find('input[type="checkbox"][name*="user[role]"]').set(true)
+      click_button "Update Login Info"
+    end
+
+    within(".alert-warning") do
+      expect(page).to have_content(
+        "Invalid password. Please re-enter to update your login info.")
+    end
+    expect(find_field("user_first_name").value).to eq("Jane")
+    expect(find_field("user_last_name").value).to eq("Doe")
+    expect(find_field("user_email").value).to eq("jane@doe.com")
+    expect(has_checked_field?("user_role")).to eq(false)
+  end
+
+  scenario "receives error after submitting invalid Login Info with correct password" do
+    within("#login-info") do
+      find('input[type="text"][name*="user[first_name]"]').set("")
+      find('input[type="text"][name*="user[last_name]"]').set("")
+      find('input[type="text"][name*="user[email]"]').set("")
+      find('input[type="password"][name*="user[password]"]').set("password")
+      click_button "Update Login Info"
+    end
+
+    within(".alert-warning") do
+      expect(page).to have_content("First name can't be blank")
+      expect(page).to have_content("Last name can't be blank")
+      expect(page).to have_content("Email can't be blank")
+      expect(page).to have_content("Email is invalid")
+    end
+  end
+
+  scenario "receives error after submitting invalid Billing Address data" do
+    within("#billing-info") do
+      find('input[type="text"][name*="address[address_1]"]').set("")
+      find('input[type="text"][name*="address[city]"]').set("")
+      find('input[type="text"][name*="address[state]"]').set("")
+      find('input[type="text"][name*="address[zip_code]"]').set("")
+      click_button "Update Billing Address"
+    end
+
+    within(".alert-warning") do
+      expect(page).to have_content("Address 1 can't be blank")
+      expect(page).to have_content("City can't be blank")
+      expect(page).to have_content("State can't be blank")
+      expect(page).to have_content("Zip code can't be blank")
+      expect(page).to have_content("Zip code is not a number")
+      expect(page).to have_content("Zip code is too short")
+    end
+  end
+
+  scenario "receives error after submitting invalid Shipping Address data" do
+    within("#shipping-info") do
+      find('input[type="text"][name*="address[address_1]"]').set("")
+      find('input[type="text"][name*="address[city]"]').set("")
+      find('input[type="text"][name*="address[state]"]').set("")
+      find('input[type="text"][name*="address[zip_code]"]').set("")
+      click_button "Update Shipping Address"
+    end
+
+    within(".alert-warning") do
+      expect(page).to have_content("Address 1 can't be blank")
+      expect(page).to have_content("City can't be blank")
+      expect(page).to have_content("State can't be blank")
+      expect(page).to have_content("Zip code can't be blank")
+      expect(page).to have_content("Zip code is not a number")
+      expect(page).to have_content("Zip code is too short")
+    end
+  end
 end
