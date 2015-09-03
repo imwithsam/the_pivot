@@ -11,21 +11,17 @@
     <div id="billing-address" class="col-sm-4">
       <% current_user.addresses.billing.each do |billing| %>
       <h4>Billing Address</h4>
-      <p><%= billing.address_1 %></p>
-      <p><%= billing.address_2 %></p>
-      <p><%= billing.city %></p>
-      <p><%= billing.state %></p>
-      <p><%= billing.zip_code %></p>
+      <h6><%= billing.address_1 %></h6>
+      <h6><%= billing.address_2 %></h6>
+      <h6><%= billing.city %>, <%= billing.state %> <%= billing.zip_code %></h6>
       <% end %>
     </div>
     <div id="shipping-address" class="col-sm-4">
       <% current_user.addresses.shipping.each do |shipping| %>
       <h4>Shipping Address</h4>
-      <p><%= shipping.address_1 %></p>
-      <p><%= shipping.address_2 %></p>
-      <p><%= shipping.city %></p>
-      <p><%= shipping.state %></p>
-      <p><%= shipping.zip_code %></p>
+      <h6><%= shipping.address_1 %></h6>
+      <h6><%= shipping.address_2 %></h6>
+      <h6><%= shipping.city %>, <%= shipping.state %> <%= shipping.zip_code %></h6>
       <% end %>
     </div>
   </div>

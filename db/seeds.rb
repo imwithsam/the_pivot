@@ -50,6 +50,60 @@ class Seed
       role: 0
       )
 
+    admin.addresses.create(
+      type_of: 0,
+      address_1: Faker::Address.street_address,
+      address_2: Faker::Address.secondary_address,
+      city:      Faker::Address.city,
+      state:     Faker::Address.state_abbr,
+      zip_code:  Faker::Address.zip_code.to_i
+    )
+
+    admin.addresses.create(
+      type_of: 1,
+      address_1: Faker::Address.street_address,
+      address_2: Faker::Address.secondary_address,
+      city:      Faker::Address.city,
+      state:     Faker::Address.state_abbr,
+      zip_code:  Faker::Address.zip_code.to_i
+    )
+
+    vendor.addresses.create(
+      type_of: 0,
+      address_1: Faker::Address.street_address,
+      address_2: Faker::Address.secondary_address,
+      city:      Faker::Address.city,
+      state:     Faker::Address.state_abbr,
+      zip_code:  Faker::Address.zip_code.to_i
+    )
+
+    vendor.addresses.create(
+      type_of: 1,
+      address_1: Faker::Address.street_address,
+      address_2: Faker::Address.secondary_address,
+      city:      Faker::Address.city,
+      state:     Faker::Address.state_abbr,
+      zip_code:  Faker::Address.zip_code.to_i
+    )
+
+    user.addresses.create(
+      type_of: 0,
+      address_1: Faker::Address.street_address,
+      address_2: Faker::Address.secondary_address,
+      city:      Faker::Address.city,
+      state:     Faker::Address.state_abbr,
+      zip_code:  Faker::Address.zip_code.to_i
+    )
+
+    user.addresses.create(
+      type_of: 1,
+      address_1: Faker::Address.street_address,
+      address_2: Faker::Address.secondary_address,
+      city:      Faker::Address.city,
+      state:     Faker::Address.state_abbr,
+      zip_code:  Faker::Address.zip_code.to_i
+    )
+
     admin.roles << platform_role
     vendor.roles << store_role
     user.roles << user_role
@@ -108,7 +162,7 @@ class Seed
   end
 
   def generate_users
-    99.times do |i|
+    100.times do |i|
       user = User.create!(
         username: Faker::Internet.user_name,
         email: Faker::Internet.email,
@@ -121,6 +175,24 @@ class Seed
       else
         user.roles << Role.find_by(name: "registered_user")
       end
+
+      user.addresses.create!(
+        type_of: 0,
+        address_1: Faker::Address.street_address,
+        address_2: Faker::Address.secondary_address,
+        city:      Faker::Address.city,
+        state:     Faker::Address.state_abbr,
+        zip_code:  Faker::Address.zip_code.to_i
+      )
+
+      user.addresses.create!(
+        type_of: 1,
+        address_1: Faker::Address.street_address,
+        address_2: Faker::Address.secondary_address,
+        city:      Faker::Address.city,
+        state:     Faker::Address.state_abbr,
+        zip_code:  Faker::Address.zip_code.to_i
+      )
       puts "User #{i}: #{user.username} - #{user.email} created!"
     end
   end
