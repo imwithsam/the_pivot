@@ -92,6 +92,17 @@ describe Cart do
       cart.delete_item(event)
       expect(cart.data).to eq({})
     end
+
+    it "removes the event from data using the clear method" do
+      input_data = {}
+      input_data[event.id.to_s] = 2
+      cart = Cart.new(input_data)
+
+      expect(cart.data).to eq(event.id.to_s => 2)
+
+      cart.clear
+      expect(cart.data).to eq({})
+    end
   end
 
   context "#total_price" do

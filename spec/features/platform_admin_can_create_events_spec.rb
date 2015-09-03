@@ -71,4 +71,15 @@ feature "an admin can create events" do
 
     expect(page).to have_css("img[src*='default_image.jpg']")
   end
+
+  scenario "admin cannot create a new event with invalid parameters" do
+    fill_in "Name", with: ""
+    fill_in "Description", with: ""
+    fill_in "Price", with: ""
+    select "Sports", from: "event[category_id]"
+    click_button "Add Event"
+
+    expect(current_path).to eq(admin_events_path)
+    expect(page).to have_content("Bold move Cotton but those are Invalid Parameters!")
+  end
 end
