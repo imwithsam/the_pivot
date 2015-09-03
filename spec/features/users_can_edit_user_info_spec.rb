@@ -172,7 +172,7 @@ feature "User can edit User info" do
 
   scenario "cannot update while not logged in" do
     allow_any_instance_of(ApplicationController)
-    .to receive(:current_user).and_return(nil)
+      .to receive(:current_user).and_return(nil)
 
     visit account_edit_path
 
