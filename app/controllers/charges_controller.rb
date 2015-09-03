@@ -1,17 +1,14 @@
 class ChargesController < ApplicationController
   def create
-    # Amount in cents
-    @amount = calculate_amount
-
     create_order_for_vendors
-
-    empty_cart
 
     payment_processor = PaymentProcessor.new(
       current_user.email,
       params[:stripeToken],
-      @amount
+      calculate_amount
     )
+
+    empty_cart
 
     if payment_processor.make_payment
       send_notifications
@@ -34,29 +31,39 @@ class ChargesController < ApplicationController
     NotificationsMailer.customer_order(current_user, @order_ids).deliver_later
   end
 
-  def create_order_for_vendors
-    cart.cart_items.group_by(&:user).each do |vendor, vendors_cart|
-      order = vendor.orders.create(
-        status:      "ordered",
-        customer_id: current_user.id
-      )
-
-      vendors_cart.each do |vendor_event|
-        order.event_orders.create(
-          event_id:   vendor_event.id,
-          quantity:   vendor_event.quantity,
-          unit_price: vendor_event.price
-        )
-      end
-
-      send_vendor_orders_email(order, vendor)
-    end
-  end
-
-  def send_vendor_orders_email(order, vendor)
+  def send_vendor_order_email(order, vendor)
     NotificationsMailer.vendor_order(User.find(vendor.id),
                                      current_user,
                                      order.id).deliver_later
+  end
+
+  def create_order_for_vendors
+    cart.cart_items.group_by(&:user).each do |vendor, vendors_cart|
+      order = create_order(vendor)
+      @order_ids = []
+      @order_ids << order.id
+
+      vendors_cart.each do |vendor_event|
+        add_events_to_order(order, vendor_event)
+      end
+
+      send_vendor_order_email(order, vendor)
+    end
+  end
+
+  def add_events_to_order(order, event)
+    order.event_orders.create(
+      event_id:   event.id,
+      quantity:   event.quantity,
+      unit_price: event.price
+    )
+  end
+
+  def create_order(vendor)
+    vendor.orders.create(
+      status:      "ordered",
+      customer_id: current_user.id
+    )
   end
 
   def calculate_amount
