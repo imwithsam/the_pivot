@@ -6,7 +6,8 @@
     <h5 class="col-md-4 col-md-offset-5"><strong>Purchase Date/Time: </strong>
       <%= @order.created_at.strftime("%B %e, %Y at %l:%M %p") %>
     </h5>
-  </div> <!-- /row -->
+  </div>
+  <!-- /row -->
   <br/>
   <h5><strong>User:</strong> <%= @order.user.full_name %></h5>
   <button onClick="call()">Make Call</button>
@@ -29,18 +30,19 @@
     <div class="col-md-6">
       <h5><strong>Shipping Address</strong></h5>
       <% @order.user.addresses.shipping.each do |address| %>
-      <p>
-        <%= address.address_1 %><br>
-        <% if address.address_2 %>
-          <%= address.address_2 %><br>
-        <% end %>
-        <%= address.city %>,
-        <%= address.state %>
-        <%= address.zip_code %>
-      </p>
+        <p>
+          <%= address.address_1 %><br>
+          <% if address.address_2 %>
+            <%= address.address_2 %><br>
+          <% end %>
+          <%= address.city %>,
+          <%= address.state %>
+          <%= address.zip_code %>
+        </p>
       <% end %>
     </div>
-  </div><!-- /row -->
+  </div>
+  <!-- /row -->
 
   <br><br>
 
@@ -50,25 +52,28 @@
       <% if @order.status == "cancelled" || @order.status == "completed" %>
         <div class="other-notes well">
           <h5><strong>Other Notes:</strong></h5>
+
           <p>
             This order was <%= @order.status %>
-            on <%= @order.updated_at.strftime("%B %e, %Y at %l:%M %p")%>.
+            on <%= @order.updated_at.strftime("%B %e, %Y at %l:%M %p") %>.
           </p>
         </div>
       <% end %>
-    </div> <!-- /.table -->
-  </div> <!-- /.row -->
+    </div>
+    <!-- /.table -->
+  </div>
+  <!-- /.row -->
 </div><!-- /.container -->
 
 <script type="text/javascript" src="//static.twilio.com/libs/twiliojs/1.2/twilio.min.js"></script>
 
 <script>
-// works on IE9 and above
-document.addEventListener("DOMContentLoaded", function(event) {
+  // works on IE9 and above
+  document.addEventListener("DOMContentLoaded", function(event) {
     Twilio.Device.setup("<%= @token %>");
-});
+  });
 
-function call() {
+  function call() {
     Twilio.Device.connect({id: 123});
-}
+  }
 </script>

@@ -1,7 +1,10 @@
 <% if @event.inactive? %>
-  <%= button_to "Retired", {}, class: "btn btn-primary btn-lg",
+  <%= button_to "Retired",
+                {},
+                class:    "btn btn-primary btn-lg",
                 disabled: "disabled" %>
 <% else %>
-  <%= button_to "Add to Cart", cart_items_path(event_id: @event.id),
+  <%= button_to "Add to Cart",
+                cart_items_path(event_id: @event.id),
                 class: "btn btn-primary btn-lg" %>
 <% end %>

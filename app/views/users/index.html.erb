@@ -4,24 +4,28 @@
   </div>
   <div class="row">
     <% @users.each do |user| %>
-    <div class="col-sm-4 col-lg-4 col-md-4">
-      <a href="/<%=user.url%>">
-        <div class="product-card thumbnail">
-          <%= image_tag user.events.first.image_url, class: "img-responsive",
-          alt: "#{user.events.first.name} image" %>
-          <div class="caption">
-            <h4><%= user.username %></h4>
-            <p><%= user.email %></p>
-            <div class="clearfix btm-right">
-              <%= button_to "Shop Now!", "/#{user.url}", method: :get,
-              class: "btn btn-primary btn-sm pull-right" %>
+      <div class="col-sm-4 col-lg-4 col-md-4">
+        <a href="/<%= user.url %>">
+          <div class="product-card thumbnail">
+            <%= image_tag user.events.first.image_url,
+                          class: "img-responsive",
+                          alt:   "#{user.events.first.name} image" %>
+            <div class="caption">
+              <h4><%= user.username %></h4>
 
+              <p><%= user.email %></p>
 
+              <div class="clearfix btm-right">
+                <%= button_to "Shop Now!",
+                              "/#{user.url}",
+                              method: :get,
+                              class:  "btn btn-primary btn-sm pull-right" %>
+              </div>
             </div>
           </div>
-        </div>
-      </a>
-    </div>
+        </a>
+      </div>
     <% end %>
-  </div> <!-- end row -->
+  </div>
+  <!-- end row -->
 </div> <!-- end container -->
