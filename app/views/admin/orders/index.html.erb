@@ -4,6 +4,7 @@
     <li class="active">All Orders</li>
   </ol>
   <h3 class="text-center">All Orders</h3>
+
   <div class="row">
     <div class="col-md-6 col-md-offset-3">
       <ul class="nav nav-pills" role="tablist">
@@ -22,40 +23,42 @@
         <% end %>
       </ul>
     </div>
-  </div> <!-- /row -->
+  </div>
+  <!-- /row -->
   <br>
+
   <div class="table-responsive">
     <table class="table table-hover sort">
       <thead>
-        <tr>
-          <th>Order ID</th>
-          <th>Status</th>
-          <th>Total</th>
-          <th>Placed On</th>
-          <th>Change Status To</th>
-        </tr>
+      <tr>
+        <th>Order ID</th>
+        <th>Status</th>
+        <th>Total</th>
+        <th>Placed On</th>
+        <th>Change Status To</th>
+      </tr>
       </thead>
       <tbody>
-        <% @orders.send(@status).each do |order| %>
-          <tr>
-            <td>
-              <a href="<%= admin_order_path(order) %>"> # <%= order.id %>
+      <% @orders.send(@status).each do |order| %>
+        <tr>
+          <td>
+            <a href="<%= admin_order_path(order) %>"> # <%= order.id %>
             </a>
-            </td>
-            <td class="order-status"><%= order.status.to_s.capitalize %></td>
-            <td><%= number_to_currency(order.total) %></td>
-            <td><%= order.created_at.strftime("%B %e, %Y at %l:%M %p") %></td>
-            <td>
-              <% order.available_status_transitions.each do |transition| %>
-                <%= link_to transition.capitalize,
-                            admin_order_path(id: order.id,
-                                             status: transition),
-                                             method: :patch %>
+          </td>
+          <td class="order-status"><%= order.status.to_s.capitalize %></td>
+          <td><%= number_to_currency(order.total) %></td>
+          <td><%= order.created_at.strftime("%B %e, %Y at %l:%M %p") %></td>
+          <td>
+            <% order.available_status_transitions.each do |transition| %>
+              <%= link_to transition.capitalize,
+                          admin_order_path(id:     order.id,
+                                           status: transition),
+                          method: :patch %>
 
             <% end %>
-            </td>
-          </tr>
-        <% end %>
+          </td>
+        </tr>
+      <% end %>
       </tbody>
     </table>
 

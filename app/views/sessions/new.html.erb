@@ -1,19 +1,22 @@
 <div class="container">
   <h3 class="text-center">Welcome Back to The Ocho Tickets!</h3>
+
   <p class="lead text-center">Login</p>
+
   <div class="well col-sm-6 col-sm-offset-3">
     <%= form_for(:session, url: login_path) do |f| %>
-    <div class="form-group">
-      <%= f.label :email %>
-      <%= f.text_field :email, class: "form-control" %>
-    </div>
-    <div class="form-group">
-      <%= f.label :password, "Password (min 8 characters)" %>
-      <%= f.password_field :password, class: "form-control" %>
-    </div>
+      <div class="form-group">
+        <%= f.label :email %>
+        <%= f.text_field :email, class: "form-control" %>
+      </div>
+      <div class="form-group">
+        <%= f.label :password, "Password (min 8 characters)" %>
+        <%= f.password_field :password, class: "form-control" %>
+      </div>
       <%= f.submit "Login", class: "btn btn-success" %>
     <% end %>
-    <%= link_to "Create New Account", account_new_path,
+    <%= link_to "Create New Account",
+                account_new_path,
                 class: "btn btn-primary btn-md pull-right new-account-btn" %>
   </div>
 </div>

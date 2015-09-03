@@ -1,41 +1,42 @@
 <div class="container">
   <h1 class="text-center">Add a New Event</h1>
+
   <div class="well col-sm-6 col-sm-offset-3">
     <%= form_for @event, :url => vendor_events_path do |f| %>
-    <div class="form-group">
-      <%= f.label :name %>
-      <%= f.text_field :name, class: "form-control" %>
-    </div>
-    <div class="form-group">
-      <%= f.label :description %>
-      <%= f.text_field :description, class: "form-control" %>
-    </div>
-    <div class="form-group">
-      <%= f.label :price %>
-      <%= f.text_field :price, class: "form-control" %>
-    </div>
-    <div class="form-group">
-      <%= f.label :venue %>
-      <%= f.text_field :venue, class: "form-control" %>
-    </div>
-    <div class="form-group">
-      <%= f.label :event_date %>
-      <%= f.date_field :event_date, class: "form-control" %>
-    </div>
-    <div class="form-group">
-      <%= f.label :category %>
-      <%= collection_select :event, :category_id, Category.all, :id, :name,
-                            {}, { class: "form-control" } %>
-    </div>
-    <div class="form-group">
-      <%= f.label :status, "Status" %>
-      <%= f.select :status, [["Active", "active"], ["Retired", "inactive"]], {},
-                   { class: "form-control", id: "event_form_status" } %>
-    </div>
-    <div class="form-group">
-      <%= f.label :image_url, "Image Url" %>
-      <%= f.text_field :image_url, class: "form-control" %>
-    </div>
+      <div class="form-group">
+        <%= f.label :name %>
+        <%= f.text_field :name, class: "form-control" %>
+      </div>
+      <div class="form-group">
+        <%= f.label :description %>
+        <%= f.text_field :description, class: "form-control" %>
+      </div>
+      <div class="form-group">
+        <%= f.label :price %>
+        <%= f.text_field :price, class: "form-control" %>
+      </div>
+      <div class="form-group">
+        <%= f.label :venue %>
+        <%= f.text_field :venue, class: "form-control" %>
+      </div>
+      <div class="form-group">
+        <%= f.label :event_date %>
+        <%= f.date_field :event_date, class: "form-control" %>
+      </div>
+      <div class="form-group">
+        <%= f.label :category %>
+        <%= collection_select :event, :category_id, Category.all, :id, :name,
+                              {}, { class: "form-control" } %>
+      </div>
+      <div class="form-group">
+        <%= f.label :status, "Status" %>
+        <%= f.select :status, [["Active", "active"], ["Retired", "inactive"]], {},
+                     { class: "form-control", id: "event_form_status" } %>
+      </div>
+      <div class="form-group">
+        <%= f.label :image_url, "Image Url" %>
+        <%= f.text_field :image_url, class: "form-control" %>
+      </div>
       <%= f.submit "Add Event", class: "btn btn-success" %>
     <% end %>
   </div>

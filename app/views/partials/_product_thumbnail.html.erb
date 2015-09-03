@@ -1,19 +1,25 @@
 <div class="col-sm-4 col-lg-4 col-md-4">
   <a href="<%= vendor_event_path(vendor: event.user.url, id: event.id) %>">
     <div class="product-card thumbnail">
-      <%= image_tag event.image_url, class: "img-responsive",
-                    alt: "#{event.name} image" %>
+      <%= image_tag event.image_url,
+                    class: "img-responsive",
+                    alt:   "#{event.name} image" %>
       <div class="caption">
         <h4 class="pull-right"><%= number_to_currency(event.price) %></h4>
         <h4><%= event.name %></h4>
+
         <p><%= event.description %></p>
+
         <div class="clearfix btm-right">
           <% if event.inactive? %>
-          <%= button_to "Retired", {}, class: "btn btn-primary btn-lg",
-              disabled: "disabled" %>
+            <%= button_to "Retired",
+                          {},
+                          class:    "btn btn-primary btn-lg",
+                          disabled: "disabled" %>
           <% else %>
-          <%= button_to "Add to Cart", cart_items_path(event_id: event.id),
-              class: "btn btn-primary btn-sm pull-right" %>
+            <%= button_to "Add to Cart",
+                          cart_items_path(event_id: event.id),
+                          class: "btn btn-primary btn-sm pull-right" %>
           <% end %>
         </div>
       </div>
