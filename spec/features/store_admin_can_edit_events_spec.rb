@@ -26,6 +26,16 @@ feature "a store admin can edit events" do
     expect(page).to have_field("event_form_image_url", with: @event_1.image_url)
   end
 
+  scenario "cannot edit the event with invalid parameters" do
+    visit edit_vendor_event_path(vendor: @store_admin_1.url, id: @event_1.id)
+
+    fill_in "event_form_name", with: ""
+    click_button("Edit Event")
+
+    expect(page).to have_content("Please enter valid parameters.")
+    expect(current_path).to eq(vendor_event_path(vendor: @store_admin_1.url, id: @event_1.id))
+  end
+
   scenario "can edit his/her own event" do
     visit edit_vendor_event_path(vendor: @store_admin_1.url, id: @event_1.id)
 

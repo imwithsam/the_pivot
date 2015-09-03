@@ -24,10 +24,14 @@ class Users::EventsController < ApplicationController
 
   def update
     @event.update(event_params)
-    flash[:success] = "#{@event.name} has been updated."
-    redirect_to vendor_event_path
+    if @event.save
+      flash[:success] = "#{@event.name} has been updated."
+      redirect_to vendor_event_path
+    else
+      flash[:warning] = "Please enter valid parameters."
+      render :edit
+    end
   end
-
   def new
     @event = Event.new
   end
@@ -54,14 +58,14 @@ class Users::EventsController < ApplicationController
 
   def event_params
     params.require(:event).permit(:name,
-                                  :description,
-                                  :price,
-                                  :image_url,
-                                  :category_id,
-                                  :status,
-                                  :user_id,
-                                  :venue,
-                                  :event_date)
+    :description,
+    :price,
+    :image_url,
+    :category_id,
+    :status,
+    :user_id,
+    :venue,
+    :event_date)
   end
 
   def set_event
