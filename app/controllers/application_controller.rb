@@ -36,5 +36,23 @@ class ApplicationController < ActionController::Base
     current_user && current_user.url == params[:vendor] if params[:vendor]
   end
 
+  def authenticated_user_paths(user)
+    if user.platform_admin?
+      return admin_dashboard_path
+    elsif can_make_purchases?(user) && has_events_in_cart?
+      return cart_path
+    else
+      return dashboard_path
+    end
+  end
+
+  def has_events_in_cart?
+    !cart.cart_items.empty?
+  end
+
+  def can_make_purchases?(user)
+    user.registered_user? || user.store_admin?
+  end
+
   helper_method :current_user, :cart, :validate_store_admin
 end

@@ -13,7 +13,7 @@ class UsersController < ApplicationController
       session[:user_id] = @user.id
       flash[:success]   = "Welcome to The Ocho Tickets," \
         " #{@user.first_name} #{@user.last_name}!"
-      redirect_to dashboard_path
+      redirect_to authenticated_user_paths(@user)
     else
       flash.now[:warning] = @user.errors.full_messages.join(". ")
       render :new
