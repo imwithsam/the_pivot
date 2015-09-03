@@ -14,9 +14,7 @@ class ChargesController < ApplicationController
     )
 
     if payment_processor.make_payment
-      NotificationsMailer.customer_order(current_user,
-                                         @order_ids).deliver_later
-      notify_boss
+      send_notifications
       flash[:success] = "Your payment was successful and your order is placed."
       redirect_to dashboard_path
     else
@@ -27,44 +25,35 @@ class ChargesController < ApplicationController
 
   private
 
+  def send_notifications
+    notify_boss
+    email_customer
+  end
+
+  def email_customer
+    NotificationsMailer.customer_order(current_user, @order_ids).deliver_later
+  end
+
   def create_order_for_vendors
-    unique_vendor_ids = {}
-    @order_ids = []
-
-    cart.cart_items.each do |cart_item|
-      unique_vendor_ids[cart_item.user.id] = 0
-    end
-
-    unique_vendor_ids.each_key do |vendor_id|
-      order = Order.create(
-        user_id: vendor_id,
-        status:  "ordered",
-        customer_id: current_user.id
+    cart.cart_items.group_by(&:user).each do |vendor, vendors_cart|
+      order = vendor.orders.create(
+        status:   "ordered",
+        customer: current_user
       )
 
-      vendors_cart = []
-
-      cart.cart_items.each do |item|
-        if item.user_id.eql?(vendor_id)
-          vendors_cart << item
-        end
-      end
-
       vendors_cart.each do |vendor_event|
-        EventOrder.create(
-          order_id:   order.id,
-          event_id:   vendor_event.id,
+        order.event_orders.create(
+          event:      vendor_event,
           quantity:   vendor_event.quantity,
           unit_price: vendor_event.price
         )
       end
-
-      NotificationsMailer.vendor_order(User.find(vendor_id),
-                                       current_user,
-                                       order.id).deliver_later
-
-      @order_ids << order.id
     end
+
+    NotificationsMailer.vendor_order(User.find(vendor_id),
+                                     current_user,
+                                     order.id).deliver_later
+
   end
 
   def calculate_amount
