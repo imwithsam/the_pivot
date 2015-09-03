@@ -6,6 +6,26 @@ class Admin::UsersController < Admin::BaseController
     @vendors = User.all.select{|user| user.store_admin? }
   end
 
+  def new
+    @vendor = User.new
+  end
+
+  def create
+    @vendor = User.new(vendor_params)
+
+    if @vendor.save
+      assign_role
+      new_account_notifications
+
+      flash[:success]   = "Welcome to The Ocho Tickets," \
+        " #{@vendor.first_name} #{@vendor.last_name}!"
+      redirect_to admin_users_path
+    else
+      flash.now[:warning] = @vendor.errors.full_messages.join(". ")
+      render :new
+    end
+  end
+
   def edit
   end
 
@@ -41,5 +61,21 @@ class Admin::UsersController < Admin::BaseController
   def find_addresses
     @billing  = @vendor.addresses.billing.last
     @shipping = @vendor.addresses.shipping.last
+  end
+
+  def assign_role
+    if params[:user][:role].eql?("1")
+      @vendor.roles << Role.find_by(name: "store_admin")
+    else
+      @vendor.roles << Role.find_by(name: "registered_user")
+    end
+  end
+
+  def new_account_notifications
+    if @vendor.store_admin?
+      NotificationsMailer.create_vendor_account(@vendor).deliver_later
+    else
+      NotificationsMailer.create_new_account(@vendor).deliver_later
+    end
   end
 end
