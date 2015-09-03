@@ -60,4 +60,20 @@ RSpec.describe NotificationsMailer, type: :mailer do
       end
     end
   end
+
+  describe "#create_vendor_account" do
+    it "sends a new account creation confiramtion email" do
+      NotificationsMailer.create_vendor_account(@store_admin_1).deliver_later
+      email = ActionMailer::Base.deliveries.last
+
+      expect(email.to).to include(@store_admin_1.email)
+      expect(email.subject).to eq("Welcome to Ocho Tickets!")
+      email.body.parts.each do |part|
+        expect(part.to_s).to include(
+          "Welcome to Ocho Tickets, #{@store_admin_1.full_name}!")
+        expect(part.to_s).to include(
+          "log in with your email address (#{@store_admin_1.email}) and your password.")
+      end
+    end
+  end
 end

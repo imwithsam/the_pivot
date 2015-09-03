@@ -32,6 +32,14 @@ class NotificationsMailer < ApplicationMailer
     )
   end
 
-  # TODO: Put Become a Vendor Email here
+  def create_vendor_account(vendor)
+    @vendor = vendor
+    subject = "Welcome to Ocho Tickets!"
+
+    mail(
+      to: @vendor.email,
+      subject: subject
+    )
+  end
 
 end
