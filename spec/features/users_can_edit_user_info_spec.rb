@@ -3,24 +3,24 @@ require "rails_helper"
 feature "User can edit User info" do
   before do
     user = User.create(first_name: "Jane",
-                       last_name:  "Doe",
-                       username:   "Jane's Shop",
-                       email:      "jane@doe.com",
-                       password:   "password")
+      last_name:  "Doe",
+      username:   "Jane's Shop",
+      email:      "jane@doe.com",
+      password:   "password")
 
     user.addresses.create(type_of:   0,
-                          address_1: "1313 Mockingbird Ln",
-                          address_2: "Ste 13",
-                          city:      "Walla Walla",
-                          state:     "PA",
-                          zip_code:  "13131")
+      address_1: "1313 Mockingbird Ln",
+      address_2: "Ste 13",
+      city:      "Walla Walla",
+      state:     "PA",
+      zip_code:  "13131")
 
     user.addresses.create(type_of:   1,
-                          address_1: "123 Sesame St",
-                          address_2: "Apt 123",
-                          city:      "New York",
-                          state:     "NY",
-                          zip_code:  "12345")
+      address_1: "123 Sesame St",
+      address_2: "Apt 123",
+      city:      "New York",
+      state:     "NY",
+      zip_code:  "12345")
 
     reg_user_role = Role.create(name: "registered_user")
     Role.create(name: "store_admin")
@@ -94,6 +94,36 @@ feature "User can edit User info" do
     expect(page).to_not have_content("Create Vendor Account?")
   end
 
+  scenario "updates Login Info with invalid parameters" do
+    within("#login-info") do
+      find('input[type="text"][name*="user[first_name]"]').set("")
+      find('input[type="text"][name*="user[last_name]"]').set("")
+      find('input[type="text"][name*="user[email]"]').set("")
+      find('input[type="password"][name*="user[password]"]').set("password")
+      find('input[type="checkbox"][name*="user[role]"]').set(true)
+      click_button "Update Login Info"
+    end
+
+    within(".alert-warning") do
+      expect(page).to have_content("First name can't be blank. Last name can't be blank. Email can't be blank. Email is invalid")
+    end
+  end
+
+  scenario "updates Login Info with invalid password" do
+    within("#login-info") do
+      find('input[type="text"][name*="user[first_name]"]').set("")
+      find('input[type="text"][name*="user[last_name]"]').set("Doh")
+      find('input[type="text"][name*="user[email]"]').set("john@doh.com")
+      find('input[type="password"][name*="user[password]"]').set("")
+      find('input[type="checkbox"][name*="user[role]"]').set(true)
+      click_button "Update Login Info"
+    end
+
+    within(".alert-warning") do
+      expect(page).to have_content("Invalid password. Please re-enter to update your login info.")
+    end
+  end
+
   scenario "updates Billing Address" do
     within("#billing-info") do
       find('input[type="text"][name*="address[address_1]"]').set("1 Billing Address Way")
@@ -140,6 +170,17 @@ feature "User can edit User info" do
     end
   end
 
+  scenario "cannot update while not logged in" do
+    allow_any_instance_of(ApplicationController)
+      .to receive(:current_user).and_return(nil)
+
+    visit account_edit_path
+
+    within(".alert-warning") do
+      expect(page).to have_content("That's a bold move Cotton. Please log in.")
+    end
+  end
+
   scenario "receives error after submitting Login Info with invalid password" do
     within("#login-info") do
       find('input[type="text"][name*="user[first_name]"]').set("John")
@@ -152,7 +193,7 @@ feature "User can edit User info" do
 
     within(".alert-warning") do
       expect(page).to have_content(
-        "Invalid password. Please re-enter to update your login info.")
+      "Invalid password. Please re-enter to update your login info.")
     end
     expect(find_field("user_first_name").value).to eq("Jane")
     expect(find_field("user_last_name").value).to eq("Doe")
