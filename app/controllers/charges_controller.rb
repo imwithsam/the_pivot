@@ -40,8 +40,7 @@ class ChargesController < ApplicationController
   def create_order_for_vendors
     cart.cart_items.group_by(&:user).each do |vendor, vendors_cart|
       order = create_order(vendor)
-      @order_ids = []
-      @order_ids << order.id
+      track_order_ids_for_email(order)
 
       vendors_cart.each do |vendor_event|
         add_events_to_order(order, vendor_event)
@@ -49,6 +48,11 @@ class ChargesController < ApplicationController
 
       send_vendor_order_email(order, vendor)
     end
+  end
+
+  def track_order_ids_for_email(order)
+    @order_ids ||= []
+    @order_ids << order.id
   end
 
   def add_events_to_order(order, event)
