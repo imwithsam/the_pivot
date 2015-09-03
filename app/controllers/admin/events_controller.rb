@@ -16,6 +16,7 @@ class Admin::EventsController < Admin::BaseController
       flash[:success] = "#{@event.name} has been added."
       redirect_to admin_dashboard_path
     else
+      flash.now[:warning] = "Bold move Cotton but those are Invalid Parameters!"
       render :new
     end
   end
