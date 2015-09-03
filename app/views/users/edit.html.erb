@@ -37,7 +37,7 @@
       </div>
       <%= f.submit "Update Login Info", class: "btn btn-success" %>
       <% unless @billing && @shipping %>
-        <%= link_to "Add Address", new_address_path, class: "btn btn-primary" %>
+        <%= link_to "Add Address", new_address_path, class: "btn btn-primary add-address-btn" %>
       <% end %>
     <% end %>
   </fieldset>
