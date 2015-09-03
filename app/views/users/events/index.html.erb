@@ -57,8 +57,8 @@
   </script>
 </div>
 <% else %>
-<h2> <%= current_user.username %>'s Ticket Shop</h2>
-<h6> <%= current_user.email %> </h6>
+<h2> This shop has no events!</h2>
+
 <% if validate_store_admin && current_user.url == params[:vendor]%>
 <%= link_to "Create New Event", new_vendor_event_path,
   class: "btn btn-primary btn-lg" %>
