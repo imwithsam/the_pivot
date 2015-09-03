@@ -2,8 +2,9 @@ Rails.application.routes.draw do
   root to: "static_pages#index"
 
   namespace :admin do
-    resources :events, only: [:index, :new, :create, :edit, :update]
-    resources :orders, only: [:index, :show, :update]
+    resources :events, only: [:index, :new, :create, :edit, :update, :destroy]
+    resources :orders, only: [:index, :show, :update, :destroy]
+    resources :users, only: [:index, :new, :create, :edit, :update, :destroy]
 
     get "/",           to: "admins#index"
     get "/dashboard",  to: "admins#index"

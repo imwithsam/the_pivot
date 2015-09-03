@@ -21,10 +21,18 @@ class AddressesController < ApplicationController
 
     if @address.update(address_params)
       flash[:success] = "Your address has been updated."
-      redirect_to account_edit_path
+      if current_user.platform_admin?
+        redirect_to edit_admin_user_path(@address.user.id)
+      else
+        redirect_to account_edit_path
+      end
     else
       flash[:warning] = @address.errors.full_messages.join(". ")
-      redirect_to account_edit_path
+      if current_user.platform_admin?
+        redirect_to edit_admin_user_path(@address.user.id)
+      else
+        redirect_to account_edit_path
+      end
     end
   end
 

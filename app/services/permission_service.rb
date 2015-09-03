@@ -27,6 +27,7 @@ class PermissionService
                 "admin/events" => %w(index create new edit update),
                 "admin/orders" => %w(index show update index_ordered index_paid index_cancelled index_completed),
                 "admin/admins" => %w(index),
+                "admin/users" => %w(index edit update destroy),
                 "users" => %w(index show update create new edit),
                 "users/events" => %w(index show),
                 "events" => %w(index),
