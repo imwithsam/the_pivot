@@ -17,14 +17,20 @@ class Admin::UsersController < Admin::BaseController
     if !@vendor.authenticate(params[:user][:password])
       flash.now[:warning] =
         "Invalid password. Please re-enter to update your login info."
-        redirect_to edit_admin_path(vendor.id)
+
     elsif @vendor.update(vendor_params)
       update_to_vendor_account if vendor_params[:role] == "1"
       flash.now[:success] = "Your account has been updated."
     else
       flash.now[:warning] = @vendor.errors.full_messages.join(". ")
     end
-    redirect_to edit_admin_path(@vendor)
+    render :edit
+  end
+
+  def destroy
+    @vendor = User.find(params[:id])
+    @vendor.user_roles.first.update(role_id: Role.find_by(name: "registered_user").id)
+    redirect_to admin_users_path
   end
 
   private

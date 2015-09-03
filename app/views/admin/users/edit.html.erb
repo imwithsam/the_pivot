@@ -12,7 +12,7 @@
   <% end %>
   <fieldset>
     <legend>Login Info</legend>
-    <%= form_for @vendor, url: account_path, method: :patch do |f| %>
+    <%= form_for @vendor, url: admin_user_path, method: :patch do |f| %>
       <div class="form-group">
         <%= f.label :username, "Store Name" %>
         <%= f.text_field :username, class: "form-control" %>
