@@ -28,7 +28,7 @@ class Seed
       password: "password",
       first_name: "Jorge",
       last_name: "Tellez",
-      username: "Jorge's Mierda Choza",
+      username: "Jorge's Event Emporium",
       role: 1
       )
 
@@ -37,7 +37,7 @@ class Seed
       password: "password",
       first_name: "Andrew",
       last_name: "Carmer",
-      username: "Andrew's Crap Shack",
+      username: "Andrew's Amazing Activities",
       role: 1
       )
 
@@ -46,7 +46,7 @@ class Seed
       password: "password",
       first_name: "Josh",
       last_name: "Mejia",
-      username: "Capn Dick's Shrimp Boat Shack",
+      username: "Josh's Wild and Crazy Adventures",
       role: 0
       )
 
@@ -112,52 +112,52 @@ class Seed
   def generate_category
     Category.create(
       name: "Competitive Eating",
-      description: "Stupid Sports"
+      description: "The pinnacle of competition"
       )
 
     Category.create(
       name: "Tazerball",
-      description: "Horrible Music"
+      description: "Forget all other sports"
       )
 
     Category.create(
       name: "80's German SynthPop",
-      description: "Crazy Events"
+      description: "Music to your ears"
       )
 
     Category.create(
       name: "Not Quite Sports",
-      description: "Stupid Sports"
+      description: "But almost..."
       )
 
     Category.create(
       name: "3rd Person Skiing",
-      description: "Horrible Music"
+      description: "Extreme sports"
       )
 
     Category.create(
       name: "Chess Boxing",
-      description: "Crazy Events"
+      description: "Hybrid sports"
       )
 
     Category.create(
       name: "Freestyle Canoeing",
-      description: "Stupid Sports"
+      description: "For the adventurous..."
       )
 
     Category.create(
       name: "Combat Juggling",
-      description: "Horrible Music"
+      description: "Taking it to the next level"
       )
 
     Category.create(
       name: "Lawnmower Ice Racing",
-      description: "Crazy Events"
+      description: "Not just for lawns"
       )
 
     Category.create(
       name: "Head Pong",
-      description: "Stupid Sports"
+      description: "Pong for the win"
       )
   end
 
